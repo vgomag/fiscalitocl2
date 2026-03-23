@@ -31,6 +31,19 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .btn-export{background:none;border:1px solid var(--border2);color:var(--text-dim);padding:4px 10px;border-radius:var(--radius);cursor:pointer;font-size:11px;font-family:'Instrument Sans',sans-serif;transition:all .15s;display:flex;align-items:center;gap:4px;}
 .btn-export:hover{color:var(--text);background:var(--surface2);}
 
+/* SIDEBAR NAV */
+.sidebar-section-label{padding:12px 14px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-weight:600;}
+.sidebar-nav-item{display:flex;align-items:center;gap:9px;padding:7px 14px;font-size:12.5px;color:var(--text-dim);cursor:pointer;transition:all .15s;border-radius:0;}
+.sidebar-nav-item:hover{background:var(--surface2);color:var(--text);}
+.sidebar-nav-item.active{background:var(--gold-glow);color:var(--gold);border-left:2px solid var(--gold);}
+.nav-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0;}
+
+/* SIDEBAR */
+.sidebar{width:220px;min-width:220px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.sidebar-logo{padding:14px 14px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.logo-icon{width:34px;height:34px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'EB Garamond',serif;font-size:18px;font-weight:600;color:#0f0e0c;flex-shrink:0;}
+.logo-text{font-family:'EB Garamond',serif;font-size:17px;}.logo-sub{font-size:9px;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;}
+
 /* TABLA DE CASOS */
 .casos-view{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);}
 .casos-header{padding:16px 20px 8px;border-bottom:1px solid var(--border);background:var(--surface);}
@@ -547,33 +560,98 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 <div id="appScreen" class="app" style="display:none">
   <aside class="sidebar">
     <div class="sidebar-logo">
-      <div class="logo-icon">F</div>
-      <div><div class="logo-text">Fiscalito</div><div class="logo-sub">Asistente Jurídico IA</div></div>
+      <div class="logo-icon">
+        <img src="https://i.imgur.com/placeholder.png" style="display:none" onerror="this.style.display='none'"/>
+        F
+      </div>
+      <div><div class="logo-text">Fiscalito</div><div class="logo-sub">Asistente Jurídico</div></div>
     </div>
 
-    <div class="sidebar-search">
-      <input class="search-box" id="caseSearch" placeholder="🔍 Buscar caso, ROL…" oninput="filterCases(this.value)"/>
+    <div style="flex:1;overflow-y:auto;padding:4px 0;">
+
+      <!-- ADMINISTRACIÓN -->
+      <div class="sidebar-section-label">Administración</div>
+      <div class="sidebar-nav-item" onclick="alert('Admin usuarios — próximamente')">
+        <span class="nav-icon">👤</span>Admin Usuarios
+      </div>
+
+      <!-- GESTIÓN -->
+      <div class="sidebar-section-label">Gestión</div>
+      <div class="sidebar-nav-item" id="navDashboard" onclick="openDashboard()">
+        <span class="nav-icon">⊞</span>Dashboard
+      </div>
+      <div class="sidebar-nav-item" id="navTabla" onclick="openTabla()">
+        <span class="nav-icon">⊟</span>Mis Casos
+      </div>
+      <div class="sidebar-nav-item" onclick="openPendientes()">
+        <span class="nav-icon">⏳</span>Pendientes
+      </div>
+      <div class="sidebar-nav-item" onclick="openEstadisticas()">
+        <span class="nav-icon">📈</span>Estadísticas
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F10')">
+        <span class="nav-icon">⚖</span>Análisis Jurisprudencial
+      </div>
+      <div class="sidebar-nav-item" onclick="alert('Casos externos — próximamente')">
+        <span class="nav-icon">📤</span>Casos Externos
+      </div>
+      <div class="sidebar-nav-item" onclick="alert('Escritos judiciales — próximamente')">
+        <span class="nav-icon">📜</span>Escritos Judiciales
+      </div>
+      <div class="sidebar-nav-item" onclick="alert('Biblioteca de referencia — próximamente')">
+        <span class="nav-icon">📚</span>Biblioteca de Refer...
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F11')">
+        <span class="nav-icon">⚡</span>Ley 21.369
+      </div>
+      <div class="sidebar-nav-item" onclick="alert('Herramientas PDF — próximamente')">
+        <span class="nav-icon">🔧</span>Herramientas PDF
+      </div>
+
+      <!-- FUNCIONES IA -->
+      <div class="sidebar-section-label">Funciones IA</div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F0')">
+        <span class="nav-icon">💬</span>Consulta General
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F2')">
+        <span class="nav-icon">✏</span>Redacción y Estilo
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F11')">
+        <span class="nav-icon">🎙</span>Transcripción de Ac...
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F3')">
+        <span class="nav-icon">👤</span>Cuestionario Inculp...
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F4')">
+        <span class="nav-icon">👥</span>Cuestionario Testigo
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F5')">
+        <span class="nav-icon">⚖</span>Aplicación del Mét...
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F6')">
+        <span class="nav-icon">📋</span>Formulación de Car...
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F7')">
+        <span class="nav-icon">📄</span>Informe Final / Vist...
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F8')">
+        <span class="nav-icon">📑</span>Informes en Derecho
+      </div>
+      <div class="sidebar-nav-item" onclick="pickFnAndChat('F9')">
+        <span class="nav-icon">📝</span>Plantillas de Actua...
+      </div>
     </div>
 
-    <div style="padding:4px 6px;">
-      <button class="fn-btn" id="tablaBtn" onclick="openTabla()" style="margin-bottom:2px;">
-        <span class="fn-badge">📋</span>
-        <span class="fn-name">Mis Casos</span>
-      </button>
-      <button class="fn-btn" id="dashBtn" onclick="openDashboard()" style="margin-bottom:4px;">
-        <span class="fn-badge">📊</span>
-        <span class="fn-name">Dashboard</span>
-      </button>
+    <!-- Expedientes mini-lista -->
+    <div style="border-top:1px solid var(--border);padding:6px 0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 12px 4px;">
+        <span class="sidebar-section-label" style="padding:0;border:none">Expedientes</span>
+        <button class="btn-new-case" onclick="showNewCaseModal()">+ Nueva</button>
+      </div>
+      <div style="max-height:160px;overflow-y:auto;padding:0 6px;" id="casesList">
+        <div class="case-empty">Cargando…</div>
+      </div>
     </div>
-
-    <div class="sidebar-cases-header">
-      <span class="cases-label">Expedientes</span>
-      <button class="btn-new-case" onclick="showNewCaseModal()">+ Nuevo</button>
-    </div>
-    <div class="cases-list" id="casesList"><div class="case-empty">Cargando…</div></div>
-
-    <div class="sidebar-section">Funciones IA</div>
-    <div class="fn-list" id="fnList"></div>
 
     <div class="sidebar-footer">
       <div class="user-email" id="userEmail">–</div>
@@ -936,6 +1014,35 @@ async function confirmDeleteCase(){
   showView('viewWelcome');
 }
 
+function pickFnAndChat(code){
+  pickFn(code);
+  if(currentCase) showTab('tabChat');
+  else showView('viewWelcome');
+  // Marcar activo en sidebar
+  document.querySelectorAll('.sidebar-nav-item').forEach(el=>el.classList.remove('active'));
+}
+
+function openPendientes(){
+  // Mostrar casos con acciones pendientes de alta prioridad
+  document.querySelectorAll('.sidebar-nav-item').forEach(el=>el.classList.remove('active'));
+  event?.currentTarget?.classList.add('active');
+  const filtered=allCases.filter(c=>c.status==='active');
+  renderCases(filtered);
+  showView('viewWelcome');
+}
+
+function openEstadisticas(){
+  document.querySelectorAll('.sidebar-nav-item').forEach(el=>el.classList.remove('active'));
+  event?.currentTarget?.classList.add('active');
+  openDashboard();
+}
+
+function setNavActive(id){
+  document.querySelectorAll('.sidebar-nav-item').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el) el.classList.add('active');
+}
+
 // ── Tabla de Casos ────────────────────────────────────────────────────────────
 let activeCatTab = 'genero';
 let tablaFiltered = [];
@@ -949,8 +1056,7 @@ const CAT_LABELS = {
 
 function openTabla(){
   showView('viewTabla');
-  document.getElementById('tablaBtn').classList.add('active');
-  document.getElementById('dashBtn').classList.remove('active');
+  setNavActive('navTabla');
   currentCase=null;
   renderCases(allCases);
   updateCatCounts();
