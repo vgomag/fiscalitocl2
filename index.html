@@ -613,7 +613,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
               <th onclick="sortTabla('protocolo')">Normativa ↕</th>
               <th onclick="sortTabla('judicializada')">Judicializada ↕</th>
               <th onclick="sortTabla('medida_cautelar')">M. Cautelar ↕</th>
-              <th onclick="sortTabla('fecha_resolucion')">Resolución ↕</th>
+              <th onclick="sortTabla('propuesta')">Propuesta ↕</th>
+              <th onclick="sortTabla('fecha_vista')">Vista ↕</th>
               <th>Mover a</th>
               <th>Acciones</th>
             </tr>
@@ -907,18 +908,18 @@ async function saveCaseModal(){
   btn.disabled=false;btn.textContent='Guardar expediente';
 }
 
-async function updateParticipants(caseId,{denunciante,denunciado,fiscal}){
+async function updateParticipants(caseId,{denunciante,denunciado,fiscal,estDen,estAcus}){
   const roles=[
-    {role:'denunciante',name:denunciante},
-    {role:'denunciado',name:denunciado},
-    {role:'fiscal',name:fiscal}
+    {role:'denunciante',name:denunciante,estamento:estDen},
+    {role:'denunciado',name:denunciado,estamento:estAcus},
+    {role:'fiscal',name:fiscal,estamento:null}
   ].filter(p=>p.name);
   for(const p of roles){
     const{data:ex}=await sb.from('case_participants').select('id').eq('case_id',caseId).eq('role',p.role).limit(1);
     if(ex?.length){
-      await sb.from('case_participants').update({name:p.name,updated_at:new Date().toISOString()}).eq('id',ex[0].id);
+      await sb.from('case_participants').update({name:p.name,estamento:p.estamento,updated_at:new Date().toISOString()}).eq('id',ex[0].id);
     } else {
-      await sb.from('case_participants').insert({case_id:caseId,user_id:session.user.id,role:p.role,name:p.name});
+      await sb.from('case_participants').insert({case_id:caseId,user_id:session.user.id,role:p.role,name:p.name,estamento:p.estamento});
     }
   }
 }
@@ -1021,6 +1022,10 @@ function renderTabla(cases){
       <td onclick="pickCaseById('${c.id}')">${c.judicializada?'<span class="jud-badge">Sí</span>':'<span class="no-badge">No</span>'}</td>
       <td onclick="pickCaseById('${c.id}')">${c.medida_cautelar?'<span class="mc-badge">Sí</span>':'<span class="no-badge">No</span>'}</td>
       <td onclick="pickCaseById('${c.id}')"><span class="fecha-cell">${c.fecha_resolucion||'—'}</span></td>
+      <td onclick="pickCaseById('${c.id}')">
+        ${c.propuesta?`<span class="proc-badge ${c.propuesta==='Sanción'?'proc-sa':c.propuesta==='Sobreseimiento'?'proc-is':'proc-pd'}">${c.propuesta}</span>`:'<span class="no-badge">—</span>'}
+      </td>
+      <td onclick="pickCaseById('${c.id}')"><span class="fecha-cell">${c.fecha_vista||'—'}</span></td>
       <td>
         <select class="move-select" onchange="moveCase('${c.id}',this.value)" onclick="event.stopPropagation()">
           <option value="">Mover a…</option>
@@ -1189,7 +1194,7 @@ function filterAndShow(status, type){
 
 // ── Cases ─────────────────────────────────────────────────────────────────────
 async function loadCases(){
-  const{data}=await sb.from('cases').select('id,name,rol,caratula,status,description,drive_folder_url,drive_folder_id,tipo_caso,tipo_procedimiento,materia,judicializada,medida_cautelar,medida_cautelar_detalle,protocolo,fecha_resolucion,fecha_denuncia,fecha_recepcion_fiscalia,memos,reservados,origen,observaciones,actuario,estado_procedimiento,nueva_resolucion,fecha_nueva_resolucion').is('deleted_at',null).order('name',{ascending:true}).limit(200);
+  const{data}=await sb.from('cases').select('id,name,rol,caratula,status,description,drive_folder_url,drive_folder_id,tipo_caso,tipo_procedimiento,materia,judicializada,medida_cautelar,medida_cautelar_detalle,protocolo,fecha_resolucion,fecha_denuncia,fecha_recepcion_fiscalia,memos,reservados,origen,observaciones,actuario,estado_procedimiento,nueva_resolucion,fecha_nueva_resolucion,categoria,propuesta,fecha_vista').is('deleted_at',null).order('name',{ascending:true}).limit(200);
   allCases=data||[];
   renderCases(allCases);
 }
