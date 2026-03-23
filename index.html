@@ -31,6 +31,49 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .btn-export{background:none;border:1px solid var(--border2);color:var(--text-dim);padding:4px 10px;border-radius:var(--radius);cursor:pointer;font-size:11px;font-family:'Instrument Sans',sans-serif;transition:all .15s;display:flex;align-items:center;gap:4px;}
 .btn-export:hover{color:var(--text);background:var(--surface2);}
 
+/* TABLA DE CASOS */
+.casos-view{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);}
+.casos-header{padding:16px 20px 8px;border-bottom:1px solid var(--border);background:var(--surface);}
+.casos-title{font-family:'EB Garamond',serif;font-size:22px;font-weight:400;}
+.casos-subtitle{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.casos-tabs{display:flex;gap:4px;padding:10px 20px 0;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;}
+.cat-tab{padding:7px 14px;font-size:12px;color:var(--text-muted);cursor:pointer;border-radius:var(--radius) var(--radius) 0 0;border:1px solid transparent;border-bottom:none;transition:all .15s;white-space:nowrap;font-family:'Instrument Sans',sans-serif;display:flex;align-items:center;gap:5px;}
+.cat-tab:hover{color:var(--text);background:var(--surface2);}
+.cat-tab.active{background:var(--bg);border-color:var(--border);color:var(--text);font-weight:500;}
+.cat-tab .tab-count{background:var(--surface2);color:var(--text-muted);padding:1px 6px;border-radius:8px;font-size:10px;font-family:'DM Mono',monospace;}
+.cat-tab.active .tab-count{background:var(--gold-glow);color:var(--gold);}
+.casos-toolbar{display:flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.casos-count{font-size:11px;color:var(--text-muted);}
+.casos-search{background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:6px 11px;border-radius:var(--radius);font-size:12px;outline:none;width:240px;font-family:'Instrument Sans',sans-serif;}
+.casos-search:focus{border-color:var(--gold-dim);}
+.casos-search::placeholder{color:var(--text-muted);}
+.tabla-wrap{flex:1;overflow:auto;}
+.tabla-casos{width:100%;border-collapse:collapse;font-size:12px;}
+.tabla-casos th{padding:8px 12px;text-align:left;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);background:var(--surface);font-weight:500;white-space:nowrap;cursor:pointer;user-select:none;}
+.tabla-casos th:hover{color:var(--text);}
+.tabla-casos td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.tabla-casos tr:hover td{background:var(--surface);}
+.tr-clickable{cursor:pointer;}
+.exp-cell{display:flex;flex-direction:column;gap:2px;}
+.exp-num{font-weight:600;color:var(--gold);font-size:12px;}
+.exp-rol{font-size:10px;color:var(--text-muted);font-family:'DM Mono',monospace;}
+.proc-badge{display:inline-flex;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:500;white-space:nowrap;}
+.proc-is{background:rgba(41,128,185,.15);color:#5dade2;border:1px solid rgba(41,128,185,.25);}
+.proc-sa{background:rgba(201,168,76,.12);color:var(--gold);border:1px solid var(--gold-dim);}
+.proc-pd{background:rgba(142,68,173,.15);color:#bb8fce;border:1px solid rgba(142,68,173,.25);}
+.materia-cell{max-width:180px;font-size:11.5px;color:var(--text-dim);}
+.fecha-cell{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);white-space:nowrap;}
+.jud-badge{display:inline-flex;padding:1px 6px;border-radius:8px;font-size:10px;background:rgba(192,57,43,.12);color:#e07060;border:1px solid rgba(192,57,43,.25);}
+.mc-badge{display:inline-flex;padding:1px 6px;border-radius:8px;font-size:10px;background:rgba(39,174,96,.1);color:var(--green);border:1px solid rgba(39,174,96,.25);}
+.no-badge{font-size:10px;color:var(--text-muted);}
+.proto-cell{font-size:10px;color:var(--text-dim);}
+.acciones-cell{display:flex;gap:4px;align-items:center;}
+.btn-action{background:none;border:none;cursor:pointer;padding:3px;border-radius:3px;color:var(--text-muted);font-size:13px;transition:color .15s;}
+.btn-action:hover{color:var(--text);}
+.move-select{background:var(--surface2);border:1px solid var(--border2);color:var(--text-dim);padding:3px 6px;border-radius:var(--radius);font-size:10px;font-family:'Instrument Sans',sans-serif;outline:none;cursor:pointer;}
+.move-select:focus{border-color:var(--gold-dim);}
+.empty-tabla{text-align:center;padding:40px;color:var(--text-muted);font-size:12px;}
+
 /* MODAL CASO */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s ease;}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.5);}
@@ -513,17 +556,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
     </div>
 
     <div style="padding:4px 6px;">
-      <button class="fn-btn" id="dashBtn" onclick="openDashboard()" style="margin-bottom:2px;">
+      <button class="fn-btn" id="tablaBtn" onclick="openTabla()" style="margin-bottom:2px;">
+        <span class="fn-badge">📋</span>
+        <span class="fn-name">Mis Casos</span>
+      </button>
+      <button class="fn-btn" id="dashBtn" onclick="openDashboard()" style="margin-bottom:4px;">
         <span class="fn-badge">📊</span>
         <span class="fn-name">Dashboard</span>
-      </button>
-      <button class="fn-btn" id="btnGenero" onclick="filterTipoCaso('genero')" style="margin-bottom:2px;">
-        <span class="fn-badge" style="background:rgba(201,168,76,.15);color:var(--gold)">G</span>
-        <span class="fn-name">Casos Género</span>
-      </button>
-      <button class="fn-btn" id="btnNoGenero" onclick="filterTipoCaso('no_genero')" style="margin-bottom:4px;">
-        <span class="fn-badge">A</span>
-        <span class="fn-name">Casos Admin.</span>
       </button>
     </div>
 
@@ -543,6 +582,47 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
   </aside>
 
   <main class="main">
+    <!-- TABLA DE CASOS -->
+    <div class="view" id="viewTabla" style="flex-direction:column;overflow:hidden;">
+      <div class="casos-header">
+        <div class="casos-title">Mis Casos</div>
+        <div class="casos-subtitle">Gestiona tus expedientes y documentos de forma contextualizada</div>
+      </div>
+      <div class="casos-tabs" id="casosTabs">
+        <div class="cat-tab active" onclick="setCatTab('genero')">👥 Género <span class="tab-count" id="cnt-genero">0</span></div>
+        <div class="cat-tab" onclick="setCatTab('no_genero')">📋 No Género <span class="tab-count" id="cnt-no_genero">0</span></div>
+        <div class="cat-tab" onclick="setCatTab('cargos')">⚖ Cargos <span class="tab-count" id="cnt-cargos">0</span></div>
+        <div class="cat-tab" onclick="setCatTab('finalizacion')">✅ Finalización <span class="tab-count" id="cnt-finalizacion">0</span></div>
+        <div class="cat-tab" onclick="setCatTab('terminado')">🗄 Terminados <span class="tab-count" id="cnt-terminado">0</span></div>
+      </div>
+      <div class="casos-toolbar">
+        <span class="casos-count" id="casosCount">0 casos</span>
+        <input class="casos-search" id="tablaSearch" placeholder="🔍 Buscar expediente, ROL o nombre…" oninput="filterTabla(this.value)"/>
+        <div style="margin-left:auto;">
+          <button class="btn-sm" onclick="showNewCaseModal()">+ Nuevo caso</button>
+        </div>
+      </div>
+      <div class="tabla-wrap">
+        <table class="tabla-casos">
+          <thead>
+            <tr>
+              <th onclick="sortTabla('name')">Exp. ↕</th>
+              <th onclick="sortTabla('tipo_procedimiento')">Procedimiento ↕</th>
+              <th onclick="sortTabla('estado_procedimiento')">Etapa ↕</th>
+              <th onclick="sortTabla('materia')">Materia ↕</th>
+              <th onclick="sortTabla('protocolo')">Normativa ↕</th>
+              <th onclick="sortTabla('judicializada')">Judicializada ↕</th>
+              <th onclick="sortTabla('medida_cautelar')">M. Cautelar ↕</th>
+              <th onclick="sortTabla('fecha_resolucion')">Resolución ↕</th>
+              <th>Mover a</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaBody"></tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- DASHBOARD -->
     <div class="view" id="viewDashboard" style="flex-direction:column;overflow:hidden;">
       <div class="dash-wrap" id="dashContent">
@@ -695,7 +775,7 @@ sb.auth.onAuthStateChange((ev,s)=>{
     document.getElementById('authScreen').style.display='none';
     document.getElementById('appScreen').style.display='flex';
     document.getElementById('userEmail').textContent=s.user.email;
-    buildFnList(); loadCases();
+    buildFnList(); loadCases().then(()=>openTabla());
   } else {
     document.getElementById('authScreen').style.display='flex';
     document.getElementById('appScreen').style.display='none';
@@ -852,6 +932,126 @@ async function confirmDeleteCase(){
   currentCase=null;
   await loadCases();
   showView('viewWelcome');
+}
+
+// ── Tabla de Casos ────────────────────────────────────────────────────────────
+let activeCatTab = 'genero';
+let tablaFiltered = [];
+let tablaSortCol = 'name';
+let tablaSortAsc = true;
+
+const CAT_LABELS = {
+  genero: '👥 Género', no_genero: '📋 No Género',
+  cargos: '⚖ Cargos', finalizacion: '✅ Finalización', terminado: '🗄 Terminado'
+};
+
+function openTabla(){
+  showView('viewTabla');
+  document.getElementById('tablaBtn').classList.add('active');
+  document.getElementById('dashBtn').classList.remove('active');
+  currentCase=null;
+  renderCases(allCases);
+  updateCatCounts();
+  setCatTab(activeCatTab);
+}
+
+function updateCatCounts(){
+  ['genero','no_genero','cargos','finalizacion','terminado'].forEach(cat=>{
+    const el=document.getElementById('cnt-'+cat);
+    if(el) el.textContent=allCases.filter(c=>getCaseCat(c)===cat).length;
+  });
+}
+
+function getCaseCat(c){
+  return c.categoria || (c.status==='terminado'?'terminado': c.tipo_caso==='no_genero'?'no_genero':'genero');
+}
+
+function setCatTab(cat){
+  activeCatTab=cat;
+  document.querySelectorAll('.cat-tab').forEach((t,i)=>{
+    const cats=['genero','no_genero','cargos','finalizacion','terminado'];
+    t.classList.toggle('active',cats[i]===cat);
+  });
+  tablaFiltered=allCases.filter(c=>getCaseCat(c)===cat);
+  document.getElementById('tablaSearch').value='';
+  renderTabla(tablaFiltered);
+}
+
+function filterTabla(q){
+  const base=allCases.filter(c=>getCaseCat(c)===activeCatTab);
+  if(!q){tablaFiltered=base;renderTabla(tablaFiltered);return;}
+  const lq=q.toLowerCase();
+  tablaFiltered=base.filter(c=>(c.name||'').toLowerCase().includes(lq)||(c.rol||'').toLowerCase().includes(lq)||(c.materia||'').toLowerCase().includes(lq)||(c.caratula||'').toLowerCase().includes(lq));
+  renderTabla(tablaFiltered);
+}
+
+function sortTabla(col){
+  if(tablaSortCol===col) tablaSortAsc=!tablaSortAsc;
+  else{tablaSortCol=col;tablaSortAsc=true;}
+  tablaFiltered.sort((a,b)=>{
+    const va=(a[col]||'').toString().toLowerCase();
+    const vb=(b[col]||'').toString().toLowerCase();
+    return tablaSortAsc?va.localeCompare(vb):vb.localeCompare(va);
+  });
+  renderTabla(tablaFiltered);
+}
+
+function renderTabla(cases){
+  const body=document.getElementById('tablaBody');
+  const count=document.getElementById('casosCount');
+  if(count) count.textContent=`${cases.length} caso${cases.length!==1?'s':''}`;
+  if(!cases.length){
+    body.innerHTML=`<tr><td colspan="10" class="empty-tabla">Sin casos en esta categoría</td></tr>`;
+    return;
+  }
+  body.innerHTML=cases.map(c=>{
+    const procClass=c.tipo_procedimiento?.includes('Sumario')?'proc-sa':c.tipo_procedimiento?.includes('Procedimiento')?'proc-pd':'proc-is';
+    const procLabel=c.tipo_procedimiento?.includes('Investigación')?'Inv. Sumaria':c.tipo_procedimiento?.includes('Sumario')?'Sumario Adm.':c.tipo_procedimiento||'—';
+    return `<tr class="tr-clickable">
+      <td onclick="pickCaseById('${c.id}')">
+        <div class="exp-cell">
+          <span class="exp-num">${c.name}</span>
+          ${c.rol?`<span class="exp-rol">${c.rol}</span>`:''}
+        </div>
+      </td>
+      <td onclick="pickCaseById('${c.id}')"><span class="proc-badge ${procClass}">${procLabel}</span></td>
+      <td onclick="pickCaseById('${c.id}')"><span style="font-size:11px;color:var(--text-dim)">${c.estado_procedimiento||'—'}</span></td>
+      <td onclick="pickCaseById('${c.id}')"><div class="materia-cell">${c.materia||'—'}</div></td>
+      <td onclick="pickCaseById('${c.id}')"><span class="proto-cell">${c.protocolo?'Protocolo '+c.protocolo:'—'}</span></td>
+      <td onclick="pickCaseById('${c.id}')">${c.judicializada?'<span class="jud-badge">Sí</span>':'<span class="no-badge">No</span>'}</td>
+      <td onclick="pickCaseById('${c.id}')">${c.medida_cautelar?'<span class="mc-badge">Sí</span>':'<span class="no-badge">No</span>'}</td>
+      <td onclick="pickCaseById('${c.id}')"><span class="fecha-cell">${c.fecha_resolucion||'—'}</span></td>
+      <td>
+        <select class="move-select" onchange="moveCase('${c.id}',this.value)" onclick="event.stopPropagation()">
+          <option value="">Mover a…</option>
+          ${Object.entries(CAT_LABELS).filter(([k])=>k!==getCaseCat(c)).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}
+        </select>
+      </td>
+      <td>
+        <div class="acciones-cell">
+          ${c.drive_folder_url?`<a href="${c.drive_folder_url}" target="_blank" class="btn-action" title="Abrir Drive" onclick="event.stopPropagation()">📁</a>`:''}
+          <button class="btn-action" title="Editar" onclick="event.stopPropagation();pickCaseById('${c.id}');setTimeout(()=>openEditCase(),300)">✏</button>
+          <button class="btn-action" title="Chat IA" onclick="event.stopPropagation();pickCaseById('${c.id}');setTimeout(()=>showTab('tabChat'),300)">💬</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function moveCase(caseId, newCat){
+  if(!newCat) return;
+  const{error}=await sb.from('cases').update({
+    categoria: newCat,
+    status: newCat==='terminado'?'terminado':'active',
+    updated_at: new Date().toISOString()
+  }).eq('id', caseId);
+  if(error){alert('Error: '+error.message);return;}
+  // Actualizar local
+  const idx=allCases.findIndex(c=>c.id===caseId);
+  if(idx>=0){allCases[idx].categoria=newCat;if(newCat==='terminado')allCases[idx].status='terminado';}
+  updateCatCounts();
+  setCatTab(activeCatTab);
+  showToast(`✓ Caso movido a ${CAT_LABELS[newCat]}`);
 }
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
