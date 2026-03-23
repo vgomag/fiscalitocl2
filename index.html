@@ -10,6 +10,7 @@
 :root{--bg:#0f0e0c;--surface:#17160f;--surface2:#1e1c14;--border:#2e2b1f;--border2:#3d3a2a;--gold:#c9a84c;--gold-dim:#8a6d2a;--gold-glow:rgba(201,168,76,0.12);--text:#e8e0cc;--text-dim:#8a8070;--text-muted:#5a5548;--accent:#d4a843;--green:#27ae60;--red:#c0392b;--blue:#2980b9;--radius:6px;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;font-size:14px;}
+
 /* AUTH */
 .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.06),transparent 60%);}
 .auth-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:40px;width:100%;max-width:400px;}
@@ -19,10 +20,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .auth-title{font-family:'EB Garamond',serif;font-size:20px;margin-bottom:6px;}
 .auth-desc{font-size:12px;color:var(--text-dim);margin-bottom:24px;}
 .field{margin-bottom:14px;}.field label{display:block;font-size:11px;color:var(--text-dim);margin-bottom:5px;letter-spacing:.05em;text-transform:uppercase;}
-.field input,.field select,.field textarea{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);padding:9px 12px;border-radius:var(--radius);font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;transition:border-color .15s;}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold-dim);}
-.field select option{background:var(--surface);}
-.field textarea{resize:vertical;min-height:70px;}
+.field input{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);padding:9px 12px;border-radius:var(--radius);font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;transition:border-color .15s;}
+.field input:focus{border-color:var(--gold-dim);}
 .btn-primary{width:100%;background:var(--gold);border:none;color:#0f0e0c;padding:11px;border-radius:var(--radius);font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;}
 .btn-primary:hover{background:var(--accent);}.btn-primary:disabled{opacity:.5;cursor:not-allowed;}
 .btn-google{width:100%;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:10px;border-radius:var(--radius);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;margin-top:10px;font-family:'Instrument Sans',sans-serif;}
@@ -34,22 +33,24 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .alert{padding:9px 12px;border-radius:var(--radius);font-size:12px;margin-bottom:14px;display:none;}
 .alert-err{background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.4);color:#e07060;}
 .alert-ok{background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.4);color:#5dca85;}
+
 /* APP */
 .app{display:flex;height:100vh;overflow:hidden;}
+
 /* SIDEBAR */
 .sidebar{width:260px;min-width:260px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
 .sidebar-logo{padding:14px 14px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
 .logo-icon{width:32px;height:32px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'EB Garamond',serif;font-size:17px;font-weight:600;color:#0f0e0c;flex-shrink:0;}
 .logo-text{font-family:'EB Garamond',serif;font-size:18px;}.logo-sub{font-size:9px;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;}
-.sidebar-nav{padding:6px 8px;border-bottom:1px solid var(--border);display:flex;gap:4px;}
-.nav-btn{flex:1;padding:5px 4px;border-radius:var(--radius);background:none;border:1px solid transparent;cursor:pointer;font-size:10px;color:var(--text-muted);font-family:'Instrument Sans',sans-serif;transition:all .15s;text-align:center;}
-.nav-btn:hover{background:var(--surface2);color:var(--text);}
-.nav-btn.active{background:var(--gold-glow);color:var(--gold);border-color:var(--gold-dim);}
-.sidebar-search{padding:6px 8px 3px;}
+
+/* Search */
+.sidebar-search{padding:8px 8px 4px;}
 .search-box{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:var(--radius);font-size:12px;outline:none;font-family:'Instrument Sans',sans-serif;}
 .search-box:focus{border-color:var(--gold-dim);}
 .search-box::placeholder{color:var(--text-muted);}
-.sidebar-cases-header{display:flex;align-items:center;justify-content:space-between;padding:6px 12px 3px;}
+
+/* Cases */
+.sidebar-cases-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px 4px;}
 .cases-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
 .btn-new-case{background:var(--gold-glow);border:1px solid var(--gold-dim);color:var(--gold);padding:2px 7px;border-radius:3px;cursor:pointer;font-size:10px;font-family:'Instrument Sans',sans-serif;}
 .btn-new-case:hover{background:rgba(201,168,76,.2);}
@@ -60,12 +61,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .case-item-name{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11.5px;}
 .case-item-rol{font-size:10px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .case-item.active .case-item-rol{color:var(--gold-dim);}
+.case-status-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:3px;}
 .case-item-row{display:flex;align-items:center;gap:5px;}
-.case-status-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
 .dot-active{background:var(--green);}.dot-terminado{background:var(--text-muted);}.dot-archived{background:var(--border2);}
 .case-empty{padding:12px;font-size:11px;color:var(--text-muted);text-align:center;}
+
+/* Sidebar sections */
 .sidebar-section{padding:6px 12px 3px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);}
-.fn-list{overflow-y:auto;padding:2px 6px;max-height:200px;}
+.fn-list{overflow-y:auto;padding:2px 6px;max-height:220px;}
 .fn-btn{width:100%;display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:var(--radius);background:none;border:1px solid transparent;cursor:pointer;text-align:left;color:var(--text-dim);transition:all .15s;margin-bottom:1px;}
 .fn-btn:hover{background:var(--surface2);color:var(--text);}
 .fn-btn.active{background:var(--gold-glow);color:var(--gold);border-color:var(--gold-dim);}
@@ -76,32 +79,15 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .user-email{flex:1;font-size:11px;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .btn-logout{background:none;border:1px solid var(--border2);color:var(--text-muted);padding:3px 8px;border-radius:var(--radius);cursor:pointer;font-size:11px;font-family:'Instrument Sans',sans-serif;}
 .btn-logout:hover{color:var(--red);border-color:var(--red);}
+
 /* MAIN */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* VIEWS */
 .view{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .view.active{display:flex;}
-/* DASHBOARD */
-.dash-content{flex:1;overflow-y:auto;padding:20px;}
-.dash-title{font-family:'EB Garamond',serif;font-size:22px;margin-bottom:16px;}
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px;}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}
-.stat-value{font-family:'EB Garamond',serif;font-size:32px;color:var(--gold);line-height:1;}
-.stat-label{font-size:11px;color:var(--text-dim);margin-top:4px;}
-.dash-section{margin-bottom:20px;}
-.dash-section-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
-.status-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
-.status-pill{padding:5px 12px;border-radius:20px;font-size:11.5px;cursor:pointer;transition:all .15s;}
-.sp-all{background:var(--surface2);border:1px solid var(--border2);color:var(--text-dim);}
-.sp-active{background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.3);color:var(--green);}
-.sp-terminado{background:var(--surface2);border:1px solid var(--border2);color:var(--text-dim);}
-.sp-archived{background:var(--surface2);border:1px solid var(--border2);color:var(--text-muted);}
-.status-pill.sel{font-weight:600;}
-.cases-table{width:100%;border-collapse:collapse;font-size:12px;}
-.cases-table th{text-align:left;padding:7px 10px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border);font-weight:500;}
-.cases-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:middle;}
-.cases-table tr:hover td{background:var(--surface2);cursor:pointer;}
-.cases-table td:first-child{color:var(--gold);font-weight:500;}
-/* WELCOME */
+
+/* WELCOME VIEW */
 .welcome-view{align-items:center;justify-content:center;text-align:center;padding:40px 20px;}
 .welcome-seal{width:70px;height:70px;border:2px solid var(--gold-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'EB Garamond',serif;font-size:36px;color:var(--gold);margin:0 auto 16px;background:var(--gold-glow);position:relative;}
 .welcome-seal::before{content:'';position:absolute;inset:-6px;border:1px solid var(--border2);border-radius:50%;}
@@ -110,8 +96,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .welcome-chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:520px;margin:0 auto;}
 .chip{background:var(--surface2);border:1px solid var(--border2);color:var(--text-dim);padding:6px 12px;border-radius:20px;font-size:11.5px;cursor:pointer;transition:all .15s;}
 .chip:hover{border-color:var(--gold-dim);color:var(--gold);background:var(--gold-glow);}
-/* CASE */
-.case-header{padding:12px 20px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:flex-start;gap:12px;flex-shrink:0;}
+
+/* CASE DETAIL VIEW */
+.case-header{padding:12px 20px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:flex-start;gap:12px;}
 .case-header-info{flex:1;}
 .case-header-name{font-family:'EB Garamond',serif;font-size:20px;font-weight:500;}
 .case-header-rol{font-size:11px;color:var(--text-dim);margin-top:2px;}
@@ -123,33 +110,39 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .status-archived{background:var(--surface2);color:var(--text-muted);border:1px solid var(--border2);}
 .btn-sm{background:none;border:1px solid var(--border2);color:var(--text-dim);padding:4px 10px;border-radius:var(--radius);cursor:pointer;font-size:11px;font-family:'Instrument Sans',sans-serif;transition:all .15s;}
 .btn-sm:hover{color:var(--text);background:var(--surface2);}
-.btn-sm.gold{background:var(--gold-glow);color:var(--gold);border-color:var(--gold-dim);}
+.btn-sm.active{background:var(--gold-glow);color:var(--gold);border-color:var(--gold-dim);}
+
 /* TABS */
-.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface);padding:0 20px;gap:2px;overflow-x:auto;flex-shrink:0;}
-.tab{padding:9px 14px;font-size:12px;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface);padding:0 20px;gap:2px;overflow-x:auto;}
+.tab{padding:9px 14px;font-size:12px;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;font-family:'Instrument Sans',sans-serif;}
 .tab:hover{color:var(--text);}
 .tab.active{color:var(--gold);border-bottom-color:var(--gold);}
 .tab-content{flex:1;overflow-y:auto;padding:16px 20px;}
-/* CARDS */
-.part-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+
+/* PARTICIPANTES */
+.part-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;}
 .part-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;}
 .part-role{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:4px;font-family:'DM Mono',monospace;}
 .part-name{font-size:13.5px;font-weight:500;margin-bottom:4px;}
 .part-meta{font-size:11px;color:var(--text-dim);display:flex;flex-direction:column;gap:2px;}
+
 /* ETAPAS */
-.etapa-bar{display:flex;margin-bottom:16px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);}
-.etapa-step{flex:1;padding:8px 4px;text-align:center;font-size:10px;background:var(--surface);color:var(--text-muted);border-right:1px solid var(--border);transition:all .15s;}
+.etapa-bar{display:flex;gap:0;margin-bottom:16px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);}
+.etapa-step{flex:1;padding:8px 4px;text-align:center;font-size:10px;background:var(--surface);color:var(--text-muted);border-right:1px solid var(--border);transition:all .15s;cursor:default;}
 .etapa-step:last-child{border-right:none;}
 .etapa-step.done{background:rgba(39,174,96,.1);color:var(--green);}
 .etapa-step.current{background:var(--gold-glow);color:var(--gold);font-weight:600;}
 .etapa-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}
 .etapa-title{font-size:12px;font-weight:600;color:var(--gold);margin-bottom:8px;}
-.etapa-row{display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0;border-bottom:1px solid var(--border);}
+.etapa-row{display:flex;justify-content:space-between;font-size:11.5px;padding:3px 0;border-bottom:1px solid var(--border);}
 .etapa-row:last-child{border-bottom:none;}
 .etapa-key{color:var(--text-dim);}
 .etapa-val{color:var(--text);font-family:'DM Mono',monospace;font-size:10.5px;}
+
 /* CRONOLOGÍA */
+.crono-list{display:flex;flex-direction:column;gap:0;}
 .crono-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.crono-item:last-child{border-bottom:none;}
 .crono-dot-col{display:flex;flex-direction:column;align-items:center;padding-top:3px;}
 .crono-dot{width:8px;height:8px;border-radius:50%;background:var(--gold-dim);flex-shrink:0;}
 .crono-line{flex:1;width:1px;background:var(--border);margin-top:4px;}
@@ -158,21 +151,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .crono-title{font-size:12.5px;font-weight:500;margin-bottom:2px;}
 .crono-desc{font-size:11.5px;color:var(--text-dim);line-height:1.5;}
 .crono-type{display:inline-flex;font-size:9.5px;padding:1px 6px;border-radius:8px;background:var(--surface2);color:var(--text-muted);border:1px solid var(--border2);margin-bottom:4px;}
-/* CHECKLIST */
-.checklist-phase{margin-bottom:16px;}
-.phase-title{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;padding:6px 0;border-bottom:1px solid var(--border);margin-bottom:8px;}
-.check-item{display:flex;align-items:flex-start;gap:10px;padding:7px 8px;border-radius:var(--radius);transition:background .15s;cursor:pointer;}
-.check-item:hover{background:var(--surface2);}
-.check-item input[type=checkbox]{width:15px;height:15px;cursor:pointer;accent-color:var(--gold);margin-top:1px;flex-shrink:0;}
-.check-text{font-size:12.5px;line-height:1.5;flex:1;}
-.check-text.done{text-decoration:line-through;color:var(--text-muted);}
-/* RESOLUCIONES */
-.res-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;}
-.res-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;}
-.res-type{font-size:9.5px;padding:2px 7px;border-radius:8px;background:var(--gold-glow);color:var(--gold);border:1px solid var(--gold-dim);font-family:'DM Mono',monospace;}
-.res-number{font-size:13px;font-weight:600;}
-.res-date{font-size:11px;color:var(--text-muted);font-family:'DM Mono',monospace;}
-.res-body{font-size:12px;color:var(--text-dim);line-height:1.5;}
+
 /* ACCIONES */
 .accion-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px;}
 .accion-priority{font-size:9px;padding:2px 6px;border-radius:8px;font-weight:500;flex-shrink:0;margin-top:1px;}
@@ -184,7 +163,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .accion-desc{font-size:11.5px;color:var(--text-dim);}
 .accion-due{font-size:10px;color:var(--text-muted);margin-top:4px;font-family:'DM Mono',monospace;}
 .accion-status{font-size:9px;padding:2px 6px;border-radius:8px;background:var(--surface2);color:var(--text-muted);border:1px solid var(--border2);flex-shrink:0;}
-/* CHAT */
+
+/* CHAT VIEW */
+.chat-header{padding:10px 20px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:center;gap:10px;}
+.chat-fn-badge{font-family:'DM Mono',monospace;font-size:10px;background:var(--gold-glow);border:1px solid var(--gold-dim);color:var(--gold);padding:2px 7px;border-radius:3px;}
+.chat-title{font-family:'EB Garamond',serif;font-size:17px;font-weight:500;}
+.chat-desc{font-size:10px;color:var(--text-muted);margin-top:1px;}
+.chat-right{margin-left:auto;display:flex;gap:6px;align-items:center;}
 .msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:14px;}
 .msgs::-webkit-scrollbar{width:4px;}.msgs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 .msg{display:flex;gap:8px;animation:slideUp .2s ease;}.msg.user{flex-direction:row-reverse;}
@@ -198,8 +183,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .msg.user .msg-bub{background:var(--gold-glow);border:1px solid var(--gold-dim);color:var(--text);border-top-right-radius:2px;}
 .msg-bub strong{color:var(--gold);}
 .msg-bub code{font-family:'DM Mono',monospace;font-size:11px;background:rgba(0,0,0,.3);padding:1px 4px;border-radius:3px;color:var(--accent);}
-.msg-bub pre{background:rgba(0,0,0,.3);border:1px solid var(--border);padding:9px;border-radius:var(--radius);overflow-x:auto;margin:6px 0;}
-.msg-bub pre code{background:none;padding:0;}
 .msg-bub ul,.msg-bub ol{padding-left:16px;margin:4px 0;}.msg-bub li{margin-bottom:2px;}
 .msg-bub h3{font-family:'EB Garamond',serif;font-size:15px;color:var(--gold);margin:8px 0 3px;}
 .msg-bub h4{font-size:12px;font-weight:600;color:var(--accent);margin:6px 0 2px;}
@@ -208,8 +191,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .typing{display:flex;align-items:center;gap:3px;padding:10px 13px;}
 .da{width:5px;height:5px;border-radius:50%;background:var(--gold-dim);animation:pulse 1.4s infinite;}
 .da:nth-child(2){animation-delay:.2s;}.da:nth-child(3){animation-delay:.4s;}
+
 /* INPUT */
-.input-area{border-top:1px solid var(--border);padding:10px 20px;background:var(--surface);flex-shrink:0;}
+.input-area{border-top:1px solid var(--border);padding:10px 20px;background:var(--surface);}
 .input-row{display:flex;gap:7px;align-items:flex-end;}
 .input-box{flex:1;background:var(--bg);border:1px solid var(--border2);color:var(--text);padding:8px 12px;border-radius:var(--radius);font-family:'Instrument Sans',sans-serif;font-size:13px;outline:none;resize:none;min-height:40px;max-height:120px;transition:border-color .15s;line-height:1.5;}
 .input-box:focus{border-color:var(--gold-dim);}.input-box::placeholder{color:var(--text-muted);}
@@ -217,24 +201,30 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 .send-btn:hover{background:var(--accent);}.send-btn:disabled{background:var(--border2);cursor:not-allowed;opacity:.5;}
 .send-btn svg{width:14px;height:14px;fill:#0f0e0c;}
 .input-hint{font-size:9.5px;color:var(--text-muted);margin-top:4px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;}
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;}
-.modal-title{font-family:'EB Garamond',serif;font-size:20px;margin-bottom:16px;}
-.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;}
-.btn-cancel{background:none;border:1px solid var(--border2);color:var(--text-dim);padding:8px 16px;border-radius:var(--radius);cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:13px;}
-.btn-cancel:hover{color:var(--text);}
-.btn-save{background:var(--gold);border:none;color:#0f0e0c;padding:8px 16px;border-radius:var(--radius);cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;}
-.btn-save:hover{background:var(--accent);}
-/* EXPORT */
-.export-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
-.btn-export{background:var(--surface2);border:1px solid var(--border2);color:var(--text-dim);padding:6px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-family:'Instrument Sans',sans-serif;transition:all .15s;}
-.btn-export:hover{border-color:var(--gold-dim);color:var(--gold);}
-/* UTILS */
-.empty-state{text-align:center;padding:40px 20px;color:var(--text-muted);font-size:12px;}
+
+/* DILIGENCIAS */
+.dil-group{margin-bottom:16px;}
+.dil-group-title{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dim);padding:6px 0;border-bottom:1px solid var(--border);margin-bottom:6px;font-family:'DM Mono',monospace;}
+.dil-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:5px;overflow:hidden;transition:border-color .15s;}
+.dil-item:hover{border-color:var(--border2);}
+.dil-item-header{display:flex;align-items:flex-start;justify-content:space-between;padding:9px 11px;cursor:pointer;gap:8px;}
+.dil-item-label{font-size:12px;font-weight:500;line-height:1.4;flex:1;}
+.dil-filename{font-size:10px;color:var(--text-muted);padding:0 11px 7px;font-family:'DM Mono',monospace;}
+.dil-fojas{font-family:'DM Mono',monospace;font-size:10px;background:var(--surface2);border:1px solid var(--border2);color:var(--text-muted);padding:1px 5px;border-radius:3px;}
+.dil-badge-ok{font-size:9px;background:rgba(39,174,96,.12);border:1px solid rgba(39,174,96,.3);color:var(--green);padding:1px 5px;border-radius:3px;}
+.dil-chevron{font-size:9px;color:var(--text-muted);transition:transform .15s;cursor:pointer;}
+.dil-detail{padding:10px 11px;border-top:1px solid var(--border);background:var(--surface2);}
+.dil-summary{font-size:12px;line-height:1.65;color:var(--text);}
+.dil-summary strong{color:var(--gold);}
+.dil-summary ul{padding-left:16px;margin:4px 0;}.dil-summary li{margin-bottom:2px;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-muted);}
+.empty-state p{font-size:12px;margin-top:6px;}
+
+/* LOADING */
 .loading{display:flex;align-items:center;justify-content:center;padding:30px;gap:6px;color:var(--text-muted);font-size:12px;}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.section-title{font-size:13px;font-weight:600;color:var(--text);}
+
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
@@ -277,28 +267,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
   </div>
 </div>
 
-<!-- MODAL: Nuevo/Editar Caso -->
-<div class="modal-overlay" id="caseModal" style="display:none">
-  <div class="modal">
-    <div class="modal-title" id="caseModalTitle">Nuevo Expediente</div>
-    <div class="field"><label>Nombre del caso *</label><input id="fName" placeholder="Ej: 56 G"/></div>
-    <div class="field"><label>ROL / Número expediente</label><input id="fRol" placeholder="Ej: 813-2024-VRAC"/></div>
-    <div class="field"><label>Carátula (partes)</label><input id="fCaratula" placeholder="Ej: HUENANTE-NÚÑEZ"/></div>
-    <div class="field"><label>Estado</label>
-      <select id="fStatus">
-        <option value="active">Activo</option>
-        <option value="terminado">Terminado</option>
-        <option value="archived">Archivado</option>
-      </select>
-    </div>
-    <div class="field"><label>Descripción</label><textarea id="fDesc" placeholder="Resumen del caso…"></textarea></div>
-    <div class="modal-footer">
-      <button class="btn-cancel" onclick="closeCaseModal()">Cancelar</button>
-      <button class="btn-save" onclick="saveCaseModal()">Guardar</button>
-    </div>
-  </div>
-</div>
-
 <!-- APP -->
 <div id="appScreen" class="app" style="display:none">
   <aside class="sidebar">
@@ -306,34 +274,19 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
       <div class="logo-icon">F</div>
       <div><div class="logo-text">Fiscalito</div><div class="logo-sub">Asistente Jurídico IA</div></div>
     </div>
-    <div class="sidebar-nav">
-      <button class="nav-btn active" id="navDash" onclick="showSideNav('dash')">📊 Panel</button>
-      <button class="nav-btn" id="navCases" onclick="showSideNav('cases')">📁 Casos</button>
-      <button class="nav-btn" id="navFns" onclick="showSideNav('fns')">⚖ IA</button>
+
+    <div class="sidebar-search">
+      <input class="search-box" id="caseSearch" placeholder="🔍 Buscar caso, ROL…" oninput="filterCases(this.value)"/>
     </div>
 
-    <!-- Panel dashboard mini -->
-    <div id="sideNavDash" style="flex:1;overflow-y:auto;padding:8px;">
-      <div style="font-size:10px;color:var(--text-muted);padding:4px 4px 8px;">Vista rápida</div>
-      <div id="miniStats"></div>
-      <button class="btn-new-case" style="width:100%;margin-top:8px;padding:6px;" onclick="showView('viewDash')">Ver dashboard completo →</button>
+    <div class="sidebar-cases-header">
+      <span class="cases-label">Expedientes</span>
+      <button class="btn-new-case" onclick="showNewCaseModal()">+ Nuevo</button>
     </div>
+    <div class="cases-list" id="casesList"><div class="case-empty">Cargando…</div></div>
 
-    <!-- Lista de casos -->
-    <div id="sideNavCases" style="display:none;flex:1;flex-direction:column;overflow:hidden;">
-      <div class="sidebar-search"><input class="search-box" id="caseSearch" placeholder="🔍 Buscar caso, ROL…" oninput="filterCases(this.value)"/></div>
-      <div class="sidebar-cases-header">
-        <span class="cases-label">Expedientes</span>
-        <button class="btn-new-case" onclick="openNewCaseModal()">+ Nuevo</button>
-      </div>
-      <div class="cases-list" id="casesList"><div class="case-empty">Cargando…</div></div>
-    </div>
-
-    <!-- Funciones IA -->
-    <div id="sideNavFns" style="display:none;flex:1;overflow-y:auto;">
-      <div class="sidebar-section">Funciones IA</div>
-      <div class="fn-list" id="fnList"></div>
-    </div>
+    <div class="sidebar-section">Funciones IA</div>
+    <div class="fn-list" id="fnList"></div>
 
     <div class="sidebar-footer">
       <div class="user-email" id="userEmail">–</div>
@@ -342,31 +295,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
   </aside>
 
   <main class="main">
-    <!-- DASHBOARD -->
-    <div class="view active" id="viewDash">
-      <div class="dash-content">
-        <div class="dash-title">📊 Dashboard</div>
-        <div class="stats-grid" id="statsGrid"><div class="loading">Cargando estadísticas…</div></div>
-        <div class="dash-section">
-          <div class="dash-section-title">Expedientes</div>
-          <div class="status-bar">
-            <span class="status-pill sp-all sel" onclick="filterDashTable('all',this)">Todos</span>
-            <span class="status-pill sp-active" onclick="filterDashTable('active',this)">Activos</span>
-            <span class="status-pill sp-terminado" onclick="filterDashTable('terminado',this)">Terminados</span>
-            <span class="status-pill sp-archived" onclick="filterDashTable('archived',this)">Archivados</span>
-          </div>
-          <div style="overflow-x:auto;">
-            <table class="cases-table" id="dashTable">
-              <thead><tr><th>Caso</th><th>ROL</th><th>Carátula</th><th>Estado</th></tr></thead>
-              <tbody id="dashTableBody"><tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text-muted)">Cargando…</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- WELCOME -->
-    <div class="view welcome-view" id="viewWelcome">
+    <div class="view active welcome-view" id="viewWelcome">
       <div class="welcome">
         <div class="welcome-seal">⚖</div>
         <h2>Fiscalito — Asistente Jurídico</h2>
@@ -389,30 +319,45 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
         <div class="tab active" onclick="showTab('tabParticipantes')">👥 Participantes</div>
         <div class="tab" onclick="showTab('tabEtapas')">📋 Etapas</div>
         <div class="tab" onclick="showTab('tabCronologia')">📅 Cronología</div>
-        <div class="tab" onclick="showTab('tabChecklist')">✅ Checklist</div>
-        <div class="tab" onclick="showTab('tabResoluciones')">📜 Resoluciones</div>
+        <div class="tab" onclick="showTab('tabDiligencias')">📄 Diligencias</div>
         <div class="tab" onclick="showTab('tabAcciones')">⚡ Pendientes</div>
         <div class="tab" onclick="showTab('tabChat')">💬 Chat IA</div>
       </div>
-      <div class="tab-content" id="tabParticipantes"><div class="loading">Cargando…</div></div>
-      <div class="tab-content" id="tabEtapas" style="display:none"><div class="loading">Cargando…</div></div>
-      <div class="tab-content" id="tabCronologia" style="display:none"><div class="loading">Cargando…</div></div>
-      <div class="tab-content" id="tabChecklist" style="display:none"><div class="loading">Cargando…</div></div>
-      <div class="tab-content" id="tabResoluciones" style="display:none"><div class="loading">Cargando…</div></div>
-      <div class="tab-content" id="tabAcciones" style="display:none"><div class="loading">Cargando…</div></div>
+
+      <!-- TAB: Participantes -->
+      <div class="tab-content" id="tabParticipantes">
+        <div id="participantesList"><div class="loading">Cargando participantes…</div></div>
+      </div>
+
+      <!-- TAB: Etapas -->
+      <div class="tab-content" id="tabEtapas" style="display:none">
+        <div id="etapasList"><div class="loading">Cargando etapas…</div></div>
+      </div>
+
+      <!-- TAB: Cronología -->
+      <div class="tab-content" id="tabCronologia" style="display:none">
+        <div id="cronologiaList"><div class="loading">Cargando cronología…</div></div>
+      </div>
+
+      <!-- TAB: Diligencias -->
+      <div class="tab-content" id="tabDiligencias" style="display:none">
+        <div id="diligenciasList"><div class="loading">Cargando diligencias…</div></div>
+      </div>
+
+      <!-- TAB: Acciones Pendientes -->
+      <div class="tab-content" id="tabAcciones" style="display:none">
+        <div id="accionesList"><div class="loading">Cargando acciones…</div></div>
+      </div>
+
+      <!-- TAB: Chat IA -->
       <div class="tab-content" id="tabChat" style="display:none;flex-direction:column;padding:0;flex:1;">
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;border-bottom:1px solid var(--border);background:var(--surface);flex-wrap:wrap;">
-          <span class="fn-badge" style="background:var(--gold-glow);border-color:var(--gold-dim);color:var(--gold);" id="chatFnBadge">F0</span>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--surface);">
+          <span class="chat-fn-badge" id="chatFnBadge">F0</span>
           <span style="font-size:13px;font-weight:500;" id="chatFnTitle">Consulta General</span>
-          <div style="margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;" id="fnQuickBtns"></div>
+          <div style="margin-left:auto;display:flex;gap:5px;" id="fnQuickBtns"></div>
         </div>
         <div class="msgs" id="msgs"></div>
         <div class="input-area">
-          <div class="export-btns">
-            <button class="btn-export" onclick="exportChat('txt')">📄 Exportar TXT</button>
-            <button class="btn-export" onclick="exportChat('html')">🌐 Exportar HTML</button>
-            <button class="btn-export" onclick="copyLastMsg()">📋 Copiar última respuesta</button>
-          </div>
           <div class="input-row">
             <textarea class="input-box" id="inputBox" placeholder="Escribe tu consulta jurídica sobre este caso…" rows="1"
               onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
@@ -449,20 +394,8 @@ const FNS=[
   {code:'F10',name:'Análisis Jurisprudencial',desc:'Jurisprudencia y dictámenes CGR'},
 ];
 
-// Checklist por fases (modelo basado en manual)
-const CHECKLIST_TEMPLATE=[
-  {phase:'FASE 1 · INICIACIÓN',items:['Resolución que ordena la investigación redactada según modelo','Resolución numerada, firmada y registrada','Copia remitida al/la fiscal designado/a y constancia de recepción','Procedimiento creado en planilla maestra']},
-  {phase:'FASE 2 · INSTRUCCIÓN — Inicio',items:['Fiscal acepta el cargo por escrito','Se evalúan y dictan medidas de protección si corresponde','Denuncia ratificada o subsanada','Primera declaración del/la denunciado/a incorporada al expediente']},
-  {phase:'FASE 2 · INSTRUCCIÓN — Diligencias',items:['Revisión documental completa (contratos, correos, actas)','Cuestionarios enviados a testigos con plazo claro','Respuestas de testigos digitalizadas y foliadas','Pruebas periciales u oficios externos solicitados y recibidos']},
-  {phase:'FASE 2 · INSTRUCCIÓN — Cierre',items:['Informe de inhabilidad / propuesta de sobreseimiento o borrador de cargos','Registro de fecha de cierre y envío de informe a autoridad']},
-  {phase:'FASE 3 · DISCUSIÓN Y DEFENSA',items:['Cargos redactados con hechos, normativa y medios de prueba','Cargos notificados correctamente','Plazo legal otorgado para descargos con constancia de vencimiento','Descargos analizados e incorporados al expediente','Término de prueba declarado y foliado']},
-  {phase:'FASE 4 · PROBATORIA',items:['Apertura del período probatorio notificada','Pruebas ofrecidas evaluadas y admitidas/rechazadas fundadamente','Rendición de prueba completada y foliada']},
-  {phase:'FASE 5 · VISTA FISCAL',items:['Vista fiscal redactada con análisis de prueba','Propuesta fundada de resolución incluida','Vista enviada a la autoridad resolutora']},
-  {phase:'FASE 6 · RESOLUCIÓN',items:['Resolución final dictada por autoridad competente','Resolución notificada a las partes','Registro del resultado en planilla maestra','Expediente archivado']},
-];
-
-let session=null,activeFn='F0',currentCase=null,chatHistory=[],isLoading=false;
-let allCases=[],editingCaseId=null,activeTab='tabParticipantes';
+let session=null, activeFn='F0', currentCase=null, chatHistory=[], isLoading=false;
+let allCases=[], activeTab='tabParticipantes';
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 sb.auth.onAuthStateChange((ev,s)=>{
@@ -471,16 +404,18 @@ sb.auth.onAuthStateChange((ev,s)=>{
     document.getElementById('authScreen').style.display='none';
     document.getElementById('appScreen').style.display='flex';
     document.getElementById('userEmail').textContent=s.user.email;
-    buildFnList();loadCases();
+    buildFnList(); loadCases();
   } else {
     document.getElementById('authScreen').style.display='flex';
     document.getElementById('appScreen').style.display='none';
   }
 });
+
 function showErr(id,m){const e=document.getElementById(id);e.textContent=m;e.style.display='block';}
 function showOk(id,m){const e=document.getElementById(id);e.textContent=m;e.style.display='block';}
 function showRegister(){document.getElementById('loginForm').style.display='none';document.getElementById('registerForm').style.display='block';}
 function showLogin(){document.getElementById('registerForm').style.display='none';document.getElementById('loginForm').style.display='block';}
+
 async function doLogin(){
   document.getElementById('loginErr').style.display='none';
   const e=document.getElementById('loginEmail').value.trim(),p=document.getElementById('loginPass').value;
@@ -511,330 +446,278 @@ async function loadCases(){
   const{data}=await sb.from('cases').select('id,name,rol,caratula,status,description').is('deleted_at',null).order('updated_at',{ascending:false}).limit(200);
   allCases=data||[];
   renderCases(allCases);
-  renderDashboard(allCases);
-  renderMiniStats(allCases);
 }
 
 function renderCases(cases){
   const c=document.getElementById('casesList');
-  if(!cases.length){c.innerHTML='<div class="case-empty">Sin casos</div>';return;}
+  if(!cases.length){c.innerHTML='<div class="case-empty">Sin casos registrados</div>';return;}
+  // Store cases in a global map for safe lookup
   window._casesMap={};
   cases.forEach(x=>window._casesMap[x.id]=x);
   c.innerHTML=cases.map(x=>{
-    const dc=x.status==='active'?'dot-active':x.status==='terminado'?'dot-terminado':'dot-archived';
+    const dotClass=x.status==='active'?'dot-active':x.status==='terminado'?'dot-terminado':'dot-archived';
     return `<div class="case-item ${currentCase?.id===x.id?'active':''}" onclick="pickCaseById('${x.id}')">
-      <div class="case-item-row"><div class="case-status-dot ${dc}"></div><div class="case-item-name">${esc(x.name||'')}</div></div>
+      <div class="case-item-row"><div class="case-status-dot ${dotClass}"></div><div class="case-item-name">${esc(x.name||'')}</div></div>
       ${x.rol?`<div class="case-item-rol">${esc(x.rol)}</div>`:''}
     </div>`;
   }).join('');
 }
+
+function pickCaseById(id){
+  const c=window._casesMap&&window._casesMap[id];
+  if(c) pickCase(c);
+}
+
 function filterCases(q){
   if(!q){renderCases(allCases);return;}
   const lq=q.toLowerCase();
   renderCases(allCases.filter(c=>(c.name||'').toLowerCase().includes(lq)||(c.rol||'').toLowerCase().includes(lq)||(c.caratula||'').toLowerCase().includes(lq)));
 }
-function pickCaseById(id){const c=window._casesMap&&window._casesMap[id];if(c)pickCase(c);}
+
 async function pickCase(c){
-  currentCase=c;chatHistory=[];
+  currentCase=c;
+  chatHistory=[];
   renderCases(allCases);
   showView('viewCase');
   renderCaseHeader(c);
   showTab('tabParticipantes');
-  showSideNav('cases');
+  await loadTabData('tabParticipantes');
 }
 
-// ── Dashboard ─────────────────────────────────────────────────────────────────
-function renderDashboard(cases){
-  const active=cases.filter(c=>c.status==='active').length;
-  const terminado=cases.filter(c=>c.status==='terminado').length;
-  const archived=cases.filter(c=>c.status==='archived').length;
-  document.getElementById('statsGrid').innerHTML=`
-    <div class="stat-card"><div class="stat-value">${cases.length}</div><div class="stat-label">Total expedientes</div></div>
-    <div class="stat-card"><div class="stat-value" style="color:var(--green)">${active}</div><div class="stat-label">Activos</div></div>
-    <div class="stat-card"><div class="stat-value" style="color:var(--text-dim)">${terminado}</div><div class="stat-label">Terminados</div></div>
-    <div class="stat-card"><div class="stat-value" style="color:var(--text-muted)">${archived}</div><div class="stat-label">Archivados</div></div>`;
-  renderDashTable(cases);
-}
-function renderMiniStats(cases){
-  const active=cases.filter(c=>c.status==='active').length;
-  document.getElementById('miniStats').innerHTML=`
-    <div style="display:flex;gap:6px;flex-direction:column;">
-      <div style="display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text-dim)">Total</span><span style="color:var(--gold)">${cases.length}</span></div>
-      <div style="display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text-dim)">Activos</span><span style="color:var(--green)">${active}</span></div>
-      <div style="display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0"><span style="color:var(--text-dim)">Terminados</span><span style="color:var(--text-muted)">${cases.filter(c=>c.status==='terminado').length}</span></div>
-    </div>`;
-}
-function renderDashTable(cases){
-  const tb=document.getElementById('dashTableBody');
-  if(!cases.length){tb.innerHTML='<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text-muted)">Sin casos</td></tr>';return;}
-  tb.innerHTML=cases.map(c=>{
-    const sc=c.status==='active'?'status-active':c.status==='terminado'?'status-terminado':'status-archived';
-    const sl=c.status==='active'?'Activo':c.status==='terminado'?'Terminado':'Archivado';
-    return `<tr onclick="pickCaseById('${c.id}');showSideNav('cases')">
-      <td>${esc(c.name||'')}</td>
-      <td style="font-family:'DM Mono',monospace;font-size:11px">${esc(c.rol||'—')}</td>
-      <td>${esc(c.caratula||'—')}</td>
-      <td><span class="status-badge ${sc}">${sl}</span></td>
-    </tr>`;
-  }).join('');
-}
-let _dashFilter='all';
-function filterDashTable(f,el){
-  _dashFilter=f;
-  document.querySelectorAll('.status-pill').forEach(p=>p.classList.remove('sel'));
-  el.classList.add('sel');
-  renderDashTable(f==='all'?allCases:allCases.filter(c=>c.status===f));
-}
-
-// ── Case Header ───────────────────────────────────────────────────────────────
 function renderCaseHeader(c){
-  const sc=c.status==='active'?'status-active':c.status==='terminado'?'status-terminado':'status-archived';
-  const sl=c.status==='active'?'Activo':c.status==='terminado'?'Terminado':'Archivado';
+  const statusClass=c.status==='active'?'status-active':c.status==='terminado'?'status-terminado':'status-archived';
+  const statusLabel=c.status==='active'?'Activo':c.status==='terminado'?'Terminado':'Archivado';
   document.getElementById('caseHeader').innerHTML=`
     <div class="case-header-info">
-      <div class="case-header-name">${esc(c.name||'')}</div>
-      ${c.rol?`<div class="case-header-rol">ROL: ${esc(c.rol)}</div>`:''}
-      ${c.caratula?`<div class="case-header-caratula">${esc(c.caratula)}</div>`:''}
+      <div class="case-header-name">${c.name}</div>
+      ${c.rol?`<div class="case-header-rol">ROL: ${c.rol}</div>`:''}
+      ${c.caratula?`<div class="case-header-caratula">${c.caratula}</div>`:''}
     </div>
     <div class="case-header-right">
-      <span class="status-badge ${sc}">${sl}</span>
-      <button class="btn-sm" onclick="openEditCaseModal()">✏ Editar</button>
-      <button class="btn-sm gold" onclick="showTab('tabChat')">💬 Chat IA</button>
+      <span class="status-badge ${statusClass}">${statusLabel}</span>
+      <button class="btn-sm" onclick="showTab('tabChat')">💬 Chat IA</button>
     </div>`;
 }
 
 // ── Tabs ──────────────────────────────────────────────────────────────────────
-const TAB_NAMES=['tabParticipantes','tabEtapas','tabCronologia','tabChecklist','tabResoluciones','tabAcciones','tabChat'];
 function showTab(tabId){
   activeTab=tabId;
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',TAB_NAMES[i]===tabId));
-  document.querySelectorAll('.tab-content').forEach(c=>{c.style.display=c.id===tabId?(tabId==='tabChat'?'flex':'block'):'none';});
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const tabs=['tabParticipantes','tabEtapas','tabCronologia','tabDiligencias','tabAcciones','tabChat'];
+    t.classList.toggle('active',tabs[i]===tabId);
+  });
+  document.querySelectorAll('.tab-content').forEach(c=>{
+    c.style.display=c.id===tabId?(tabId==='tabChat'?'flex':'block'):'none';
+  });
   loadTabData(tabId);
 }
-async function loadTabData(id){
+
+async function loadTabData(tabId){
   if(!currentCase) return;
-  if(id==='tabParticipantes') await loadParticipantes();
-  else if(id==='tabEtapas') await loadEtapas();
-  else if(id==='tabCronologia') await loadCronologia();
-  else if(id==='tabChecklist') await loadChecklist();
-  else if(id==='tabResoluciones') await loadResoluciones();
-  else if(id==='tabAcciones') await loadAcciones();
-  else if(id==='tabChat') initChat();
+  if(tabId==='tabParticipantes') await loadParticipantes();
+  else if(tabId==='tabEtapas') await loadEtapas();
+  else if(tabId==='tabCronologia') await loadCronologia();
+  else if(tabId==='tabDiligencias') await loadDiligencias();
+  else if(tabId==='tabAcciones') await loadAcciones();
+  else if(tabId==='tabChat') initChat();
 }
 
 // ── Participantes ─────────────────────────────────────────────────────────────
 async function loadParticipantes(){
-  const el=document.getElementById('tabParticipantes');
+  const el=document.getElementById('participantesList');
   el.innerHTML='<div class="loading">Cargando…</div>';
   const{data}=await sb.from('case_participants').select('role,name,email,estamento,rut,carrera,dependencia').eq('case_id',currentCase.id).order('role');
-  if(!data?.length){el.innerHTML='<div class="empty-state">Sin participantes registrados</div>';return;}
-  const order=['denunciante','denunciado','imputado','testigo','fiscal','actuario','abogado'];
-  const sorted=[...data].sort((a,b)=>(order.indexOf(a.role?.toLowerCase())||99)-(order.indexOf(b.role?.toLowerCase())||99));
+  if(!data?.length){el.innerHTML='<div class="empty-state">⚖<p>Sin participantes registrados</p></div>';return;}
+  const roleOrder=['denunciante','denunciado','imputado','testigo','fiscal','actuario','abogado'];
+  const sorted=[...data].sort((a,b)=>{const ia=roleOrder.indexOf(a.role?.toLowerCase())||99,ib=roleOrder.indexOf(b.role?.toLowerCase())||99;return ia-ib;});
   el.innerHTML=`<div class="part-grid">${sorted.map(p=>`
     <div class="part-card">
-      <div class="part-role">${esc(p.role||'—')}</div>
-      <div class="part-name">${esc(p.name||'[Sin nombre]')}</div>
+      <div class="part-role">${p.role||'—'}</div>
+      <div class="part-name">${p.name||'[Sin nombre]'}</div>
       <div class="part-meta">
-        ${p.estamento?`<span>👤 ${esc(p.estamento)}</span>`:''}
-        ${p.carrera?`<span>🎓 ${esc(p.carrera)}</span>`:''}
-        ${p.dependencia?`<span>🏛 ${esc(p.dependencia)}</span>`:''}
-        ${p.email?`<span>✉ ${esc(p.email)}</span>`:''}
+        ${p.estamento?`<span>👤 ${p.estamento}</span>`:''}
+        ${p.carrera?`<span>🎓 ${p.carrera}</span>`:''}
+        ${p.dependencia?`<span>🏛 ${p.dependencia}</span>`:''}
+        ${p.email?`<span>✉ ${p.email}</span>`:''}
       </div>
     </div>`).join('')}</div>`;
 }
 
 // ── Etapas ────────────────────────────────────────────────────────────────────
 async function loadEtapas(){
-  const el=document.getElementById('tabEtapas');
+  const el=document.getElementById('etapasList');
   el.innerHTML='<div class="loading">Cargando…</div>';
   const{data}=await sb.from('etapas').select('*').eq('case_id',currentCase.id).limit(5);
-  if(!data?.length){el.innerHTML='<div class="empty-state">Sin etapas registradas</div>';return;}
+  if(!data?.length){el.innerHTML='<div class="empty-state">📋<p>Sin etapas registradas</p></div>';return;}
   const stages=['Indagatoria','Cargos','Descargos','Prueba','Vista','Resolución'];
   el.innerHTML=data.map(e=>{
     const curr=e.current_stage||'';
-    const ci=stages.findIndex(s=>s.toLowerCase()===curr.toLowerCase());
-    const bar=`<div class="etapa-bar">${stages.map((s,i)=>`<div class="etapa-step ${i<ci?'done':i===ci?'current':''}">${s}</div>`).join('')}</div>`;
-    const rows=[['Etapa actual',e.current_stage||'—'],['Inicio',e.stage_started_at?fmtDate(e.stage_started_at):'—'],['Indagatoria',e.indagatoria_completed_at?fmtDate(e.indagatoria_completed_at):'Pendiente'],['Cargos',e.cargos_completed_at?fmtDate(e.cargos_completed_at):'Pendiente'],['Descargos',e.descargos_completed_at?fmtDate(e.descargos_completed_at):'Pendiente'],['Vista',e.vista_completed_at?fmtDate(e.vista_completed_at):'Pendiente'],['Resolución',e.resolucion_completed_at?fmtDate(e.resolucion_completed_at):'Pendiente']].filter(r=>r[1]!=='—');
-    return `${bar}<div class="etapa-card"><div class="etapa-title">Flujo procesal</div>${rows.map(r=>`<div class="etapa-row"><span class="etapa-key">${r[0]}</span><span class="etapa-val">${r[1]}</span></div>`).join('')}${e.notes?`<div style="margin-top:8px;font-size:11.5px;color:var(--text-dim)">${esc(e.notes)}</div>`:''}</div>`;
+    const currIdx=stages.findIndex(s=>s.toLowerCase()===curr.toLowerCase());
+    const bar=`<div class="etapa-bar">${stages.map((s,i)=>`<div class="etapa-step ${i<currIdx?'done':i===currIdx?'current':''}">${s}</div>`).join('')}</div>`;
+    const rows=[
+      ['Etapa actual',e.current_stage||'—'],
+      ['Inicio',e.stage_started_at?fmtDate(e.stage_started_at):'—'],
+      ['Indagatoria',e.indagatoria_completed_at?fmtDate(e.indagatoria_completed_at):'Pendiente'],
+      ['Cargos',e.cargos_completed_at?fmtDate(e.cargos_completed_at):'Pendiente'],
+      ['Descargos',e.descargos_completed_at?fmtDate(e.descargos_completed_at):'Pendiente'],
+      ['Prueba',e.prueba_completed_at?fmtDate(e.prueba_completed_at):'Pendiente'],
+      ['Vista',e.vista_completed_at?fmtDate(e.vista_completed_at):'Pendiente'],
+      ['Resolución',e.resolucion_completed_at?fmtDate(e.resolucion_completed_at):'Pendiente'],
+    ].filter(r=>r[1]!=='—');
+    return `${bar}<div class="etapa-card"><div class="etapa-title">Flujo procesal</div>${rows.map(r=>`<div class="etapa-row"><span class="etapa-key">${r[0]}</span><span class="etapa-val">${r[1]}</span></div>`).join('')}${e.notes?`<div style="margin-top:8px;font-size:11.5px;color:var(--text-dim)">${e.notes}</div>`:''}</div>`;
   }).join('');
 }
 
 // ── Cronología ────────────────────────────────────────────────────────────────
 async function loadCronologia(){
-  const el=document.getElementById('tabCronologia');
+  const el=document.getElementById('cronologiaList');
   el.innerHTML='<div class="loading">Cargando…</div>';
-  const{data}=await sb.from('cronologia').select('*').eq('case_id',currentCase.id).order('event_date',{ascending:false}).limit(60);
-  if(!data?.length){el.innerHTML='<div class="empty-state">Sin eventos en la cronología</div>';return;}
-  el.innerHTML=data.map((e,i)=>`
+  const{data}=await sb.from('cronologia').select('*').eq('case_id',currentCase.id).order('event_date',{ascending:false}).limit(50);
+  if(!data?.length){el.innerHTML='<div class="empty-state">📅<p>Sin eventos en la cronología</p></div>';return;}
+  el.innerHTML=`<div class="crono-list">${data.map((e,i)=>`
     <div class="crono-item">
       <div class="crono-dot-col"><div class="crono-dot"></div>${i<data.length-1?'<div class="crono-line"></div>':''}</div>
       <div class="crono-body">
-        <div class="crono-date">${esc(e.event_date||'—')}</div>
-        ${e.event_type?`<span class="crono-type">${esc(e.event_type)}</span>`:''}
-        <div class="crono-title">${esc(e.title||'Evento')}</div>
-        ${e.description?`<div class="crono-desc">${esc(e.description)}</div>`:''}
-        ${e.source_document?`<div style="font-size:10px;color:var(--text-muted);margin-top:3px">📄 ${esc(e.source_document)}</div>`:''}
+        <div class="crono-date">${e.event_date||'—'}</div>
+        ${e.event_type?`<span class="crono-type">${e.event_type}</span>`:''}
+        <div class="crono-title">${e.title||'Evento'}</div>
+        ${e.description?`<div class="crono-desc">${e.description}</div>`:''}
+        ${e.source_document?`<div style="font-size:10px;color:var(--text-muted);margin-top:3px;">📄 ${e.source_document}</div>`:''}
       </div>
-    </div>`).join('');
+    </div>`).join('')}</div>`;
 }
 
-// ── Checklist ─────────────────────────────────────────────────────────────────
-async function loadChecklist(){
-  const el=document.getElementById('tabChecklist');
-  el.innerHTML='<div class="loading">Cargando…</div>';
-  const{data}=await sb.from('checklist').select('*').eq('case_id',currentCase.id);
-  // Build checklist from template + saved data
-  const savedMap={};
-  (data||[]).forEach(d=>savedMap[d.item_text]=d);
-  let html='<div>';
-  let totalDone=0,total=0;
-  CHECKLIST_TEMPLATE.forEach(ph=>{
-    html+=`<div class="checklist-phase"><div class="phase-title">${ph.phase}</div>`;
-    ph.items.forEach(item=>{
-      const saved=savedMap[item];
-      const done=saved?.is_completed||false;
-      if(done)totalDone++;total++;
-      html+=`<label class="check-item">
-        <input type="checkbox" ${done?'checked':''} onchange="toggleCheck('${currentCase.id}','${item.replace(/'/g,"\\'")}',this.checked)">
-        <span class="check-text ${done?'done':''}">${esc(item)}</span>
-      </label>`;
-    });
-    html+='</div>';
-  });
-  const pct=total?Math.round(totalDone/total*100):0;
-  el.innerHTML=`<div style="margin-bottom:14px;">
-    <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--text-dim);margin-bottom:6px"><span>Progreso del procedimiento</span><span style="color:var(--gold)">${totalDone}/${total} — ${pct}%</span></div>
-    <div style="height:6px;background:var(--surface2);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--gold);border-radius:3px;transition:width .3s"></div></div>
-  </div>${html}</div>`;
+// ── Diligencias ───────────────────────────────────────────────────────────────
+async function loadDiligencias(){
+  const el=document.getElementById('diligenciasList');
+  el.innerHTML='<div class="loading">Cargando diligencias…</div>';
+  const{data}=await sb.from('diligencias').select('id,diligencia_label,diligencia_type,file_name,fojas_inicio,fojas_fin,fecha_diligencia,ai_summary,processing_status,is_processed').eq('case_id',currentCase.id).order('fojas_inicio',{ascending:true}).limit(100);
+  if(!data?.length){el.innerHTML='<div class="empty-state">📄<p>Sin diligencias registradas</p></div>';return;}
+
+  // Agrupar por tipo
+  const groups={};
+  data.forEach(d=>{const t=d.diligencia_type||'otro';if(!groups[t])groups[t]=[];groups[t].push(d);});
+
+  const typeLabels={
+    resolucion_inicio:'Resoluciones de Inicio',declaracion_denunciante:'Declaraciones Denunciante',
+    declaracion_denunciado:'Declaraciones Denunciado/a',declaracion_testigo:'Declaraciones Testigos',
+    documento:'Documentos',oficio:'Oficios',resolucion:'Resoluciones',otro:'Otras Diligencias',
+    resolucion_cargos:'Formulación de Cargos',resolucion_cierre:'Cierre'
+  };
+
+  el.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <span style="font-size:11px;color:var(--text-muted)">${data.length} diligencias</span>
+      <input class="search-box" style="width:200px" placeholder="Filtrar diligencias…" oninput="filterDiligencias(this.value)" id="dilSearch"/>
+    </div>
+    <div id="dilContent">
+    ${Object.entries(groups).map(([type,items])=>`
+      <div class="dil-group">
+        <div class="dil-group-title">${typeLabels[type]||type} <span style="font-size:10px;color:var(--text-muted)">(${items.length})</span></div>
+        ${items.map(d=>`
+          <div class="dil-item" onclick="toggleDilDetail('${d.id}')">
+            <div class="dil-item-header">
+              <div class="dil-item-label">${d.diligencia_label||'Sin etiqueta'}</div>
+              <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+                ${d.fojas_inicio?`<span class="dil-fojas">f.${d.fojas_inicio}${d.fojas_fin&&d.fojas_fin!==d.fojas_inicio?'-'+d.fojas_fin:''}</span>`:''}
+                ${d.is_processed?'<span class="dil-badge-ok">✓ IA</span>':''}
+                <span class="dil-chevron" id="chev-${d.id}">▶</span>
+              </div>
+            </div>
+            ${d.file_name?`<div class="dil-filename">📄 ${d.file_name}</div>`:''}
+            <div class="dil-detail" id="det-${d.id}" style="display:none">
+              ${d.ai_summary?`<div class="dil-summary">${md(d.ai_summary)}</div>`:'<div style="color:var(--text-muted);font-size:11px;padding:8px">Sin resumen disponible</div>'}
+              <button class="btn-sm" style="margin-top:8px" onclick="event.stopPropagation();chatAboutDil('${d.id}')">💬 Consultar sobre esta diligencia</button>
+            </div>
+          </div>`).join('')}
+      </div>`).join('')}
+    </div>`;
+
+  // Guardar para filtrado
+  window._dilData=data;
 }
 
-async function toggleCheck(caseId,itemText,checked){
-  if(!session)return;
-  const{data:existing}=await sb.from('checklist').select('id').eq('case_id',caseId).eq('item_text',itemText).single();
-  if(existing?.id){
-    await sb.from('checklist').update({is_completed:checked,completed_at:checked?new Date().toISOString():null}).eq('id',existing.id);
-  } else {
-    await sb.from('checklist').insert({case_id:caseId,item_text:itemText,is_completed:checked,completed_at:checked?new Date().toISOString():null,user_id:session.user.id});
-  }
+function toggleDilDetail(id){
+  const det=document.getElementById('det-'+id);
+  const chev=document.getElementById('chev-'+id);
+  if(!det)return;
+  const open=det.style.display==='none';
+  det.style.display=open?'block':'none';
+  if(chev)chev.textContent=open?'▼':'▶';
 }
 
-// ── Resoluciones ──────────────────────────────────────────────────────────────
-async function loadResoluciones(){
-  const el=document.getElementById('tabResoluciones');
-  el.innerHTML='<div class="loading">Cargando…</div>';
-  const{data}=await sb.from('resoluciones').select('*').eq('case_id',currentCase.id).order('created_at',{ascending:false});
-  const header=`<div class="section-header"><div class="section-title">Resoluciones</div><button class="btn-sm gold" onclick="openNewResModal()">+ Nueva resolución</button></div>`;
-  if(!data?.length){el.innerHTML=header+'<div class="empty-state">Sin resoluciones registradas</div>';return;}
-  el.innerHTML=header+data.map(r=>`
-    <div class="res-card">
-      <div class="res-header">
-        <div>
-          <div class="res-number">${esc(r.resolution_number||'Sin número')}</div>
-          <div class="res-date">${r.resolution_date?fmtDate(r.resolution_date):''}</div>
+function filterDiligencias(q){
+  if(!window._dilData)return;
+  const lq=q.toLowerCase();
+  const filtered=window._dilData.filter(d=>(d.diligencia_label||'').toLowerCase().includes(lq)||(d.diligencia_type||'').toLowerCase().includes(lq)||(d.file_name||'').toLowerCase().includes(lq));
+  const el=document.getElementById('dilContent');
+  if(!el)return;
+  if(!q){loadDiligencias();return;}
+  el.innerHTML=filtered.map(d=>`
+    <div class="dil-item" onclick="toggleDilDetail('${d.id}')">
+      <div class="dil-item-header">
+        <div class="dil-item-label">${d.diligencia_label||'Sin etiqueta'}</div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+          ${d.fojas_inicio?`<span class="dil-fojas">f.${d.fojas_inicio}${d.fojas_fin&&d.fojas_fin!==d.fojas_inicio?'-'+d.fojas_fin:''}</span>`:''}
+          ${d.is_processed?'<span class="dil-badge-ok">✓ IA</span>':''}
+          <span class="dil-chevron" id="chev-${d.id}">▶</span>
         </div>
-        ${r.resolution_type?`<span class="res-type">${esc(r.resolution_type)}</span>`:''}
       </div>
-      ${r.authority?`<div style="font-size:11px;color:var(--text-dim);margin-bottom:6px">Autoridad: ${esc(r.authority)}</div>`:''}
-      ${r.fiscal_designado?`<div style="font-size:11px;color:var(--text-dim);margin-bottom:6px">Fiscal: ${esc(r.fiscal_designado)}</div>`:''}
-      ${r.facts_description?`<div class="res-body">${esc(r.facts_description)}</div>`:''}
-      ${r.notes?`<div style="font-size:11px;color:var(--text-muted);margin-top:6px;font-style:italic">${esc(r.notes)}</div>`:''}
+      ${d.file_name?`<div class="dil-filename">📄 ${d.file_name}</div>`:''}
+      <div class="dil-detail" id="det-${d.id}" style="display:none">
+        ${d.ai_summary?`<div class="dil-summary">${md(d.ai_summary)}</div>`:'<div style="color:var(--text-muted);font-size:11px;padding:8px">Sin resumen</div>'}
+        <button class="btn-sm" style="margin-top:8px" onclick="event.stopPropagation();chatAboutDil('${d.id}')">💬 Consultar sobre esta diligencia</button>
+      </div>
     </div>`).join('');
 }
 
-// Modal nueva resolución (simple inline)
-function openNewResModal(){
-  const num=prompt('Número de resolución:');if(!num)return;
-  const type=prompt('Tipo (Exenta / Afecta / Decreto):','Exenta');
-  const date=prompt('Fecha (YYYY-MM-DD):',new Date().toISOString().split('T')[0]);
-  const auth=prompt('Autoridad firmante:');
-  const fiscal=prompt('Fiscal instructor/a:');
-  const facts=prompt('Descripción de hechos (opcional):');
-  saveResolucion(num,type,date,auth,fiscal,facts);
-}
-async function saveResolucion(num,type,date,auth,fiscal,facts){
-  if(!session||!currentCase)return;
-  const{error}=await sb.from('resoluciones').insert({case_id:currentCase.id,user_id:session.user.id,resolution_number:num,resolution_type:type,resolution_date:date,authority:auth,fiscal_designado:fiscal,facts_description:facts});
-  if(!error)await loadResoluciones();
-  else alert('Error: '+error.message);
+function chatAboutDil(id){
+  const d=window._dilData?.find(x=>x.id===id);
+  if(!d)return;
+  showTab('tabChat');
+  const prompt=`Analiza esta diligencia del expediente:\n\n**${d.diligencia_label}**\n\n${d.ai_summary||''}`;
+  document.getElementById('inputBox').value=prompt;
+  sendMessage(prompt);
 }
 
 // ── Acciones ──────────────────────────────────────────────────────────────────
 async function loadAcciones(){
-  const el=document.getElementById('tabAcciones');
+  const el=document.getElementById('accionesList');
   el.innerHTML='<div class="loading">Cargando…</div>';
-  const{data}=await sb.from('acciones_pendientes').select('*').eq('case_id',currentCase.id).order('created_at',{ascending:false}).limit(40);
-  if(!data?.length){el.innerHTML='<div class="empty-state">Sin acciones pendientes</div>';return;}
+  const{data}=await sb.from('acciones_pendientes').select('*').eq('case_id',currentCase.id).order('created_at',{ascending:false}).limit(30);
+  if(!data?.length){el.innerHTML='<div class="empty-state">⚡<p>Sin acciones pendientes</p></div>';return;}
   el.innerHTML=data.map(a=>{
-    const pc=a.priority==='alta'||a.priority==='Alta'?'priority-alta':a.priority==='baja'||a.priority==='Baja'?'priority-baja':'priority-media';
+    const pClass=a.priority==='alta'||a.priority==='Alta'?'priority-alta':a.priority==='baja'||a.priority==='Baja'?'priority-baja':'priority-media';
     return `<div class="accion-item">
-      <span class="accion-priority ${pc}">${esc(a.priority||'—')}</span>
+      <span class="accion-priority ${pClass}">${a.priority||'—'}</span>
       <div class="accion-body">
-        <div class="accion-title">${esc(a.title||'Sin título')}</div>
-        ${a.description?`<div class="accion-desc">${esc(a.description)}</div>`:''}
-        ${a.due_date?`<div class="accion-due">Vence: ${esc(a.due_date)}</div>`:''}
+        <div class="accion-title">${a.title||'Sin título'}</div>
+        ${a.description?`<div class="accion-desc">${a.description}</div>`:''}
+        ${a.due_date?`<div class="accion-due">Vence: ${a.due_date}</div>`:''}
       </div>
-      <span class="accion-status">${esc(a.status||'pendiente')}</span>
+      <span class="accion-status">${a.status||'pendiente'}</span>
     </div>`;
   }).join('');
-}
-
-// ── Modal Caso ────────────────────────────────────────────────────────────────
-function openNewCaseModal(){
-  editingCaseId=null;
-  document.getElementById('caseModalTitle').textContent='Nuevo Expediente';
-  document.getElementById('fName').value='';
-  document.getElementById('fRol').value='';
-  document.getElementById('fCaratula').value='';
-  document.getElementById('fStatus').value='active';
-  document.getElementById('fDesc').value='';
-  document.getElementById('caseModal').style.display='flex';
-}
-function openEditCaseModal(){
-  if(!currentCase)return;
-  editingCaseId=currentCase.id;
-  document.getElementById('caseModalTitle').textContent='Editar Expediente';
-  document.getElementById('fName').value=currentCase.name||'';
-  document.getElementById('fRol').value=currentCase.rol||'';
-  document.getElementById('fCaratula').value=currentCase.caratula||'';
-  document.getElementById('fStatus').value=currentCase.status||'active';
-  document.getElementById('fDesc').value=currentCase.description||'';
-  document.getElementById('caseModal').style.display='flex';
-}
-function closeCaseModal(){document.getElementById('caseModal').style.display='none';}
-async function saveCaseModal(){
-  const name=document.getElementById('fName').value.trim();
-  if(!name){alert('El nombre es obligatorio.');return;}
-  const payload={name,rol:document.getElementById('fRol').value.trim(),caratula:document.getElementById('fCaratula').value.trim(),status:document.getElementById('fStatus').value,description:document.getElementById('fDesc').value.trim()};
-  let error;
-  if(editingCaseId){
-    ({error}=await sb.from('cases').update({...payload,updated_at:new Date().toISOString()}).eq('id',editingCaseId));
-  } else {
-    if(session) payload.user_id=session.user.id;
-    const{data,error:e}=await sb.from('cases').insert(payload).select().single();
-    error=e;
-    if(!error&&data){await loadCases();closeCaseModal();pickCase(data);return;}
-  }
-  if(error){alert('Error: '+error.message);return;}
-  await loadCases();
-  if(editingCaseId){currentCase={...currentCase,...payload};renderCaseHeader(currentCase);}
-  closeCaseModal();
 }
 
 // ── Chat ──────────────────────────────────────────────────────────────────────
 function initChat(){
   const m=document.getElementById('msgs');
-  if(!m.children.length) appendMsg('assistant',`📂 **Expediente cargado:** ${currentCase.name}${currentCase.rol?' · '+currentCase.rol:''}\n\nContexto del caso disponible. ¿Con qué función quieres comenzar?`);
+  if(!m.children.length){
+    appendMsg('assistant',`📂 **Expediente cargado:** ${currentCase.name}${currentCase.rol?' · '+currentCase.rol:''}\n\nContexto del caso disponible. ¿Con qué función quieres comenzar?`);
+  }
   buildFnQuickBtns();
 }
+
 function buildFnQuickBtns(){
   const el=document.getElementById('fnQuickBtns');
-  ['F3','F5','F6','F7'].forEach(code=>{
-    const btn=document.createElement('button');
-    btn.className='btn-sm'+(activeFn===code?' gold':'');
-    btn.textContent=code;btn.onclick=()=>pickFn(code);
-    el.appendChild(btn);
-  });
+  const quick=['F3','F5','F6','F7'];
+  el.innerHTML=quick.map(code=>{
+    const fn=FNS.find(f=>f.code===code);
+    return `<button class="btn-sm ${activeFn===code?'active':''}" onclick="pickFn('${code}')">${code}</button>`;
+  }).join('');
 }
+
 function buildFnList(){
   document.getElementById('fnList').innerHTML=FNS.map(fn=>`
     <button class="fn-btn ${fn.code===activeFn?'active':''}" onclick="pickFn('${fn.code}')">
@@ -842,15 +725,17 @@ function buildFnList(){
       <span class="fn-name">${fn.name}</span>
     </button>`).join('');
 }
+
 function pickFn(code){
-  activeFn=code;const fn=FNS.find(f=>f.code===code);
+  activeFn=code;
+  const fn=FNS.find(f=>f.code===code);
   document.getElementById('chatFnBadge').textContent=fn.code;
   document.getElementById('chatFnTitle').textContent=fn.name;
   document.getElementById('fnHint').textContent=`${fn.code} — ${fn.name}`;
   buildFnList();
-  document.getElementById('fnQuickBtns').innerHTML='';
   buildFnQuickBtns();
 }
+
 function buildContext(){
   const fn=FNS.find(f=>f.code===activeFn);
   let ctx=`[FUNCIÓN: ${activeFn} — ${fn.name}]\n`;
@@ -863,19 +748,21 @@ function buildContext(){
   }
   return ctx;
 }
+
 async function sendMessage(text){
   const input=document.getElementById('inputBox');
   const msg=text||input.value.trim();
   if(!msg||isLoading) return;
   input.value='';input.style.height='auto';
-  if(activeTab!=='tabChat') showTab('tabChat');
+  if(activeTab!=='tabChat'){showTab('tabChat');}
   appendMsg('user',msg);
   chatHistory.push({role:'user',content:msg});
   const tid=showTyping();setLoading(true);
   const ctx=buildContext();
   const msgs=chatHistory.map((m,i)=>i===chatHistory.length-1&&m.role==='user'?{...m,content:`${ctx}\n\n${m.content}`}:m);
   try{
-    const r=await fetch(CHAT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,system:SYSTEM_PROMPT,messages:msgs})});
+    const r=await fetch(CHAT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,system:SYSTEM_PROMPT,messages:msgs})});
     removeTyping(tid);
     if(!r.ok) throw new Error(`Error ${r.status}`);
     const d=await r.json();
@@ -885,7 +772,19 @@ async function sendMessage(text){
   }catch(e){removeTyping(tid);appendMsg('assistant',`⚠ ${e.message}`);}
   setLoading(false);
 }
-function quickChat(t){showView('viewWelcome');document.getElementById('inputBox').value=t;}
+
+function quickChat(t){
+  showView('viewCase');
+  if(!currentCase){
+    showView('viewWelcome');
+    document.getElementById('inputBox').value=t;
+  } else {
+    showTab('tabChat');
+    document.getElementById('inputBox').value=t;
+    sendMessage(t);
+  }
+}
+
 function appendMsg(role,text){
   const c=document.getElementById('msgs');
   const fn=FNS.find(f=>f.code===activeFn);
@@ -904,47 +803,29 @@ function showTyping(){
 function removeTyping(id){const e=document.getElementById(id);if(e)e.remove();}
 function setLoading(v){isLoading=v;document.getElementById('sendBtn').disabled=v;document.getElementById('inputBox').disabled=v;}
 
-// ── Export ────────────────────────────────────────────────────────────────────
-function exportChat(fmt){
-  if(!chatHistory.length){alert('No hay mensajes para exportar.');return;}
-  const cname=currentCase?.name||'consulta';
-  const date=new Date().toLocaleDateString('es-CL');
-  if(fmt==='txt'){
-    const txt=chatHistory.map(m=>`[${m.role==='user'?'FISCAL':'FISCALITO'}]\n${m.content}\n`).join('\n---\n\n');
-    const header=`FISCALITO — Asistente Jurídico UMAG\nExpediente: ${cname}\nFecha: ${date}\n${'='.repeat(50)}\n\n`;
-    downloadFile(header+txt,`fiscalito_${cname}_${date}.txt`,'text/plain');
-  } else {
-    const rows=chatHistory.map(m=>`<div class="msg ${m.role}"><strong>${m.role==='user'?'Fiscal':'Fiscalito'}:</strong><div>${m.content.replace(/\n/g,'<br>')}</div></div>`).join('');
-    const html=`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Fiscalito — ${cname}</title><style>body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;color:#333}.msg{margin:16px 0;padding:12px;border-radius:6px}.user{background:#f0f7ff;border-left:3px solid #2980b9}.assistant{background:#fdf9f0;border-left:3px solid #c9a84c}strong{display:block;font-size:12px;color:#666;margin-bottom:6px}h1{color:#c9a84c;font-family:Georgia,serif}</style></head><body><h1>Fiscalito — ${cname}</h1><p style="color:#666;font-size:12px">Fecha: ${date}</p>${rows}</body></html>`;
-    downloadFile(html,`fiscalito_${cname}_${date}.html`,'text/html');
-  }
-}
-function downloadFile(content,filename,type){
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([content],{type}));
-  a.download=filename;a.click();
-}
-function copyLastMsg(){
-  const last=chatHistory.filter(m=>m.role==='assistant').pop();
-  if(!last){alert('No hay respuesta para copiar.');return;}
-  navigator.clipboard.writeText(last.content).then(()=>alert('Copiado al portapapeles.'));
-}
-
-// ── Sidebar Nav ───────────────────────────────────────────────────────────────
-function showSideNav(nav){
-  ['dash','cases','fns'].forEach(n=>{
-    document.getElementById(`sideNav${n.charAt(0).toUpperCase()+n.slice(1)}`).style.display=n===nav?(n==='cases'?'flex':'block'):'none';
-    document.getElementById(`nav${n.charAt(0).toUpperCase()+n.slice(1)}`).classList.toggle('active',n===nav);
-  });
-}
-
 // ── Views ─────────────────────────────────────────────────────────────────────
-function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));}
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>{v.classList.toggle('active',v.id===id);});
+}
+
+// ── New Case Modal (simple) ────────────────────────────────────────────────────
+function showNewCaseModal(){
+  const name=prompt('Nombre del caso:');if(!name)return;
+  const rol=prompt('ROL / Número de expediente:');
+  const caratula=prompt('Carátula (partes):');
+  createCase(name,rol,caratula);
+}
+async function createCase(name,rol,caratula){
+  if(!session)return;
+  const{data,error}=await sb.from('cases').insert({name,rol,caratula,status:'active',user_id:session.user.id}).select().single();
+  if(!error&&data){await loadCases();pickCase(data);}
+  else alert('Error al crear caso: '+(error?.message||''));
+}
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function fmtDate(d){if(!d)return'—';try{return new Date(d).toLocaleDateString('es-CL',{day:'2-digit',month:'short',year:'numeric'});}catch{return d;}}
 function md(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/```[\w]*\n?([\s\S]*?)```/g,'<pre><code>$1</code></pre>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^#### (.+)$/gm,'<h4>$1</h4>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>').replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>').replace(/^\d+\. (.+)$/gm,'<li>$1</li>').replace(/^[-•] (.+)$/gm,'<li>$1</li>').replace(/(<li>[\s\S]*?<\/li>)/g,'<ul>$1</ul>').replace(/<\/ul>\s*<ul>/g,'').replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');}
-function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
 
@@ -955,12 +836,12 @@ MARCO NORMATIVO: Estatuto Administrativo (Ley 18.834), Ley 19.880, Ley 21.369 (a
 FUNCIONES:
 - F0: Consulta general de derecho administrativo disciplinario
 - F2: Mejora redacción de declaraciones (mantén primera persona, no agregues información)
-- F3: Cuestionario inculpado — 5 bloques: (1) Generales → (2) Contexto → (3) Una pregunta por cada hecho denunciado → (4) Complementarias → (5) Cierre
+- F3: Cuestionario inculpado — 5 bloques obligatorios: (1) Generales → (2) Contexto → (3) Una pregunta por cada hecho denunciado → (4) Complementarias → (5) Cierre
 - F4: Cuestionario testigos — 4 bloques: identificación/vínculo → contexto → hechos → cierre
 - F5: Análisis IRAC — Issue / Rule / Application / Conclusion
 - F6: Oficio de formulación de cargos — conductas, normas infringidas, calificación jurídica
-- F7: Vista fiscal / Informe final conclusivo — analiza prueba, propuesta fundada
-- F8: Informe en derecho académico-profesional — cita fuentes exactas
+- F7: Vista fiscal / Informe final conclusivo
+- F8: Informe en derecho académico-profesional
 - F9: Plantillas institucionales UMAG
 - F10: Análisis jurisprudencial CGR y tribunales
 
@@ -970,8 +851,7 @@ REGLAS:
 3. NO inventes antecedentes — si falta info indica [NO CONSTA]
 4. Cita normativa específica: artículos, leyes, dictámenes CGR con número
 5. Protege datos: usa "el/la denunciante", "el/la denunciado/a" en ejemplos genéricos
-6. Estructura con **títulos** y listas cuando mejore la claridad
-7. Para cuestionarios F3/F4, usa SIEMPRE la estructura de bloques numerados`;
+6. Estructura con **títulos** y listas cuando mejore la claridad`;
 </script>
 </body>
 </html>
