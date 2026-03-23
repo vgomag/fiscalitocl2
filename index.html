@@ -513,9 +513,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
     </div>
 
     <div style="padding:4px 6px;">
-      <button class="fn-btn" id="dashBtn" onclick="openDashboard()" style="margin-bottom:4px;">
+      <button class="fn-btn" id="dashBtn" onclick="openDashboard()" style="margin-bottom:2px;">
         <span class="fn-badge">📊</span>
         <span class="fn-name">Dashboard</span>
+      </button>
+      <button class="fn-btn" id="btnGenero" onclick="filterTipoCaso('genero')" style="margin-bottom:2px;">
+        <span class="fn-badge" style="background:rgba(201,168,76,.15);color:var(--gold)">G</span>
+        <span class="fn-name">Casos Género</span>
+      </button>
+      <button class="fn-btn" id="btnNoGenero" onclick="filterTipoCaso('no_genero')" style="margin-bottom:4px;">
+        <span class="fn-badge">A</span>
+        <span class="fn-name">Casos Admin.</span>
       </button>
     </div>
 
@@ -981,7 +989,7 @@ function filterAndShow(status, type){
 
 // ── Cases ─────────────────────────────────────────────────────────────────────
 async function loadCases(){
-  const{data}=await sb.from('cases').select('id,name,rol,caratula,status,description,drive_folder_url,drive_folder_id').is('deleted_at',null).order('updated_at',{ascending:false}).limit(200);
+  const{data}=await sb.from('cases').select('id,name,rol,caratula,status,description,drive_folder_url,drive_folder_id,tipo_caso,tipo_procedimiento,materia,judicializada,medida_cautelar,medida_cautelar_detalle,protocolo,fecha_resolucion,fecha_denuncia,fecha_recepcion_fiscalia,memos,reservados,origen,observaciones,actuario,estado_procedimiento,nueva_resolucion,fecha_nueva_resolucion').is('deleted_at',null).order('name',{ascending:true}).limit(200);
   allCases=data||[];
   renderCases(allCases);
 }
@@ -1022,20 +1030,47 @@ async function pickCase(c){
   await loadTabData('tabParticipantes');
 }
 
+function filterTipoCaso(tipo){
+  document.getElementById('btnGenero').classList.toggle('active', tipo==='genero');
+  document.getElementById('btnNoGenero').classList.toggle('active', tipo==='no_genero');
+  document.getElementById('dashBtn').classList.remove('active');
+  const filtered = tipo==='genero'
+    ? allCases.filter(c=>c.tipo_caso==='genero'||(!c.tipo_caso&&/\d+[\s-]?G/.test(c.name)))
+    : allCases.filter(c=>c.tipo_caso==='no_genero'||(!c.tipo_caso&&/-A$|\/A$/.test(c.name)));
+  renderCases(filtered);
+  showView('viewWelcome');
+}
+
 function renderCaseHeader(c){
   const statusClass=c.status==='active'?'status-active':c.status==='terminado'?'status-terminado':'status-archived';
   const statusLabel=c.status==='active'?'Activo':c.status==='terminado'?'Terminado':'Archivado';
   const driveBtn=c.drive_folder_url
     ?`<a href="${c.drive_folder_url}" target="_blank" class="btn-sm" style="text-decoration:none">📁 Drive</a>`
     :'<button class="btn-sm" onclick="openEditCase()" title="Agregar carpeta Drive">📁 +Drive</button>';
+
+  // Badges extra
+  const judBadge=c.judicializada?'<span class="status-badge" style="background:rgba(41,128,185,.15);color:#5dade2;border:1px solid rgba(41,128,185,.3)">⚖ Judicializada</span>':'';
+  const mcBadge=c.medida_cautelar?'<span class="status-badge" style="background:rgba(192,57,43,.12);color:#e07060;border:1px solid rgba(192,57,43,.3)">🔒 Medida cautelar</span>':'';
+  const tipoBadge=c.tipo_procedimiento?`<span class="status-badge" style="background:var(--surface2);color:var(--text-dim);border:1px solid var(--border2)">${c.tipo_procedimiento}</span>`:'';
+
   document.getElementById('caseHeader').innerHTML=`
-    <div class="case-header-info">
+    <div class="case-header-info" style="flex:1">
       <div class="case-header-name">${c.name}</div>
       ${c.rol?`<div class="case-header-rol">ROL: ${c.rol}</div>`:''}
       ${c.caratula?`<div class="case-header-caratula">${c.caratula}</div>`:''}
+      ${c.materia?`<div style="font-size:11px;color:var(--text-dim);margin-top:2px">📌 ${c.materia}</div>`:''}
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:5px">
+        <span class="status-badge ${statusClass}">${statusLabel}</span>
+        ${tipoBadge}${judBadge}${mcBadge}
+        ${c.protocolo?`<span class="status-badge" style="background:var(--gold-glow);color:var(--gold-dim);border:1px solid var(--gold-dim)">Protocolo ${c.protocolo}</span>`:''}
+      </div>
+      ${c.medida_cautelar&&c.medida_cautelar_detalle?`<div style="font-size:10.5px;color:var(--text-muted);margin-top:4px">🔒 ${c.medida_cautelar_detalle}</div>`:''}
+      ${c.fecha_resolucion?`<div style="font-size:10px;color:var(--text-muted);margin-top:3px;font-family:'DM Mono',monospace">Resolución: ${c.fecha_resolucion}${c.fecha_denuncia?' · Denuncia: '+c.fecha_denuncia:''}${c.fecha_recepcion_fiscalia?' · Recepción: '+c.fecha_recepcion_fiscalia:''}</div>`:''}
+      ${c.actuario&&c.actuario!=='No aplica'?`<div style="font-size:10px;color:var(--text-muted);margin-top:2px">✍ Actuario/a: ${c.actuario}</div>`:''}
+      ${c.estado_procedimiento?`<div style="font-size:10px;color:var(--green);margin-top:2px">▶ ${c.estado_procedimiento}</div>`:''}
+      ${c.nueva_resolucion&&c.nueva_resolucion!=='No aplica'?`<div style="font-size:10px;color:var(--text-muted);margin-top:2px">📋 Nueva resolución: ${c.nueva_resolucion}${c.fecha_nueva_resolucion?' ('+c.fecha_nueva_resolucion+')':''}</div>`:''}
     </div>
-    <div class="case-header-right">
-      <span class="status-badge ${statusClass}">${statusLabel}</span>
+    <div class="case-header-right" style="flex-shrink:0">
       ${driveBtn}
       <button class="btn-sm" onclick="openEditCase()">✏ Editar</button>
       <button class="btn-sm" onclick="showTab('tabChat')">💬 Chat IA</button>
