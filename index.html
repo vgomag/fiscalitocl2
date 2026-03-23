@@ -11,6 +11,93 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;font-size:14px;}
 
+/* BUSCAR EN DILIGENCIAS */
+.dil-search-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px;}
+.dil-search-title{font-size:12px;font-weight:500;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.dil-search-row{display:flex;gap:7px;align-items:flex-end;}
+.dil-search-input{flex:1;background:var(--bg);border:1px solid var(--border2);color:var(--text);padding:8px 10px;border-radius:var(--radius);font-family:'Instrument Sans',sans-serif;font-size:12.5px;outline:none;resize:none;min-height:40px;max-height:80px;transition:border-color .15s;}
+.dil-search-input:focus{border-color:var(--gold-dim);}
+.dil-search-input::placeholder{color:var(--text-muted);}
+.dil-search-btn{background:var(--gold);border:none;color:#0f0e0c;padding:8px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600;font-family:'Instrument Sans',sans-serif;white-space:nowrap;}
+.dil-search-btn:hover{background:var(--accent);}
+.dil-search-btn:disabled{background:var(--border2);cursor:not-allowed;opacity:.5;}
+.dil-search-result{margin-top:10px;padding:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);font-size:12.5px;line-height:1.65;display:none;}
+.dil-search-result.show{display:block;}
+.dil-search-result strong{color:var(--gold);}
+
+/* EXPORTAR */
+.export-bar{display:flex;gap:7px;align-items:center;padding:8px 12px;background:var(--surface);border-bottom:1px solid var(--border);}
+.export-label{font-size:11px;color:var(--text-muted);flex:1;}
+.btn-export{background:none;border:1px solid var(--border2);color:var(--text-dim);padding:4px 10px;border-radius:var(--radius);cursor:pointer;font-size:11px;font-family:'Instrument Sans',sans-serif;transition:all .15s;display:flex;align-items:center;gap:4px;}
+.btn-export:hover{color:var(--text);background:var(--surface2);}
+
+/* MODAL CASO */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s ease;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-family:'EB Garamond',serif;font-size:20px;font-weight:500;}
+.modal-close{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:18px;padding:2px 6px;border-radius:4px;}
+.modal-close:hover{color:var(--text);background:var(--surface2);}
+.modal-body{padding:20px;}
+.modal-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.form-field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
+.form-field.full{grid-column:1/-1;}
+.form-field label{font-size:10px;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;font-weight:500;}
+.form-field input,.form-field select,.form-field textarea{background:var(--bg);border:1px solid var(--border2);color:var(--text);padding:8px 10px;border-radius:var(--radius);font-family:'Instrument Sans',sans-serif;font-size:12.5px;outline:none;transition:border-color .15s;width:100%;}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--gold-dim);}
+.form-field textarea{resize:vertical;min-height:70px;line-height:1.5;}
+.form-field select option{background:var(--surface);}
+.form-section{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim);margin:14px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;}
+.btn-danger{background:none;border:1px solid rgba(192,57,43,.4);color:#e07060;padding:7px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-family:'Instrument Sans',sans-serif;}
+.btn-danger:hover{background:rgba(192,57,43,.1);}
+
+/* RESOLUCIONES */
+.res-list{display:flex;flex-direction:column;gap:8px;}
+.res-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;}
+.res-card:hover{border-color:var(--border2);}
+.res-type{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-dim);font-family:'DM Mono',monospace;margin-bottom:4px;}
+.res-number{font-family:'EB Garamond',serif;font-size:16px;color:var(--gold);margin-bottom:3px;}
+.res-date{font-size:11px;color:var(--text-muted);font-family:'DM Mono',monospace;margin-bottom:6px;}
+.res-body{font-size:12px;color:var(--text-dim);line-height:1.6;}
+.res-fiscal{font-size:11px;color:var(--text-dim);margin-top:6px;padding-top:6px;border-top:1px solid var(--border);}
+.res-add-btn{width:100%;padding:9px;background:var(--gold-glow);border:1px dashed var(--gold-dim);color:var(--gold);border-radius:var(--radius);cursor:pointer;font-size:12px;font-family:'Instrument Sans',sans-serif;margin-bottom:14px;transition:all .15s;}
+.res-add-btn:hover{background:rgba(201,168,76,.2);}
+.res-form{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px;display:none;}
+.res-form.show{display:block;}
+.res-form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.res-form-field{display:flex;flex-direction:column;gap:3px;}
+.res-form-field label{font-size:10px;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;}
+.res-form-field input,.res-form-field select,.res-form-field textarea{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:6px 9px;border-radius:var(--radius);font-family:'Instrument Sans',sans-serif;font-size:12px;outline:none;transition:border-color .15s;}
+.res-form-field input:focus,.res-form-field select:focus,.res-form-field textarea:focus{border-color:var(--gold-dim);}
+.res-form-field textarea{resize:vertical;min-height:60px;}
+.res-form-field select option{background:var(--surface);}
+.res-form-actions{display:flex;gap:8px;margin-top:10px;}
+.btn-save{background:var(--gold);border:none;color:#0f0e0c;padding:7px 16px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600;font-family:'Instrument Sans',sans-serif;}
+.btn-save:hover{background:var(--accent);}
+.btn-cancel{background:none;border:1px solid var(--border2);color:var(--text-dim);padding:7px 16px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-family:'Instrument Sans',sans-serif;}
+
+/* CHECKLIST */
+.chk-phase{margin-bottom:18px;}
+.chk-phase-header{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:6px;cursor:pointer;}
+.chk-phase-title{font-size:12px;font-weight:600;color:var(--gold);}
+.chk-phase-progress{font-size:10px;color:var(--text-muted);font-family:'DM Mono',monospace;}
+.chk-progress-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:8px;overflow:hidden;}
+.chk-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s ease;}
+.chk-item{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;border-radius:var(--radius);transition:background .15s;cursor:pointer;}
+.chk-item:hover{background:var(--surface2);}
+.chk-item.done{opacity:.6;}
+.chk-checkbox{width:16px;height:16px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;background:var(--bg);}
+.chk-item.done .chk-checkbox{background:var(--gold);border-color:var(--gold);}
+.chk-checkbox-check{color:#0f0e0c;font-size:10px;font-weight:700;}
+.chk-text{font-size:12px;line-height:1.5;flex:1;}
+.chk-item.done .chk-text{text-decoration:line-through;color:var(--text-muted);}
+.chk-date{font-size:10px;color:var(--text-muted);font-family:'DM Mono',monospace;margin-top:2px;}
+.chk-summary{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:16px;display:flex;gap:16px;flex-wrap:wrap;}
+.chk-sum-item{text-align:center;}
+.chk-sum-num{font-family:'EB Garamond',serif;font-size:28px;font-weight:500;line-height:1;}
+.chk-sum-label{font-size:10px;color:var(--text-muted);margin-top:2px;}
+
 /* DASHBOARD */
 .dash-wrap{padding:20px;overflow-y:auto;flex:1;}
 .dash-title{font-family:'EB Garamond',serif;font-size:22px;font-weight:400;margin-bottom:4px;}
@@ -268,6 +355,111 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
 </head>
 <body>
 
+<!-- MODAL CASO -->
+<div id="caseModal" style="display:none">
+  <div class="modal-overlay" onclick="if(event.target===this)closeCaseModal()">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modalTitle">Nuevo Expediente</span>
+        <button class="modal-close" onclick="closeCaseModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="modalCaseId"/>
+
+        <div class="form-section">Identificación</div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Nombre / N° interno *</label>
+            <input id="fName" placeholder="Ej: 56 G, 57-A"/>
+          </div>
+          <div class="form-field">
+            <label>Estado</label>
+            <select id="fStatus">
+              <option value="active">Activo</option>
+              <option value="terminado">Terminado</option>
+              <option value="archived">Archivado</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>ROL / N° Expediente</label>
+            <input id="fRol" placeholder="Ej: 813-2024-VRAC"/>
+          </div>
+          <div class="form-field">
+            <label>Carátula (partes)</label>
+            <input id="fCaratula" placeholder="Ej: HUENANTE-NÚÑEZ"/>
+          </div>
+        </div>
+
+        <div class="form-section">Descripción</div>
+        <div class="form-field">
+          <label>Descripción del caso</label>
+          <textarea id="fDesc" placeholder="Resumen de los hechos, tipo de procedimiento, protocolo aplicable…"></textarea>
+        </div>
+
+        <div class="form-section">Intervinientes principales</div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Denunciante</label>
+            <input id="fDenunciante" placeholder="Nombre completo"/>
+          </div>
+          <div class="form-field">
+            <label>Denunciado/a</label>
+            <input id="fDenunciado" placeholder="Nombre completo"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Fiscal instructor/a</label>
+            <input id="fFiscal" placeholder="Nombre completo"/>
+          </div>
+          <div class="form-field">
+            <label>Tipo de procedimiento</label>
+            <select id="fTipo">
+              <option value="">— Seleccionar —</option>
+              <option value="investigacion_sumaria">Investigación Sumaria</option>
+              <option value="sumario_administrativo">Sumario Administrativo</option>
+              <option value="procedimiento_disciplinario">Procedimiento Disciplinario</option>
+              <option value="protocolo_genero">Protocolo de Género</option>
+              <option value="protocolo_laboral">Protocolo Laboral (Ley Karin)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Normativa / Protocolo</label>
+            <select id="fProtocolo">
+              <option value="">— Seleccionar —</option>
+              <option value="protocolo_2020">Protocolo 2020</option>
+              <option value="protocolo_2022">Protocolo 2022</option>
+              <option value="ley_karin">Ley Karin (21.643)</option>
+              <option value="ley_21369">Ley 21.369</option>
+              <option value="estatuto_administrativo">Estatuto Administrativo</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Prioridad</label>
+            <select id="fPrioridad">
+              <option value="media">Media</option>
+              <option value="alta">Alta</option>
+              <option value="baja">Baja</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="modalDeleteBtn" style="display:none;margin-top:8px;">
+          <button class="btn-danger" onclick="confirmDeleteCase()">🗑 Eliminar expediente</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeCaseModal()">Cancelar</button>
+        <button class="btn-save" id="modalSaveBtn" onclick="saveCaseModal()">Guardar expediente</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- AUTH -->
 <div id="authScreen" class="auth-wrap">
   <div class="auth-card">
@@ -368,6 +560,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
         <div class="tab active" onclick="showTab('tabParticipantes')">👥 Participantes</div>
         <div class="tab" onclick="showTab('tabEtapas')">📋 Etapas</div>
         <div class="tab" onclick="showTab('tabCronologia')">📅 Cronología</div>
+        <div class="tab" onclick="showTab('tabResoluciones')">📜 Resoluciones</div>
+        <div class="tab" onclick="showTab('tabChecklist')">✅ Checklist</div>
         <div class="tab" onclick="showTab('tabDiligencias')">📄 Diligencias</div>
         <div class="tab" onclick="showTab('tabAcciones')">⚡ Pendientes</div>
         <div class="tab" onclick="showTab('tabChat')">💬 Chat IA</div>
@@ -388,6 +582,16 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
         <div id="cronologiaList"><div class="loading">Cargando cronología…</div></div>
       </div>
 
+      <!-- TAB: Resoluciones -->
+      <div class="tab-content" id="tabResoluciones" style="display:none">
+        <div id="resolucionesContent"><div class="loading">Cargando resoluciones…</div></div>
+      </div>
+
+      <!-- TAB: Checklist -->
+      <div class="tab-content" id="tabChecklist" style="display:none">
+        <div id="checklistContent"><div class="loading">Cargando checklist…</div></div>
+      </div>
+
       <!-- TAB: Diligencias -->
       <div class="tab-content" id="tabDiligencias" style="display:none">
         <div id="diligenciasList"><div class="loading">Cargando diligencias…</div></div>
@@ -404,6 +608,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Instru
           <span class="chat-fn-badge" id="chatFnBadge">F0</span>
           <span style="font-size:13px;font-weight:500;" id="chatFnTitle">Consulta General</span>
           <div style="margin-left:auto;display:flex;gap:5px;" id="fnQuickBtns"></div>
+        </div>
+        <div class="export-bar">
+          <span class="export-label" id="chatMsgCount">0 mensajes</span>
+          <button class="btn-export" onclick="exportChat('copy')">📋 Copiar</button>
+          <button class="btn-export" onclick="exportChat('txt')">⬇ .txt</button>
+          <button class="btn-export" onclick="exportChat('md')">⬇ .md</button>
+          <button class="btn-export" onclick="clearChatView()">↺ Limpiar</button>
         </div>
         <div class="msgs" id="msgs"></div>
         <div class="input-area">
@@ -489,6 +700,128 @@ async function doRegister(){
   btn.disabled=false;btn.textContent='Crear cuenta';
 }
 async function doLogout(){await sb.auth.signOut();currentCase=null;chatHistory=[];}
+
+// ── Modal Caso ────────────────────────────────────────────────────────────────
+function showNewCaseModal(){
+  document.getElementById('modalTitle').textContent='Nuevo Expediente';
+  document.getElementById('modalCaseId').value='';
+  document.getElementById('fName').value='';
+  document.getElementById('fRol').value='';
+  document.getElementById('fCaratula').value='';
+  document.getElementById('fDesc').value='';
+  document.getElementById('fStatus').value='active';
+  document.getElementById('fDenunciante').value='';
+  document.getElementById('fDenunciado').value='';
+  document.getElementById('fFiscal').value='';
+  document.getElementById('fTipo').value='';
+  document.getElementById('fProtocolo').value='';
+  document.getElementById('fPrioridad').value='media';
+  document.getElementById('modalDeleteBtn').style.display='none';
+  document.getElementById('caseModal').style.display='block';
+}
+
+function openEditCase(){
+  if(!currentCase) return;
+  document.getElementById('modalTitle').textContent='Editar Expediente';
+  document.getElementById('modalCaseId').value=currentCase.id;
+  document.getElementById('fName').value=currentCase.name||'';
+  document.getElementById('fRol').value=currentCase.rol||'';
+  document.getElementById('fCaratula').value=currentCase.caratula||'';
+  document.getElementById('fDesc').value=currentCase.description||'';
+  document.getElementById('fStatus').value=currentCase.status||'active';
+  // Prellenar intervinientes desde participantes si existen
+  const acc=currentCase._participants?.find(p=>p.role==='denunciado'||p.role==='imputado');
+  const den=currentCase._participants?.find(p=>p.role==='denunciante');
+  const fis=currentCase._participants?.find(p=>p.role==='fiscal');
+  document.getElementById('fDenunciante').value=den?.name||'';
+  document.getElementById('fDenunciado').value=acc?.name||'';
+  document.getElementById('fFiscal').value=fis?.name||'';
+  document.getElementById('fTipo').value='';
+  document.getElementById('fProtocolo').value='';
+  document.getElementById('fPrioridad').value='media';
+  document.getElementById('modalDeleteBtn').style.display='block';
+  document.getElementById('caseModal').style.display='block';
+}
+
+function closeCaseModal(){
+  document.getElementById('caseModal').style.display='none';
+}
+
+async function saveCaseModal(){
+  if(!session) return;
+  const id=document.getElementById('modalCaseId').value;
+  const name=document.getElementById('fName').value.trim();
+  const rol=document.getElementById('fRol').value.trim();
+  const caratula=document.getElementById('fCaratula').value.trim();
+  const status=document.getElementById('fStatus').value;
+  const description=document.getElementById('fDesc').value.trim();
+  const denunciante=document.getElementById('fDenunciante').value.trim();
+  const denunciado=document.getElementById('fDenunciado').value.trim();
+  const fiscal=document.getElementById('fFiscal').value.trim();
+
+  if(!name){alert('El nombre del expediente es obligatorio.');return;}
+
+  const btn=document.getElementById('modalSaveBtn');
+  btn.disabled=true;btn.textContent='Guardando…';
+
+  try{
+    if(id){
+      // Editar
+      const{error}=await sb.from('cases').update({name,rol,caratula,status,description,updated_at:new Date().toISOString()}).eq('id',id);
+      if(error) throw error;
+      // Actualizar participantes si se ingresaron
+      if(denunciante||denunciado||fiscal){
+        await updateParticipants(id,{denunciante,denunciado,fiscal});
+      }
+      // Actualizar currentCase
+      currentCase={...currentCase,name,rol,caratula,status,description};
+      renderCaseHeader(currentCase);
+    } else {
+      // Crear nuevo
+      const{data,error}=await sb.from('cases').insert({
+        name,rol,caratula,status,description,user_id:session.user.id
+      }).select().single();
+      if(error) throw error;
+      if(denunciante||denunciado||fiscal){
+        await updateParticipants(data.id,{denunciante,denunciado,fiscal});
+      }
+      await loadCases();
+      pickCase(data);
+    }
+    await loadCases();
+    closeCaseModal();
+  }catch(e){
+    alert('Error al guardar: '+e.message);
+  }
+  btn.disabled=false;btn.textContent='Guardar expediente';
+}
+
+async function updateParticipants(caseId,{denunciante,denunciado,fiscal}){
+  const roles=[
+    {role:'denunciante',name:denunciante},
+    {role:'denunciado',name:denunciado},
+    {role:'fiscal',name:fiscal}
+  ].filter(p=>p.name);
+  for(const p of roles){
+    const{data:ex}=await sb.from('case_participants').select('id').eq('case_id',caseId).eq('role',p.role).limit(1);
+    if(ex?.length){
+      await sb.from('case_participants').update({name:p.name,updated_at:new Date().toISOString()}).eq('id',ex[0].id);
+    } else {
+      await sb.from('case_participants').insert({case_id:caseId,user_id:session.user.id,role:p.role,name:p.name});
+    }
+  }
+}
+
+async function confirmDeleteCase(){
+  if(!currentCase) return;
+  if(!confirm(`¿Eliminar el expediente "${currentCase.name}"? Esta acción no se puede deshacer.`)) return;
+  const{error}=await sb.from('cases').update({deleted_at:new Date().toISOString()}).eq('id',currentCase.id);
+  if(error){alert('Error: '+error.message);return;}
+  closeCaseModal();
+  currentCase=null;
+  await loadCases();
+  showView('viewWelcome');
+}
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 async function openDashboard(){
@@ -677,6 +1010,7 @@ function renderCaseHeader(c){
     </div>
     <div class="case-header-right">
       <span class="status-badge ${statusClass}">${statusLabel}</span>
+      <button class="btn-sm" onclick="openEditCase()">✏ Editar</button>
       <button class="btn-sm" onclick="showTab('tabChat')">💬 Chat IA</button>
     </div>`;
 }
@@ -685,7 +1019,7 @@ function renderCaseHeader(c){
 function showTab(tabId){
   activeTab=tabId;
   document.querySelectorAll('.tab').forEach((t,i)=>{
-    const tabs=['tabParticipantes','tabEtapas','tabCronologia','tabDiligencias','tabAcciones','tabChat'];
+    const tabs=['tabParticipantes','tabEtapas','tabCronologia','tabResoluciones','tabChecklist','tabDiligencias','tabAcciones','tabChat'];
     t.classList.toggle('active',tabs[i]===tabId);
   });
   document.querySelectorAll('.tab-content').forEach(c=>{
@@ -699,6 +1033,8 @@ async function loadTabData(tabId){
   if(tabId==='tabParticipantes') await loadParticipantes();
   else if(tabId==='tabEtapas') await loadEtapas();
   else if(tabId==='tabCronologia') await loadCronologia();
+  else if(tabId==='tabResoluciones') await loadResoluciones();
+  else if(tabId==='tabChecklist') await loadChecklist();
   else if(tabId==='tabDiligencias') await loadDiligencias();
   else if(tabId==='tabAcciones') await loadAcciones();
   else if(tabId==='tabChat') initChat();
@@ -769,12 +1105,233 @@ async function loadCronologia(){
     </div>`).join('')}</div>`;
 }
 
+// ── Resoluciones ──────────────────────────────────────────────────────────────
+const RES_TYPES = {
+  inicio:'Resolución de Inicio',nuevo_fiscal:'Designación de Fiscal',
+  medida_proteccion:'Medida de Protección',cargos:'Formulación de Cargos',
+  sobreseimiento:'Sobreseimiento',sancion:'Sanción',absolucion:'Absolución',
+  otro:'Otro'
+};
+
+async function loadResoluciones(){
+  const el=document.getElementById('resolucionesContent');
+  el.innerHTML='<div class="loading">Cargando…</div>';
+  const{data}=await sb.from('resoluciones').select('*').eq('case_id',currentCase.id).order('created_at',{ascending:false});
+  renderResoluciones(data||[]);
+}
+
+function renderResoluciones(data){
+  const el=document.getElementById('resolucionesContent');
+  el.innerHTML=`
+    <button class="res-add-btn" onclick="toggleResForm()">+ Agregar resolución</button>
+    <div class="res-form" id="resForm">
+      <div class="res-form-row">
+        <div class="res-form-field">
+          <label>Tipo de resolución</label>
+          <select id="resType">
+            ${Object.entries(RES_TYPES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}
+          </select>
+        </div>
+        <div class="res-form-field">
+          <label>N° Resolución</label>
+          <input id="resNumber" placeholder="Ej: Exenta N° 626/2025"/>
+        </div>
+      </div>
+      <div class="res-form-row">
+        <div class="res-form-field">
+          <label>Fecha</label>
+          <input type="date" id="resDate"/>
+        </div>
+        <div class="res-form-field">
+          <label>Autoridad que emite</label>
+          <input id="resAuthority" placeholder="Ej: Rector UMAG"/>
+        </div>
+      </div>
+      <div class="res-form-field" style="margin-bottom:8px">
+        <label>Fiscal designado/a</label>
+        <input id="resFiscal" placeholder="Nombre del fiscal"/>
+      </div>
+      <div class="res-form-field">
+        <label>Descripción / Hechos</label>
+        <textarea id="resFacts" placeholder="Descripción de la resolución…"></textarea>
+      </div>
+      <div class="res-form-field" style="margin-top:8px">
+        <label>Notas adicionales</label>
+        <textarea id="resNotes" placeholder="Observaciones…" style="min-height:44px"></textarea>
+      </div>
+      <div class="res-form-actions">
+        <button class="btn-save" onclick="saveResolucion()">Guardar</button>
+        <button class="btn-cancel" onclick="toggleResForm()">Cancelar</button>
+      </div>
+    </div>
+    ${!data.length?'<div class="empty-state">📜<p>Sin resoluciones registradas.<br>Agrega la primera usando el botón de arriba.</p></div>':''}
+    <div class="res-list">
+      ${data.map(r=>`
+        <div class="res-card">
+          <div class="res-type">${RES_TYPES[r.resolution_type]||r.resolution_type||'Resolución'}</div>
+          ${r.resolution_number?`<div class="res-number">${r.resolution_number}</div>`:''}
+          ${r.resolution_date?`<div class="res-date">📅 ${r.resolution_date}</div>`:''}
+          ${r.facts_description?`<div class="res-body">${r.facts_description}</div>`:''}
+          ${r.fiscal_designado?`<div class="res-fiscal">⚖ Fiscal: ${r.fiscal_designado}</div>`:''}
+          ${r.authority?`<div class="res-fiscal">🏛 Autoridad: ${r.authority}</div>`:''}
+          ${r.notes?`<div class="res-fiscal" style="color:var(--text-muted)">📝 ${r.notes}</div>`:''}
+        </div>`).join('')}
+    </div>`;
+}
+
+function toggleResForm(){
+  document.getElementById('resForm').classList.toggle('show');
+}
+
+async function saveResolucion(){
+  if(!session||!currentCase) return;
+  const type=document.getElementById('resType').value;
+  const number=document.getElementById('resNumber').value.trim();
+  const date=document.getElementById('resDate').value;
+  const authority=document.getElementById('resAuthority').value.trim();
+  const fiscal=document.getElementById('resFiscal').value.trim();
+  const facts=document.getElementById('resFacts').value.trim();
+  const notes=document.getElementById('resNotes').value.trim();
+  if(!number&&!facts){alert('Ingresa al menos el N° de resolución o una descripción.');return;}
+  const{error}=await sb.from('resoluciones').insert({
+    case_id:currentCase.id, user_id:session.user.id,
+    resolution_type:type, resolution_number:number,
+    resolution_date:date||null, authority, fiscal_designado:fiscal,
+    facts_description:facts, notes
+  });
+  if(error){alert('Error al guardar: '+error.message);return;}
+  await loadResoluciones();
+}
+
+// ── Checklist ─────────────────────────────────────────────────────────────────
+const CHECKLIST_TEMPLATE = [
+  { phase:'iniciacion', label:'Fase 1 · Iniciación', items:[
+    'Resolución que ordena la investigación redactada según modelo',
+    'Resolución numerada, firmada y registrada',
+    'Copia remitida al/la fiscal designado/a y constancia de recepción',
+    'Procedimiento creado en la planilla maestra (N.º expediente, estado, responsable, fecha de vencimiento)',
+  ]},
+  { phase:'instruccion_inicio', label:'Fase 2 · Instrucción — Inicio de Indagatoria', items:[
+    'Fiscal acepta el cargo por escrito',
+    'Se evalúan y dictan medidas de protección si corresponde',
+    'Denuncia ratificada o subsanada',
+    'Primera declaración de la persona denunciada incorporada al expediente',
+  ]},
+  { phase:'instruccion_diligencias', label:'Fase 2 · Instrucción — Diligencias Indagatorias', items:[
+    'Revisión documental completa (contratos, correos, actas, reglamentos)',
+    'Cuestionarios enviados a testigos con plazo claro',
+    'Respuestas de testigos digitalizadas y foliadas',
+    'Pruebas periciales u oficios externos solicitados y recibidos',
+  ]},
+  { phase:'instruccion_cierre', label:'Fase 2 · Instrucción — Cierre de Indagatoria', items:[
+    'Informe de inhabilidad/falta de jerarquía elaborado (si aplica)',
+    'Propuesta de sobreseimiento o borrador de cargos elaborado',
+    'Registro de fecha de cierre y envío de informe a la autoridad inmediata',
+  ]},
+  { phase:'discusion_defensa', label:'Fase 3 · Discusión y Defensa', items:[
+    'Cargos redactados con hechos, normativa aplicable y medios de prueba',
+    'Cargos notificados correctamente',
+    'Plazo legal otorgado para descargos con constancia de fecha de vencimiento',
+    'Descargos analizados e incorporados al expediente',
+    'Si descargos aportan nuevos antecedentes, se diligencian',
+    'Declarado término de la prueba y foliada resolución correspondiente',
+  ]},
+  { phase:'probatoria', label:'Fase 4 · Probatoria', items:[
+    'Apertura del período de prueba declarada',
+    'Prueba rendida y agregada al expediente',
+    'Cierre del período probatorio declarado',
+  ]},
+  { phase:'vista_fiscal', label:'Fase 5 · Vista Fiscal', items:[
+    'Vista fiscal elaborada con análisis de hechos probados',
+    'Ponderación de la prueba realizada',
+    'Propuesta fundada de resolución incluida',
+    'Vista fiscal entregada a la autoridad',
+  ]},
+  { phase:'resolucion', label:'Fase 6 · Resolución', items:[
+    'Resolución de la autoridad dictada',
+    'Resolución notificada a las partes',
+    'Resolución registrada en planilla maestra',
+    'Expediente cerrado y archivado',
+  ]},
+];
+
+async function loadChecklist(){
+  const el=document.getElementById('checklistContent');
+  el.innerHTML='<div class="loading">Cargando checklist…</div>';
+
+  // Cargar ítems existentes del caso
+  const{data:existing}=await sb.from('case_checklist_items')
+    .select('*').eq('case_id',currentCase.id).order('item_order');
+
+  // Si no hay ítems, crear desde plantilla
+  if(!existing?.length && session){
+    const rows=[];
+    CHECKLIST_TEMPLATE.forEach(phase=>{
+      phase.items.forEach((text,i)=>{
+        rows.push({case_id:currentCase.id,user_id:session.user.id,phase:phase.phase,item_text:text,item_order:i,is_completed:false});
+      });
+    });
+    await sb.from('case_checklist_items').insert(rows);
+    const{data:fresh}=await sb.from('case_checklist_items').select('*').eq('case_id',currentCase.id).order('item_order');
+    renderChecklist(fresh||[]);
+  } else {
+    renderChecklist(existing||[]);
+  }
+}
+
+function renderChecklist(items){
+  const el=document.getElementById('checklistContent');
+  const total=items.length;
+  const done=items.filter(i=>i.is_completed).length;
+  const pct=total?Math.round(done/total*100):0;
+
+  let html=`
+    <div class="chk-summary">
+      <div class="chk-sum-item"><div class="chk-sum-num" style="color:var(--gold)">${pct}%</div><div class="chk-sum-label">Completado</div></div>
+      <div class="chk-sum-item"><div class="chk-sum-num">${done}</div><div class="chk-sum-label">Realizadas</div></div>
+      <div class="chk-sum-item"><div class="chk-sum-num">${total-done}</div><div class="chk-sum-label">Pendientes</div></div>
+      <div class="chk-sum-item"><div class="chk-sum-num">${total}</div><div class="chk-sum-label">Total tareas</div></div>
+    </div>
+    <div class="chk-progress-bar"><div class="chk-progress-fill" style="width:${pct}%"></div></div>`;
+
+  CHECKLIST_TEMPLATE.forEach(phase=>{
+    const phaseItems=items.filter(i=>i.phase===phase.phase);
+    if(!phaseItems.length) return;
+    const phaseDone=phaseItems.filter(i=>i.is_completed).length;
+    html+=`<div class="chk-phase">
+      <div class="chk-phase-header">
+        <span class="chk-phase-title">${phase.label}</span>
+        <span class="chk-phase-progress">${phaseDone}/${phaseItems.length}</span>
+      </div>
+      ${phaseItems.map(item=>`
+        <div class="chk-item ${item.is_completed?'done':''}" onclick="toggleCheckItem('${item.id}',${!item.is_completed})">
+          <div class="chk-checkbox">${item.is_completed?'<span class="chk-checkbox-check">✓</span>':''}</div>
+          <div>
+            <div class="chk-text">${item.item_text}</div>
+            ${item.completed_at?`<div class="chk-date">✓ ${fmtDate(item.completed_at)}</div>`:''}
+          </div>
+        </div>`).join('')}
+    </div>`;
+  });
+
+  el.innerHTML=html;
+}
+
+async function toggleCheckItem(id, newVal){
+  const{data}=await sb.from('case_checklist_items')
+    .update({is_completed:newVal, completed_at:newVal?new Date().toISOString():null, updated_at:new Date().toISOString()})
+    .eq('id',id).select();
+  // Recargar
+  await loadChecklist();
+}
+
 // ── Diligencias ───────────────────────────────────────────────────────────────
 async function loadDiligencias(){
   const el=document.getElementById('diligenciasList');
   el.innerHTML='<div class="loading">Cargando diligencias…</div>';
   const{data}=await sb.from('diligencias').select('id,diligencia_label,diligencia_type,file_name,fojas_inicio,fojas_fin,fecha_diligencia,ai_summary,processing_status,is_processed').eq('case_id',currentCase.id).order('fojas_inicio',{ascending:true}).limit(100);
   if(!data?.length){el.innerHTML='<div class="empty-state">📄<p>Sin diligencias registradas</p></div>';return;}
+  window._dilData=data;
 
   // Agrupar por tipo
   const groups={};
@@ -788,6 +1345,16 @@ async function loadDiligencias(){
   };
 
   el.innerHTML=`
+    <!-- BUSCADOR IA EN DILIGENCIAS -->
+    <div class="dil-search-wrap">
+      <div class="dil-search-title">🔍 Buscar con IA en las diligencias de este caso</div>
+      <div class="dil-search-row">
+        <textarea class="dil-search-input" id="dilSearchInput" placeholder="Ej: ¿Qué medidas de protección se decretaron? ¿Cuándo declaró el testigo X? ¿Qué dijo el denunciado sobre los hechos?" rows="2" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();searchDiligencias();}"></textarea>
+        <button class="dil-search-btn" id="dilSearchBtn" onclick="searchDiligencias()">Buscar</button>
+      </div>
+      <div class="dil-search-result" id="dilSearchResult"></div>
+    </div>
+
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
       <span style="font-size:11px;color:var(--text-muted)">${data.length} diligencias</span>
       <input class="search-box" style="width:200px" placeholder="Filtrar diligencias…" oninput="filterDiligencias(this.value)" id="dilSearch"/>
@@ -814,9 +1381,6 @@ async function loadDiligencias(){
           </div>`).join('')}
       </div>`).join('')}
     </div>`;
-
-  // Guardar para filtrado
-  window._dilData=data;
 }
 
 function toggleDilDetail(id){
@@ -880,6 +1444,91 @@ async function loadAcciones(){
       <span class="accion-status">${a.status||'pendiente'}</span>
     </div>`;
   }).join('');
+}
+
+async function searchDiligencias(){
+  const q=document.getElementById('dilSearchInput')?.value.trim();
+  if(!q||!window._dilData?.length) return;
+  const btn=document.getElementById('dilSearchBtn');
+  const res=document.getElementById('dilSearchResult');
+  btn.disabled=true;btn.textContent='Buscando…';
+  res.className='dil-search-result show';
+  res.innerHTML='<div class="typing"><div class="da"></div><div class="da"></div><div class="da"></div></div>';
+
+  // Construir contexto con resúmenes de diligencias
+  const ctx=window._dilData.filter(d=>d.ai_summary).slice(0,40).map(d=>
+    `[${d.diligencia_type||'doc'}] ${d.diligencia_label}\n${d.ai_summary?.substring(0,600)||''}`
+  ).join('\n\n---\n\n');
+
+  try{
+    const r=await fetch(CHAT_ENDPOINT,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:1500,
+        system:`Eres Fiscalito, asistente jurídico. Responde SOLO basándote en los resúmenes de diligencias del expediente "${currentCase.name}" que se te proporcionan. Si la información no está en los documentos, indícalo claramente. Responde en español institucional.`,
+        messages:[{role:'user',content:`DILIGENCIAS DEL EXPEDIENTE:\n\n${ctx}\n\n---\nPREGUNTA: ${q}`}]
+      })
+    });
+    const d=await r.json();
+    const reply=d.content?.filter(b=>b.type==='text').map(b=>b.text).join('')||'Sin respuesta.';
+    res.innerHTML=md(reply);
+  }catch(e){
+    res.innerHTML=`<span style="color:var(--red)">⚠ Error: ${e.message}</span>`;
+  }
+  btn.disabled=false;btn.textContent='Buscar';
+}
+
+// ── Exportar Chat ─────────────────────────────────────────────────────────────
+function exportChat(format){
+  if(!chatHistory.length){alert('No hay mensajes en el chat.');return;}
+  const caseName=currentCase?.name||'Fiscalito';
+  const date=new Date().toLocaleDateString('es-CL');
+  const fn=FNS.find(f=>f.code===activeFn);
+
+  let content=`FISCALITO — Asistente Jurídico UMAG\n`;
+  content+=`Expediente: ${caseName}${currentCase?.rol?' · '+currentCase.rol:''}\n`;
+  content+=`Función: ${activeFn} — ${fn?.name}\n`;
+  content+=`Fecha: ${date}\n`;
+  content+=`${'─'.repeat(60)}\n\n`;
+
+  chatHistory.forEach(m=>{
+    const role=m.role==='user'?'FISCAL':'FISCALITO';
+    content+=`${role}:\n${m.content}\n\n${'─'.repeat(40)}\n\n`;
+  });
+
+  if(format==='copy'){
+    navigator.clipboard.writeText(content).then(()=>{
+      showToast('✓ Copiado al portapapeles');
+    }).catch(()=>alert('No se pudo copiar.'));
+    return;
+  }
+
+  const ext=format==='md'?'md':'txt';
+  const mdContent=format==='md'?chatHistory.map(m=>`## ${m.role==='user'?'Fiscal':'Fiscalito'}\n\n${m.content}`).join('\n\n---\n\n'):content;
+  const blob=new Blob([format==='md'?`# ${caseName} — ${fn?.name}\n*${date}*\n\n`+mdContent:content],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`fiscalito_${caseName.replace(/[^a-z0-9]/gi,'_').toLowerCase()}_${activeFn}.${ext}`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(`✓ Descargado como .${ext}`);
+}
+
+function clearChatView(){
+  if(chatHistory.length&&!confirm('¿Limpiar el chat? Se perderán los mensajes.')) return;
+  chatHistory=[];
+  document.getElementById('msgs').innerHTML='';
+  document.getElementById('chatMsgCount').textContent='0 mensajes';
+  initChat();
+}
+
+function showToast(msg){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--gold-dim);color:var(--gold);padding:8px 14px;border-radius:6px;font-size:12px;z-index:200;animation:slideUp .2s ease;';
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2500);
 }
 
 // ── Chat ──────────────────────────────────────────────────────────────────────
@@ -951,6 +1600,7 @@ async function sendMessage(text){
     const reply=d.content?.filter(b=>b.type==='text').map(b=>b.text).join('')||'Sin respuesta.';
     chatHistory.push({role:'assistant',content:reply});
     appendMsg('assistant',reply);
+    document.getElementById('chatMsgCount').textContent=`${chatHistory.length} mensajes`;
   }catch(e){removeTyping(tid);appendMsg('assistant',`⚠ ${e.message}`);}
   setLoading(false);
 }
