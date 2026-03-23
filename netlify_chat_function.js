@@ -28,13 +28,17 @@ export default async (req) => {
     });
     const data = await res.json();
     return new Response(JSON.stringify(data), {
-      status: 200, headers: { 'Content-Type': 'application/json' }
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
     });
   } catch (e) {
     return new Response(JSON.stringify({ error: e.message }), {
-      status: 500, headers: { 'Content-Type': 'application/json' }
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
     });
   }
 }
 
-export const config = { path: '/.netlify/functions/chat' };
+export const config = {
+  path: '/.netlify/functions/chat'
+};
