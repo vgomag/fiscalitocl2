@@ -463,7 +463,68 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter'
 .mini-field textarea{resize:vertical;min-height:70px;}
 .mini-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 
+
+/* ── Statistics Dashboard ───────────────────────────────────── */
+.stats-wrap{display:flex;flex-direction:column;height:100%;overflow:hidden;}
+.stats-header{padding:16px 20px 0;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}
+.stats-title{font-family:'EB Garamond',serif;font-size:20px;font-weight:400;color:var(--text);}
+.stats-sub{font-size:11px;color:var(--text-muted);margin-top:1px;}
+.stats-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 20px;flex-shrink:0;}
+.stats-kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;flex-direction:column;gap:2px;position:relative;}
+.stats-kpi-val{font-family:'EB Garamond',serif;font-size:32px;line-height:1;color:var(--text);}
+.stats-kpi-val.gold{color:var(--gold);}
+.stats-kpi-val.blue{color:var(--blue);}
+.stats-kpi-val.green{color:var(--green);}
+.stats-kpi-val.red{color:var(--red);}
+.stats-kpi-label{font-size:11px;color:var(--text-muted);}
+.stats-kpi-sub{font-size:10px;color:var(--text-muted);opacity:.7;}
+.stats-kpi-corner{position:absolute;top:10px;right:10px;opacity:.25;}
+.stats-tabs{display:flex;gap:0;padding:0 20px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.stats-tab{padding:8px 14px;font-size:11px;font-weight:500;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;letter-spacing:.02em;}
+.stats-tab:hover{color:var(--text);}
+.stats-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.stats-body{flex:1;overflow-y:auto;padding:18px 20px;}
+/* Sub KPI row */
+.stats-sub-kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px;}
+.stats-sub-kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;text-align:center;}
+.stats-sub-kpi-val{font-family:'EB Garamond',serif;font-size:22px;color:var(--text);}
+.stats-sub-kpi-label{font-size:9.5px;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase;margin-top:2px;}
+/* Chart sections */
+.stats-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:14px;}
+.stats-section-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;}
+.stats-section-title{font-size:12.5px;font-weight:600;color:var(--text);}
+.stats-section-sub{font-size:10.5px;color:var(--text-muted);margin-bottom:14px;}
+.stats-charts-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.stats-chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}
+.stats-chart-title{font-size:11.5px;font-weight:600;color:var(--text);margin-bottom:10px;}
+.stats-chart-sub{font-size:10px;color:var(--text-muted);margin-bottom:8px;}
+.stats-download-btn{background:none;border:1px solid var(--border2);color:var(--text-dim);padding:3px 9px;border-radius:var(--radius);cursor:pointer;font-size:10.5px;font-family:'Inter',sans-serif;transition:all .15s;}
+.stats-download-btn:hover{color:var(--gold);border-color:var(--gold-dim);}
+canvas{max-height:260px;}
+/* Widget builder */
+.widget-builder{background:var(--surface2);border:1px dashed var(--border2);border-radius:var(--radius);padding:16px;margin-bottom:14px;}
+.widget-builder-title{font-size:12px;font-weight:600;color:var(--gold);margin-bottom:12px;}
+.widget-form-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end;}
+.widget-form-field{display:flex;flex-direction:column;gap:3px;}
+.widget-form-field label{font-size:9.5px;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;}
+.widget-form-field select,.widget-form-field input{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:11.5px;outline:none;}
+.widget-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-bottom:14px;}
+.widget-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;position:relative;}
+.widget-card-title{font-size:11.5px;font-weight:600;margin-bottom:8px;color:var(--text);}
+.widget-card-actions{position:absolute;top:10px;right:10px;display:flex;gap:4px;}
+/* Stats AI chat */
+.stats-chat-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;}
+.stats-chat-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:10px;}
+.stats-chat-msgs{max-height:260px;overflow-y:auto;margin-bottom:10px;display:flex;flex-direction:column;gap:8px;}
+.stats-chat-msg{padding:8px 12px;border-radius:var(--radius);font-size:12px;line-height:1.6;}
+.stats-chat-msg.user{background:var(--gold-glow);border:1px solid var(--gold-dim);align-self:flex-end;max-width:80%;}
+.stats-chat-msg.ai{background:var(--surface2);border:1px solid var(--border);align-self:flex-start;max-width:90%;}
+.stats-chat-input-row{display:flex;gap:8px;}
+.stats-chat-input{flex:1;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:12px;outline:none;}
+.stats-chat-input:focus{border-color:var(--gold-dim);}
+
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -607,7 +668,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter'
       <div class="sidebar-nav-item" onclick="openPendientes()">
         <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><circle cx="8" cy="8" r="6"/><polyline points="8,4.5 8,8 10.5,10"/></svg></span>Pendientes
       </div>
-      <div class="sidebar-nav-item" onclick="openEstadisticas()">
+      <div class="sidebar-nav-item" id="navEstadisticas" onclick="openEstadisticas()">
         <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" ><line x1="2" y1="14" x2="14" y2="14"/><rect x="2.5" y="8" width="3" height="6"/><rect x="6.5" y="5" width="3" height="9"/><rect x="10.5" y="10" width="3" height="4"/></svg></span>Estadísticas
       </div>
       <div class="sidebar-nav-item" onclick="pickFnAndChat('F10')">
@@ -722,7 +783,40 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Inter'
 
     <!-- DASHBOARD -->
     <div class="view" id="viewDashboard" style="flex-direction:column;overflow:hidden;">
-      <div class="dash-wrap" id="dashContent"><div class="loading">Cargando dashboard…</div></div>
+      <div id="dashContent"><div class="loading">Cargando dashboard…</div></div>
+    </div>
+
+    <!-- ESTADÍSTICAS FULL -->
+    <div class="view" id="viewEstadisticas" style="flex-direction:column;overflow:hidden;">
+      <div class="stats-wrap" id="statsWrap">
+        <div class="stats-header">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between">
+            <div>
+              <div class="stats-title">Estadísticas de Casos</div>
+              <div class="stats-sub">Análisis de casos activos y terminados</div>
+            </div>
+            <div style="display:flex;gap:8px;padding:4px 0">
+              <button class="stats-download-btn" onclick="downloadAllStats('jpg')">↓ Actualizar</button>
+              <button class="stats-download-btn" onclick="downloadAllStats('pdf')">↓ Exportar</button>
+            </div>
+          </div>
+          <div class="stats-kpi-row" id="statsKpiRow">
+            <div class="stats-kpi"><div class="stats-kpi-val" id="skTotal">—</div><div class="stats-kpi-label">Total Casos</div><div class="stats-kpi-sub">Casos registrados</div></div>
+            <div class="stats-kpi"><div class="stats-kpi-val gold" id="skActivos">—</div><div class="stats-kpi-label">Casos Activos</div><div class="stats-kpi-sub">En proceso activo</div></div>
+            <div class="stats-kpi"><div class="stats-kpi-val" id="skTerminados">—</div><div class="stats-kpi-label">Casos Terminados</div><div class="stats-kpi-sub">Finalizados</div></div>
+            <div class="stats-kpi"><div class="stats-kpi-val blue" id="skDiasPromedio">—</div><div class="stats-kpi-label">Duración Promedio</div><div class="stats-kpi-sub">Días hábiles por caso</div></div>
+          </div>
+          <div class="stats-tabs">
+            <div class="stats-tab active" onclick="switchStatsTab('terminados',this)">Procedimientos Terminados</div>
+            <div class="stats-tab" onclick="switchStatsTab('activos',this)">Casos Activos</div>
+            <div class="stats-tab" onclick="switchStatsTab('widgets',this)">Crear Widgets</div>
+            <div class="stats-tab" onclick="switchStatsTab('chat',this)">Chat IA</div>
+          </div>
+        </div>
+        <div class="stats-body" id="statsBody">
+          <div class="loading">Cargando estadísticas…</div>
+        </div>
+      </div>
     </div>
 
     <!-- WELCOME -->
@@ -1143,7 +1237,8 @@ function openPendientes(){
 function openEstadisticas(){
   document.querySelectorAll('.sidebar-nav-item').forEach(el=>el.classList.remove('active'));
   event?.currentTarget?.classList.add('active');
-  openDashboard();
+  showView('viewEstadisticas');currentCase=null;renderCases(allCases);
+  loadStats();
 }
 function setNavActive(id){
   document.querySelectorAll('.sidebar-nav-item').forEach(el=>el.classList.remove('active'));
@@ -1209,6 +1304,491 @@ async function moveCase(caseId,newCat){
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 async function openDashboard(){showView('viewDashboard');currentCase=null;renderCases(allCases);await loadDashboard();}
+
+// ── Working days calculator ────────────────────────────────────────────────────
+function getUnivRecessWeeks(year){
+  // 1 week July (3rd week), 1 week Sept (2nd week), 1 week Dec (2nd week), 4 weeks Feb
+  const recessDates=[];
+  // February weeks 1-4
+  for(let w=0;w<4;w++){const d=new Date(year,1,1+w*7);for(let i=0;i<7;i++){const dd=new Date(d);dd.setDate(d.getDate()+i);recessDates.push(dd.toISOString().split('T')[0]);}}
+  // July week 3 (day 15-21)
+  for(let i=14;i<21;i++){const d=new Date(year,6,1+i);recessDates.push(d.toISOString().split('T')[0]);}
+  // September week 2 (day 8-14)
+  for(let i=7;i<14;i++){const d=new Date(year,8,1+i);recessDates.push(d.toISOString().split('T')[0]);}
+  // December week 2 (day 8-14)
+  for(let i=7;i<14;i++){const d=new Date(year,11,1+i);recessDates.push(d.toISOString().split('T')[0]);}
+  return new Set(recessDates);
+}
+function countWorkingDays(startStr,endStr){
+  if(!startStr||!endStr)return null;
+  const start=new Date(startStr),end=new Date(endStr);
+  if(isNaN(start)||isNaN(end)||end<start)return null;
+  let days=0,cur=new Date(start);
+  const recessByYear={};
+  while(cur<=end){
+    const y=cur.getFullYear();
+    if(!recessByYear[y])recessByYear[y]=getUnivRecessWeeks(y);
+    const dow=cur.getDay();
+    const ds=cur.toISOString().split('T')[0];
+    if(dow>=1&&dow<=5&&!recessByYear[y].has(ds))days++;
+    cur.setDate(cur.getDate()+1);
+  }
+  return days;
+}
+
+// ── Stats data engine ──────────────────────────────────────────────────────────
+let _statsData=null;
+let _statsCharts={};
+let _statsChatHistory=[];
+
+async function loadStats(){
+  document.getElementById('statsBody').innerHTML='<div class="loading">Cargando estadísticas…</div>';
+  try{
+    // Load all cases with full data
+    const[{data:cases},{data:participants},{data:diligencias}]=await Promise.all([
+      sb.from('cases').select('*').is('deleted_at',null).limit(500),
+      sb.from('case_participants').select('case_id,role,name,estamento').limit(2000),
+      sb.from('diligencias').select('case_id,diligencia_type,fojas_inicio').limit(5000)
+    ]);
+
+    // Categorize
+    const activeCats=['genero','no_genero','cargos','finalizacion'];
+    const activeCases=(cases||[]).filter(c=>activeCats.includes(c.categoria)||(c.status==='active'&&!c.categoria));
+    const terminatedCases=(cases||[]).filter(c=>c.categoria==='terminado'||c.status==='terminado');
+
+    // Working days per case
+    const withDays=(cases||[]).map(c=>({
+      ...c,
+      workingDays:countWorkingDays(c.fecha_recepcion_fiscalia||c.fecha_resolucion,c.fecha_vista)
+    })).filter(c=>c.workingDays!==null);
+
+    const allDays=withDays.map(c=>c.workingDays);
+    const avgDays=allDays.length?Math.round(allDays.reduce((a,b)=>a+b,0)/allDays.length):0;
+
+    // KPIs
+    document.getElementById('skTotal').textContent=(cases||[]).length;
+    document.getElementById('skActivos').textContent=activeCases.length;
+    document.getElementById('skTerminados').textContent=terminatedCases.length;
+    document.getElementById('skDiasPromedio').textContent=avgDays||'—';
+
+    // Participants map
+    const partMap={};(participants||[]).forEach(p=>{if(!partMap[p.case_id])partMap[p.case_id]=[];partMap[p.case_id].push(p);});
+    // Diligencias map
+    const dilMap={};(diligencias||[]).forEach(d=>{if(!dilMap[d.case_id])dilMap[d.case_id]=(dilMap[d.case_id]||0)+1;});
+
+    // Build diligencias type map
+    const dilTypeMap={};(diligencias||[]).forEach(d=>{
+      const k=d.case_id;
+      if(!dilTypeMap[k])dilTypeMap[k]={};
+      const t=d.diligencia_type||'otro';
+      dilTypeMap[k][t]=(dilTypeMap[k][t]||0)+1;
+    });
+    _statsData={cases:cases||[],activeCases,terminatedCases,withDays,partMap,dilMap,dilTypeMap,diligencias:diligencias||[],participants:participants||[],avgDays};
+
+    // Default tab: terminados
+    renderStatsTab('terminados');
+  }catch(e){document.getElementById('statsBody').innerHTML=`<div class="empty-state">⚠<p>Error: ${e.message}</p></div>`;}
+}
+
+function switchStatsTab(tab,el){
+  document.querySelectorAll('.stats-tab').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderStatsTab(tab);
+}
+
+function renderStatsTab(tab){
+  const body=document.getElementById('statsBody');
+  if(!_statsData){body.innerHTML='<div class="loading">Cargando…</div>';loadStats();return;}
+  // Destroy old charts
+  Object.values(_statsCharts).forEach(ch=>{try{ch.destroy();}catch(e){}});
+  _statsCharts={};
+
+  if(tab==='terminados')renderTerminadosTab(body);
+  else if(tab==='activos')renderActivosTab(body);
+  else if(tab==='widgets')renderWidgetsTab(body);
+  else if(tab==='chat')renderStatsChatTab(body);
+}
+
+// ── Tab: Terminados ──────────────────────────────────────────────────────────
+function renderTerminadosTab(body){
+  const d=_statsData;
+  const tc=d.terminatedCases;
+  const tcDays=d.withDays.filter(c=>c.categoria==='terminado'||c.status==='terminado');
+  const avgT=tcDays.length?Math.round(tcDays.reduce((a,c)=>a+c.workingDays,0)/tcDays.length):0;
+  const sumDil=tc.reduce((a,c)=>a+(d.dilMap[c.id]||0),0);
+  const avgDil=tc.length?Math.round(sumDil/tc.length):0;
+  const sumPart=tc.reduce((a,c)=>a+(d.partMap[c.id]?.length||0),0);
+  const avgPart=tc.length?Math.round(sumPart/tc.length*10)/10:0;
+  const conCargos=tc.filter(c=>c.propuesta==='Sanción'||c.propuesta==='Cargos').length;
+  const sinCargos=tc.filter(c=>c.propuesta==='Sobreseimiento').length;
+
+  body.innerHTML=`
+    <div class="stats-sub-kpi-row">
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val">${tc.length}</div><div class="stats-sub-kpi-label">Total Procedimientos</div></div>
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val">${avgT||'—'}</div><div class="stats-sub-kpi-label">Días Hábiles Prom.</div></div>
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val">${sumDil}</div><div class="stats-sub-kpi-label">Diligencias totales</div></div>
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val">${sumPart}</div><div class="stats-sub-kpi-label">Intervinientes</div></div>
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val">${conCargos}</div><div class="stats-sub-kpi-label">Casos con cargos</div></div>
+    </div>
+
+    <!-- Tiempo de tramitación -->
+    <div class="stats-section">
+      <div class="stats-section-header">
+        <div><div class="stats-section-title">⏱ Tiempo de Tramitación</div><div class="stats-section-sub">Desde recepción en fiscalía hasta entrega de vista fiscal. Solo días hábiles por año calendario (lunes a viernes, descontando recesos universitarios).</div></div>
+        <button class="stats-download-btn" onclick="downloadChart('chartDuracionBars','Duración por rango')">↓ JPG</button>
+      </div>
+      <div class="stats-charts-row">
+        <div class="stats-chart-wrap">
+          <div class="stats-chart-title">Distribución por rango de duración</div>
+          <canvas id="chartDuracionBars"></canvas>
+        </div>
+        <div class="stats-chart-wrap">
+          <div class="stats-chart-title">Duración hábil/Mes (días hábiles)</div>
+          <canvas id="chartDuracionLinea"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carga de trabajo -->
+    <div class="stats-section">
+      <div class="stats-section-header">
+        <div><div class="stats-section-title">👥 Carga de Trabajo por Intervinientes</div><div class="stats-section-sub">Volumen de personas involucradas en cada procedimiento terminado.</div></div>
+        <button class="stats-download-btn" onclick="downloadChart('chartPartBars','Intervinientes')">↓ JPG</button>
+      </div>
+      <div class="stats-charts-row">
+        <div class="stats-chart-wrap"><div class="stats-chart-title">Casos por cantidad de intervinientes</div><canvas id="chartPartBars"></canvas></div>
+        <div class="stats-chart-wrap"><div class="stats-chart-title">Distribución por tipo/estamento</div><canvas id="chartPartDonut"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Diligencias -->
+    <div class="stats-section">
+      <div class="stats-section-header">
+        <div><div class="stats-section-title">📄 Volumen de Diligencias por Caso</div><div class="stats-section-sub">Documentos procesales asociados a procedimientos terminados.</div></div>
+        <button class="stats-download-btn" onclick="downloadChart('chartDilDonut','Diligencias')">↓ JPG</button>
+      </div>
+      <div class="stats-charts-row">
+        <div class="stats-chart-wrap"><div class="stats-chart-title">Distribución por tipo de diligencia</div><canvas id="chartDilDonut"></canvas></div>
+        <div class="stats-chart-wrap"><div class="stats-chart-title">Diligencias por caso (por volumen)</div><canvas id="chartDilBars"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Tipo procedimiento y propuesta -->
+    <div class="stats-charts-row">
+      <div class="stats-chart-wrap stats-section"><div class="stats-chart-title">Tipo de Procedimiento</div><canvas id="chartTipoProc"></canvas></div>
+      <div class="stats-chart-wrap stats-section"><div class="stats-chart-title">Por Propuesta / Resultado</div><canvas id="chartPropuesta"></canvas></div>
+    </div>`;
+
+  setTimeout(()=>buildTerminadosCharts(tc,tcDays,d),50);
+}
+
+function buildTerminadosCharts(tc,tcDays,d){
+  const chartDefaults={color:'rgba(180,160,120,0.8)',gridColor:'rgba(100,100,100,0.15)',fontColor:'rgba(200,200,200,0.7)'};
+  Chart.defaults.color=chartDefaults.fontColor;
+
+  // ── Duración por rangos ──
+  const rangos=[[0,30,'<1 mes'],[31,60,'1-2 m'],[61,120,'2-4 m'],[121,180,'4-6 m'],[181,365,'6-12 m'],[366,9999,'>12 m']];
+  const rangoCounts=rangos.map(([min,max])=>tcDays.filter(c=>c.workingDays>=min&&c.workingDays<=max).length);
+  const ctx1=document.getElementById('chartDuracionBars')?.getContext('2d');
+  if(ctx1){_statsCharts.durBars=new Chart(ctx1,{type:'bar',data:{labels:rangos.map(r=>r[2]),datasets:[{label:'Casos',data:rangoCounts,backgroundColor:'rgba(88,166,255,0.75)',borderColor:'rgba(88,166,255,1)',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:chartDefaults.gridColor}},y:{grid:{color:chartDefaults.gridColor},ticks:{stepSize:1}}}}});}
+
+  // ── Duración por mes de término ──
+  const byMonth={};tcDays.forEach(c=>{const d2=c.fecha_vista||c.updated_at;if(d2){const m=d2.substring(0,7);if(!byMonth[m])byMonth[m]=[];byMonth[m].push(c.workingDays);}});
+  const months=Object.keys(byMonth).sort().slice(-18);
+  const avgByMonth=months.map(m=>{const arr=byMonth[m];return Math.round(arr.reduce((a,b)=>a+b,0)/arr.length);});
+  const ctx2=document.getElementById('chartDuracionLinea')?.getContext('2d');
+  if(ctx2){_statsCharts.durLinea=new Chart(ctx2,{type:'bar',data:{labels:months,datasets:[{label:'Días hábiles prom.',data:avgByMonth,backgroundColor:'rgba(88,166,255,0.5)',borderColor:'rgba(88,166,255,1)',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:chartDefaults.gridColor},ticks:{maxRotation:45}},y:{grid:{color:chartDefaults.gridColor}}}}});}
+
+  // ── Intervinientes por cantidad ──
+  const partCounts=tc.map(c=>d.partMap[c.id]?.length||0);
+  const partRangos=[[0,0,'0'],[1,2,'1-2'],[3,4,'3-4'],[5,7,'5-7'],[8,11,'8-11'],[12,99,'>11']];
+  const partRangoCounts=partRangos.map(([min,max])=>partCounts.filter(n=>n>=min&&n<=max).length);
+  const ctx3=document.getElementById('chartPartBars')?.getContext('2d');
+  if(ctx3){_statsCharts.partBars=new Chart(ctx3,{type:'bar',data:{labels:partRangos.map(r=>r[2]),datasets:[{label:'Casos',data:partRangoCounts,backgroundColor:'rgba(100,100,120,0.7)',borderColor:'rgba(130,130,160,1)',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:chartDefaults.gridColor}},y:{grid:{color:chartDefaults.gridColor},ticks:{stepSize:1}}}}});}
+
+  // ── Intervinientes por tipo ──
+  const estCounts={};d.participants.forEach(p=>{if(tc.find(c=>c.id===p.case_id)){const k=p.role||'otro';estCounts[k]=(estCounts[k]||0)+1;}});
+  const roleLabels={denunciante:'Denunciante',denunciado:'Denunciado/a',testigo:'Testigo',fiscal:'Fiscal',actuario:'Actuario/a',abogado:'Abogado/a'};
+  const ctx4=document.getElementById('chartPartDonut')?.getContext('2d');
+  if(ctx4&&Object.keys(estCounts).length){_statsCharts.partDonut=new Chart(ctx4,{type:'doughnut',data:{labels:Object.keys(estCounts).map(k=>roleLabels[k]||k),datasets:[{data:Object.values(estCounts),backgroundColor:['rgba(88,166,255,0.8)','rgba(201,168,76,0.8)','rgba(63,185,80,0.8)','rgba(248,81,73,0.8)','rgba(139,148,158,0.8)','rgba(210,153,34,0.8)']}]},options:{responsive:true,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:10}}}}}});}
+
+  // ── Diligencias por tipo ──
+
+  // Collect from participants data we have - use aggregate
+  const dilTypeCounts={};
+  // Use real diligencias type data
+  const dilTypeLabels={resolucion_inicio:'Res. Inicio',declaracion_denunciante:'Decl. Denunciante',declaracion_denunciado:'Decl. Denunciado',declaracion_testigo:'Decl. Testigo',documento:'Documentos',oficio:'Oficios',resolucion:'Resoluciones',resolucion_cargos:'Cargos',resolucion_cierre:'Cierre',otro:'Otros'};
+  tc.forEach(c=>{if(d.dilTypeMap[c.id]){Object.entries(d.dilTypeMap[c.id]).forEach(([t,n])=>{const k=dilTypeLabels[t]||t;dilTypeCounts[k]=(dilTypeCounts[k]||0)+n;});}});
+  const ctx5=document.getElementById('chartDilDonut')?.getContext('2d');
+  if(ctx5){_statsCharts.dilDonut=new Chart(ctx5,{type:'doughnut',data:{labels:Object.keys(dilTypeCounts),datasets:[{data:Object.values(dilTypeCounts),backgroundColor:['rgba(88,166,255,0.8)','rgba(201,168,76,0.8)','rgba(63,185,80,0.8)','rgba(139,148,158,0.8)','rgba(248,81,73,0.8)']}]},options:{responsive:true,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:10}}}}}});}
+
+  // ── Diligencias por caso (top 20) ──
+  const dilPerCase=tc.filter(c=>d.dilMap[c.id]).map(c=>({name:c.name,n:d.dilMap[c.id]})).sort((a,b)=>b.n-a.n).slice(0,20);
+  const ctx6=document.getElementById('chartDilBars')?.getContext('2d');
+  if(ctx6&&dilPerCase.length){_statsCharts.dilBars=new Chart(ctx6,{type:'bar',data:{labels:dilPerCase.map(c=>c.name),datasets:[{label:'Diligencias',data:dilPerCase.map(c=>c.n),backgroundColor:'rgba(88,166,255,0.6)',borderColor:'rgba(88,166,255,1)',borderWidth:1}]},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:chartDefaults.gridColor}},y:{grid:{color:chartDefaults.gridColor},ticks:{font:{size:9}}}}}});}
+
+  // ── Tipo procedimiento ──
+  const tipoCounts={};tc.forEach(c=>{const k=c.tipo_procedimiento||'Sin tipo';tipoCounts[k]=(tipoCounts[k]||0)+1;});
+  const ctx7=document.getElementById('chartTipoProc')?.getContext('2d');
+  if(ctx7){_statsCharts.tipoProc=new Chart(ctx7,{type:'doughnut',data:{labels:Object.keys(tipoCounts),datasets:[{data:Object.values(tipoCounts),backgroundColor:['rgba(88,166,255,0.8)','rgba(201,168,76,0.8)','rgba(63,185,80,0.8)','rgba(248,81,73,0.8)','rgba(139,148,158,0.8)']}]},options:{responsive:true,plugins:{legend:{position:'right',labels:{boxWidth:10,font:{size:10}}}}}});}
+
+  // ── Propuesta ──
+  const propCounts={};tc.forEach(c=>{const k=c.propuesta||'Sin propuesta';propCounts[k]=(propCounts[k]||0)+1;});
+  const ctx8=document.getElementById('chartPropuesta')?.getContext('2d');
+  if(ctx8){_statsCharts.propuesta=new Chart(ctx8,{type:'doughnut',data:{labels:Object.keys(propCounts),datasets:[{data:Object.values(propCounts),backgroundColor:['rgba(63,185,80,0.8)','rgba(248,81,73,0.8)','rgba(88,166,255,0.8)','rgba(201,168,76,0.8)','rgba(139,148,158,0.8)']}]},options:{responsive:true,plugins:{legend:{position:'right',labels:{boxWidth:10,font:{size:10}}}}}});}
+}
+
+// ── Tab: Activos ──────────────────────────────────────────────────────────────
+function renderActivosTab(body){
+  const d=_statsData;
+  const ac=d.activeCases;
+  const catCounts={genero:0,no_genero:0,cargos:0,finalizacion:0};
+  ac.forEach(c=>{const cat=c.categoria||'genero';if(catCounts[cat]!==undefined)catCounts[cat]++;});
+  const sumDil=ac.reduce((a,c)=>a+(d.dilMap[c.id]||0),0);
+  const conMC=ac.filter(c=>c.medida_cautelar).length;
+  const judic=ac.filter(c=>c.judicializada).length;
+  const acDays=d.withDays.filter(c=>d.activeCases.find(a=>a.id===c.id));
+  const avgAc=acDays.length?Math.round(acDays.reduce((a,c)=>a+c.workingDays,0)/acDays.length):0;
+
+  body.innerHTML=`
+    <div class="stats-sub-kpi-row">
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val gold">${ac.length}</div><div class="stats-sub-kpi-label">Total Activos</div></div>
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val">${catCounts.genero}</div><div class="stats-sub-kpi-label">👥 Género</div></div>
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val">${catCounts.no_genero}</div><div class="stats-sub-kpi-label">📋 No Género</div></div>
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val">${catCounts.cargos}</div><div class="stats-sub-kpi-label">⚖ Cargos</div></div>
+      <div class="stats-sub-kpi"><div class="stats-sub-kpi-val">${catCounts.finalizacion}</div><div class="stats-sub-kpi-label">✅ Finalización</div></div>
+    </div>
+
+    <div class="stats-section">
+      <div class="stats-section-header">
+        <div><div class="stats-section-title">📊 Distribución de Casos Activos</div><div class="stats-section-sub">Estado actual de los expedientes en proceso.</div></div>
+        <button class="stats-download-btn" onclick="downloadChart('chartActivosCat','Activos por categoría')">↓ JPG</button>
+      </div>
+      <div class="stats-charts-row">
+        <div class="stats-chart-wrap"><div class="stats-chart-title">Casos por categoría</div><canvas id="chartActivosCat"></canvas></div>
+        <div class="stats-chart-wrap"><div class="stats-chart-title">Tipo de procedimiento</div><canvas id="chartActivosTipo"></canvas></div>
+      </div>
+    </div>
+
+    <div class="stats-charts-row">
+      <div class="stats-chart-wrap stats-section">
+        <div class="stats-chart-title">Medidas cautelares y judicialización</div>
+        <canvas id="chartActivosMC"></canvas>
+      </div>
+      <div class="stats-chart-wrap stats-section">
+        <div class="stats-chart-title">Tiempo transcurrido (activos con fecha inicio)</div>
+        <canvas id="chartActivosDias"></canvas>
+      </div>
+    </div>`;
+
+  setTimeout(()=>{
+    Chart.defaults.color='rgba(200,200,200,0.7)';
+    const gc='rgba(100,100,100,0.15)';
+
+    const c1=document.getElementById('chartActivosCat')?.getContext('2d');
+    if(c1){_statsCharts.acCat=new Chart(c1,{type:'bar',data:{labels:['Género','No Género','Cargos','Finalización'],datasets:[{data:[catCounts.genero,catCounts.no_genero,catCounts.cargos,catCounts.finalizacion],backgroundColor:['rgba(88,166,255,0.75)','rgba(201,168,76,0.75)','rgba(63,185,80,0.75)','rgba(248,81,73,0.75)'],borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:gc}},y:{grid:{color:gc},ticks:{stepSize:1}}}}});}
+
+    const tipoCounts={};ac.forEach(c=>{const k=c.tipo_procedimiento||'Sin tipo';tipoCounts[k]=(tipoCounts[k]||0)+1;});
+    const c2=document.getElementById('chartActivosTipo')?.getContext('2d');
+    if(c2){_statsCharts.acTipo=new Chart(c2,{type:'doughnut',data:{labels:Object.keys(tipoCounts),datasets:[{data:Object.values(tipoCounts),backgroundColor:['rgba(88,166,255,0.8)','rgba(201,168,76,0.8)','rgba(63,185,80,0.8)','rgba(248,81,73,0.8)','rgba(139,148,158,0.8)']}]},options:{responsive:true,plugins:{legend:{position:'right',labels:{boxWidth:10,font:{size:10}}}}}});}
+
+    const c3=document.getElementById('chartActivosMC')?.getContext('2d');
+    if(c3){_statsCharts.acMC=new Chart(c3,{type:'bar',data:{labels:['Con medida cautelar','Sin medida cautelar','Judicializados','No judicializados'],datasets:[{data:[conMC,ac.length-conMC,judic,ac.length-judic],backgroundColor:['rgba(248,81,73,0.7)','rgba(63,185,80,0.7)','rgba(201,168,76,0.7)','rgba(88,166,255,0.7)'],borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:gc}},y:{grid:{color:gc},ticks:{stepSize:1}}}}});}
+
+    const diasRangos=[[0,30,'<1 mes'],[31,60,'1-2 m'],[61,120,'2-4 m'],[121,180,'4-6 m'],[181,365,'6-12 m'],[366,9999,'>12 m']];
+    const diasCounts=diasRangos.map(([min,max])=>acDays.filter(c=>c.workingDays>=min&&c.workingDays<=max).length);
+    const c4=document.getElementById('chartActivosDias')?.getContext('2d');
+    if(c4){_statsCharts.acDias=new Chart(c4,{type:'bar',data:{labels:diasRangos.map(r=>r[2]),datasets:[{label:'Casos',data:diasCounts,backgroundColor:'rgba(201,168,76,0.7)',borderColor:'rgba(201,168,76,1)',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{color:gc}},y:{grid:{color:gc},ticks:{stepSize:1}}}}});}
+  },50);
+}
+
+// ── Tab: Widgets ──────────────────────────────────────────────────────────────
+let _widgets=JSON.parse(localStorage.getItem('fiscalito_widgets')||'[]');
+function renderWidgetsTab(body){
+  body.innerHTML=`
+    <div class="widget-builder">
+      <div class="widget-builder-title">+ Crear nuevo widget</div>
+      <div class="widget-form-row">
+        <div class="widget-form-field"><label>Título</label><input id="wTitle" placeholder="Mi gráfico…"/></div>
+        <div class="widget-form-field"><label>Tipo de datos</label>
+          <select id="wData">
+            <option value="cat">Casos por categoría</option>
+            <option value="tipo">Tipo de procedimiento</option>
+            <option value="propuesta">Propuesta/Resultado</option>
+            <option value="protocolo">Protocolo aplicado</option>
+            <option value="materia">Materia</option>
+            <option value="estado">Estado etapa procesal</option>
+            <option value="mc">Medida cautelar</option>
+            <option value="jud">Judicialización</option>
+            <option value="duracion">Duración (rangos)</option>
+            <option value="mes_inicio">Casos por mes de inicio</option>
+          </select>
+        </div>
+        <div class="widget-form-field"><label>Tipo de gráfico</label>
+          <select id="wType">
+            <option value="bar">Barras</option>
+            <option value="doughnut">Donut</option>
+            <option value="pie">Torta</option>
+            <option value="line">Línea</option>
+            <option value="horizontalBar">Barras horizontal</option>
+          </select>
+        </div>
+        <div class="widget-form-field"><label>Fuente</label>
+          <select id="wSource">
+            <option value="all">Todos</option>
+            <option value="activos">Solo activos</option>
+            <option value="terminados">Solo terminados</option>
+          </select>
+        </div>
+        <button class="btn-save" style="height:32px;align-self:end" onclick="createWidget()">Crear</button>
+      </div>
+    </div>
+    <div class="widget-grid" id="widgetGrid"></div>`;
+  renderWidgetGrid();
+}
+
+function createWidget(){
+  const title=document.getElementById('wTitle').value.trim()||'Widget';
+  const dataType=document.getElementById('wData').value;
+  const chartType=document.getElementById('wType').value;
+  const source=document.getElementById('wSource').value;
+  const id='w_'+Date.now();
+  _widgets.push({id,title,dataType,chartType,source});
+  saveWidgets();
+  renderWidgetGrid();
+}
+
+function saveWidgets(){localStorage.setItem('fiscalito_widgets',JSON.stringify(_widgets));}
+
+function renderWidgetGrid(){
+  const grid=document.getElementById('widgetGrid');
+  if(!grid)return;
+  if(!_widgets.length){grid.innerHTML='<div style="color:var(--text-muted);font-size:12px">No hay widgets. Crea el primero arriba.</div>';return;}
+  grid.innerHTML=_widgets.map(w=>`
+    <div class="widget-card" id="wcard_${w.id}">
+      <div class="widget-card-title">${esc(w.title)}</div>
+      <div class="widget-card-actions">
+        <button class="stats-download-btn" onclick="downloadChart('wcanvas_${w.id}','${esc(w.title)}')">↓ JPG</button>
+        <button class="btn-del" onclick="deleteWidget('${w.id}')">×</button>
+      </div>
+      <canvas id="wcanvas_${w.id}" style="max-height:220px"></canvas>
+    </div>`).join('');
+  setTimeout(()=>_widgets.forEach(w=>buildWidget(w)),50);
+}
+
+function buildWidget(w){
+  const d=_statsData;if(!d)return;
+  const src=w.source==='activos'?d.activeCases:w.source==='terminados'?d.terminatedCases:d.cases;
+  const gc='rgba(100,100,100,0.15)';
+  const colors=['rgba(88,166,255,0.8)','rgba(201,168,76,0.8)','rgba(63,185,80,0.8)','rgba(248,81,73,0.8)','rgba(139,148,158,0.8)','rgba(210,153,34,0.8)','rgba(100,200,180,0.8)'];
+
+  let labels=[],values=[];
+  if(w.dataType==='cat'){const cnt={};src.forEach(c=>{const k=c.categoria||'—';cnt[k]=(cnt[k]||0)+1;});labels=Object.keys(cnt);values=Object.values(cnt);}
+  else if(w.dataType==='tipo'){const cnt={};src.forEach(c=>{const k=c.tipo_procedimiento||'Sin tipo';cnt[k]=(cnt[k]||0)+1;});labels=Object.keys(cnt);values=Object.values(cnt);}
+  else if(w.dataType==='propuesta'){const cnt={};src.forEach(c=>{const k=c.propuesta||'Sin propuesta';cnt[k]=(cnt[k]||0)+1;});labels=Object.keys(cnt);values=Object.values(cnt);}
+  else if(w.dataType==='protocolo'){const cnt={};src.forEach(c=>{const k=c.protocolo||'Sin protocolo';cnt[k]=(cnt[k]||0)+1;});labels=Object.keys(cnt);values=Object.values(cnt);}
+  else if(w.dataType==='materia'){const cnt={};src.forEach(c=>{const k=c.materia||'Sin materia';cnt[k]=(cnt[k]||0)+1;});labels=Object.keys(cnt);values=Object.values(cnt);}
+  else if(w.dataType==='estado'){const cnt={};src.forEach(c=>{const k=c.estado_procedimiento||'Sin etapa';cnt[k]=(cnt[k]||0)+1;});labels=Object.keys(cnt);values=Object.values(cnt);}
+  else if(w.dataType==='mc'){labels=['Con M.C.','Sin M.C.'];values=[src.filter(c=>c.medida_cautelar).length,src.filter(c=>!c.medida_cautelar).length];}
+  else if(w.dataType==='jud'){labels=['Judicializado','No judicializado'];values=[src.filter(c=>c.judicializada).length,src.filter(c=>!c.judicializada).length];}
+  else if(w.dataType==='duracion'){const rangos=[[0,30,'<1m'],[31,60,'1-2m'],[61,120,'2-4m'],[121,180,'4-6m'],[181,365,'6-12m'],[366,9999,'>12m']];const wd=d.withDays.filter(c=>src.find(s=>s.id===c.id));labels=rangos.map(r=>r[2]);values=rangos.map(([min,max])=>wd.filter(c=>c.workingDays>=min&&c.workingDays<=max).length);}
+  else if(w.dataType==='mes_inicio'){const cnt={};src.forEach(c=>{const k=(c.fecha_recepcion_fiscalia||c.fecha_resolucion||'').substring(0,7);if(k)cnt[k]=(cnt[k]||0)+1;});const sorted=Object.keys(cnt).sort();labels=sorted;values=sorted.map(k=>cnt[k]);}
+
+  if(!labels.length)return;
+  const isHoriz=w.chartType==='horizontalBar';
+  const type=isHoriz?'bar':w.chartType;
+  const bgColors=labels.map((_,i)=>colors[i%colors.length]);
+  const ctx=document.getElementById('wcanvas_'+w.id)?.getContext('2d');
+  if(!ctx)return;
+  const isDoughnutPie=type==='doughnut'||type==='pie';
+  _statsCharts['w_'+w.id]=new Chart(ctx,{type,data:{labels,datasets:[{label:w.title,data:values,backgroundColor:isDoughnutPie?bgColors:bgColors[0],borderColor:isDoughnutPie?bgColors:bgColors[0],borderWidth:1}]},options:{responsive:true,indexAxis:isHoriz?'y':'x',plugins:{legend:{display:isDoughnutPie,position:'right',labels:{boxWidth:10,font:{size:9}}}},scales:isDoughnutPie?{}:{x:{grid:{color:gc}},y:{grid:{color:gc},ticks:{stepSize:1}}}}});
+}
+
+function deleteWidget(id){
+  _widgets=_widgets.filter(w=>w.id!==id);
+  saveWidgets();
+  const old=_statsCharts['w_'+id];if(old)try{old.destroy();}catch(e){}
+  renderWidgetGrid();
+}
+
+// ── Tab: Chat IA ──────────────────────────────────────────────────────────────
+function renderStatsChatTab(body){
+  body.innerHTML=`
+    <div class="stats-chat-wrap">
+      <div class="stats-chat-title">💬 Chat IA — Análisis de Casos</div>
+      <div class="stats-chat-msgs" id="statsChatMsgs">
+        <div class="stats-chat-msg ai">Hola, soy Fiscalito. Tengo acceso al resumen de tus ${_statsData?.cases?.length||0} expedientes. Puedo responder preguntas como: ¿cuántos casos tienen medida cautelar?, ¿cuál es el tiempo promedio de tramitación?, ¿qué tipo de procedimiento es más común?, entre otras.</div>
+      </div>
+      <div class="stats-chat-input-row">
+        <input class="stats-chat-input" id="statsChatInput" placeholder="Pregunta sobre tus casos…" onkeydown="if(event.key==='Enter')sendStatsChat()"/>
+        <button class="btn-save" onclick="sendStatsChat()">Enviar</button>
+      </div>
+    </div>`;
+}
+
+async function sendStatsChat(){
+  const input=document.getElementById('statsChatInput');
+  const msg=input?.value.trim();if(!msg)return;
+  input.value='';
+  const msgs=document.getElementById('statsChatMsgs');
+  msgs.innerHTML+=`<div class="stats-chat-msg user">${esc(msg)}</div>`;
+  msgs.innerHTML+=`<div class="stats-chat-msg ai" id="statsChatTyping"><em>Analizando…</em></div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+
+  // Build data summary for context
+  const d=_statsData;
+  const summary=`RESUMEN DE EXPEDIENTES:
+Total: ${d.cases.length} | Activos: ${d.activeCases.length} | Terminados: ${d.terminatedCases.length}
+Activos por categoría: Género ${d.activeCases.filter(c=>c.categoria==='genero').length}, No Género ${d.activeCases.filter(c=>c.categoria==='no_genero').length}, Cargos ${d.activeCases.filter(c=>c.categoria==='cargos').length}, Finalización ${d.activeCases.filter(c=>c.categoria==='finalizacion').length}
+Con medida cautelar: ${d.cases.filter(c=>c.medida_cautelar).length}
+Judicializados: ${d.cases.filter(c=>c.judicializada).length}
+Duración promedio (días hábiles): ${d.avgDays}
+Casos con datos de duración: ${d.withDays.length}
+Tipos de procedimiento: ${[...new Set(d.cases.map(c=>c.tipo_procedimiento).filter(Boolean))].join(', ')||'—'}
+Propuestas: ${[...new Set(d.cases.map(c=>c.propuesta).filter(Boolean))].join(', ')||'—'}
+Protocolos: ${[...new Set(d.cases.map(c=>c.protocolo).filter(Boolean))].join(', ')||'—'}
+Total diligencias registradas: ${Object.values(d.dilMap).reduce((a,b)=>a+b,0)}
+Total participantes: ${d.participants.length}`;
+
+  _statsChatHistory.push({role:'user',content:msg});
+  try{
+    const r=await fetch(CHAT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,system:`Eres Fiscalito, asistente jurídico de la UMAG. Tienes acceso al siguiente resumen estadístico de los expedientes:\n\n${summary}\n\nResponde preguntas sobre los datos disponibles. Sé conciso y usa el contexto para dar respuestas precisas. Si te preguntan algo que no está en los datos, indícalo.`,messages:_statsChatHistory.slice(-10)})});
+    const data=await r.json();
+    const reply=data.content?.filter(b=>b.type==='text').map(b=>b.text).join('')||'Sin respuesta.';
+    _statsChatHistory.push({role:'assistant',content:reply});
+    const typing=document.getElementById('statsChatTyping');
+    if(typing)typing.innerHTML=md(reply);
+    msgs.scrollTop=msgs.scrollHeight;
+  }catch(e){const typing=document.getElementById('statsChatTyping');if(typing)typing.innerHTML=`<span style="color:var(--red)">Error: ${e.message}</span>`;}
+}
+
+// ── Download chart as JPG ─────────────────────────────────────────────────────
+function downloadChart(canvasId,title){
+  const canvas=document.getElementById(canvasId);
+  if(!canvas){showToast('Gráfico no disponible');return;}
+  // Create temp canvas with white/dark background
+  const tmp=document.createElement('canvas');
+  tmp.width=canvas.width;tmp.height=canvas.height;
+  const ctx=tmp.getContext('2d');
+  ctx.fillStyle='#1a1a1f';ctx.fillRect(0,0,tmp.width,tmp.height);
+  ctx.drawImage(canvas,0,0);
+  const link=document.createElement('a');
+  link.download=(title||'grafico').replace(/[^a-z0-9]/gi,'_')+'.jpg';
+  link.href=tmp.toDataURL('image/jpeg',0.92);
+  link.click();
+  showToast('✓ Gráfico descargado como JPG');
+}
+
+function downloadAllStats(format){
+  if(!_statsData){showToast('Carga las estadísticas primero');return;}
+  if(format==='pdf'){
+    window.print();
+  } else {
+    // Trigger reload
+    loadStats();showToast('✓ Estadísticas actualizadas');
+  }
+}
+
 async function loadDashboard(){
   const el=document.getElementById('dashContent');
   el.innerHTML='<div class="loading">Cargando estadísticas…</div>';
