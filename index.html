@@ -523,6 +523,53 @@ canvas{max-height:260px;}
 .stats-chat-input{flex:1;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:12px;outline:none;}
 .stats-chat-input:focus{border-color:var(--gold-dim);}
 
+
+/* ── Function Panels ─────────────────────────────────────────── */
+.fn-panel{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px 24px;gap:12px;background:var(--bg);}
+.fn-panel-docs{width:100%;max-width:680px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.fn-panel-docs-header{display:flex;align-items:center;gap:8px;padding:9px 14px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+.fn-panel-docs-header:hover{background:var(--surface2);}
+.fn-panel-docs-title{font-size:11.5px;font-weight:500;color:var(--text-dim);flex:1;}
+.fn-panel-docs-body{padding:10px 14px;}
+.fn-panel-upload-btn{width:100%;padding:8px;background:none;border:1px dashed var(--border2);color:var(--text-dim);border-radius:var(--radius);cursor:pointer;font-size:11.5px;font-family:'Inter',sans-serif;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.fn-panel-upload-btn:hover{color:var(--gold);border-color:var(--gold-dim);background:var(--gold-glow);}
+.fn-panel-upload-empty{font-size:11px;color:var(--text-muted);text-align:center;padding:6px 0;}
+.fn-panel-link{width:100%;max-width:680px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;transition:border-color .15s;user-select:none;}
+.fn-panel-link:hover{border-color:var(--border2);}
+.fn-panel-link-icon{font-size:13px;opacity:.6;}
+.fn-panel-link-text{font-size:11.5px;color:var(--text-dim);flex:1;}
+.fn-panel-link-case{font-size:11px;color:var(--gold);font-weight:500;}
+.fn-panel-card{width:100%;max-width:680px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;}
+.fn-panel-card-header{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.fn-panel-card-badge{width:22px;height:22px;border-radius:50%;background:var(--gold-glow);border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gold);font-weight:700;font-family:'DM Mono',monospace;flex-shrink:0;}
+.fn-panel-card-title{font-size:12.5px;font-weight:600;color:var(--text);}
+.fn-panel-card-desc{font-size:12px;color:var(--text-dim);line-height:1.6;}
+.fn-panel-fmt{width:100%;max-width:680px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;}
+.fn-panel-fmt-label{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;font-weight:600;}
+.fn-panel-fmt-example{font-size:11.5px;color:var(--text-dim);font-style:italic;line-height:1.7;}
+.fn-panel-note{width:100%;max-width:680px;display:flex;align-items:flex-start;gap:8px;padding:8px 12px;background:rgba(88,166,255,.07);border:1px solid rgba(88,166,255,.2);border-radius:var(--radius);}
+.fn-panel-note-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
+.fn-panel-note-text{font-size:11px;color:var(--text-dim);line-height:1.55;}
+/* Bottom chips + context row */
+.fn-chips-row{display:flex;gap:6px;flex-wrap:wrap;padding:8px 16px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0;}
+.fn-chip{background:none;border:1px solid var(--border2);color:var(--text-dim);padding:4px 11px;border-radius:20px;cursor:pointer;font-size:11px;font-family:'Inter',sans-serif;transition:all .15s;display:flex;align-items:center;gap:4px;}
+.fn-chip:hover{color:var(--gold);border-color:var(--gold-dim);background:var(--gold-glow);}
+.fn-chip::before{content:'+';color:var(--text-muted);font-size:11px;}
+.fn-ctx-row{display:flex;align-items:center;gap:6px;padding:4px 16px 6px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0;cursor:pointer;}
+.fn-ctx-label{font-size:10.5px;color:var(--text-muted);flex:1;}
+.fn-ctx-arrow{font-size:10px;color:var(--text-muted);transition:transform .2s;}
+.fn-ctx-arrow.open{transform:rotate(90deg);}
+.fn-ctx-body{background:var(--surface);border-top:1px solid var(--border);padding:8px 16px;flex-shrink:0;display:none;}
+.fn-ctx-body.show{display:block;}
+.fn-uploaded-files{display:flex;flex-direction:column;gap:4px;margin-top:8px;}
+.fn-uploaded-file{display:flex;align-items:center;gap:6px;padding:4px 8px;background:var(--surface2);border-radius:4px;font-size:11px;color:var(--text-dim);}
+.fn-uploaded-file-del{background:none;border:none;color:var(--text-muted);cursor:pointer;padding:0 2px;font-size:13px;line-height:1;}
+.fn-uploaded-file-del:hover{color:var(--red);}
+/* Input hint tweak when panel visible */
+.input-attach{background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px 6px;border-radius:var(--radius);transition:color .15s;font-size:14px;}
+.input-attach:hover{color:var(--gold);}
+.input-attach-hint{font-size:9.5px;color:var(--text-muted);margin-top:2px;}
+
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
@@ -870,13 +917,15 @@ canvas{max-height:260px;}
       <!-- TAB CHAT -->
       
       <div class="tab-content" id="tabDrive" style="display:none"><div class="drive-panel"><div id="driveNoFolder"><p class="drive-empty">Este caso no tiene carpeta de Drive vinculada.</p><div class="drive-btn-row"><button class="drive-btn primary" onclick="driveCreateFolder()">+ Crear carpeta</button><button class="drive-btn" onclick="driveShowPicker()">Vincular existente</button></div><div id="drivePicker" style="display:none"><div style="font-size:12px;color:#555;margin-bottom:6px">Selecciona la carpeta para este caso:</div><div id="drivePickerList" class="drive-folder-picker"><div class="drive-empty">Cargando...</div></div></div></div><div id="driveHasFolder" style="display:none"><div class="drive-btn-row"><a id="driveFolderLink" href="#" target="_blank" class="drive-folder-link">&#128193; <span id="driveFolderName">Abrir en Drive</span></a><button class="drive-btn" onclick="driveRefreshFiles()">Actualizar</button><button class="drive-btn danger" onclick="driveUnlink()">Desvincular</button></div><div id="driveFilesList" class="drive-files-list"><div class="drive-empty">Cargando...</div></div></div></div></div>
-      <div class="tab-content" id="tabChat" style="display:none;flex-direction:column;padding:0;flex:1;">
-        <div style="display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--border);background:var(--surface);">
+      <div class="tab-content" id="tabChat" style="display:none;flex-direction:column;padding:0;flex:1;overflow:hidden;">
+        <!-- Chat header -->
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;">
           <span class="chat-fn-badge" id="chatFnBadge">F0</span>
           <span style="font-size:13px;font-weight:500;" id="chatFnTitle">Consulta General</span>
           <div style="margin-left:auto;display:flex;gap:5px;" id="fnQuickBtns"></div>
         </div>
-        <div style="padding:5px 16px;border-bottom:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <!-- RAG bar (hidden when panel is showing) -->
+        <div id="ragBar" style="padding:5px 16px;border-bottom:1px solid var(--border);background:var(--surface2);display:none;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0;">
           <span style="font-size:10px;color:var(--text-muted);">📚 Biblioteca RAG:</span>
           <select id="ragFolder" style="background:var(--surface);border:1px solid var(--border2);color:var(--text-dim);padding:2px 7px;border-radius:3px;font-size:10px;outline:none;font-family:'Inter',sans-serif;">
             <option value="">— Sin RAG —</option>
@@ -893,25 +942,44 @@ canvas{max-height:260px;}
           </select>
           <span style="font-size:10px;color:var(--text-muted);" id="ragStatus">Selecciona una carpeta para activar RAG</span>
         </div>
-        <div class="export-bar">
+        <!-- Export bar (hidden when panel is showing) -->
+        <div class="export-bar" id="exportBar" style="display:none;">
           <span class="export-label" id="chatMsgCount">0 mensajes</span>
           <button class="btn-export" onclick="exportChat('copy')">📋 Copiar</button>
           <button class="btn-export" onclick="exportChat('txt')">⬇ .txt</button>
           <button class="btn-export" onclick="exportChat('md')">⬇ .md</button>
           <button class="btn-export" onclick="clearChatView()">↺ Limpiar</button>
         </div>
-        <div class="msgs" id="msgs"></div>
-        <div class="input-area">
+        <!-- Function welcome panel (shown when no messages) -->
+        <div class="fn-panel" id="fnPanel"></div>
+        <!-- Messages (hidden when panel is showing) -->
+        <div class="msgs" id="msgs" style="display:none;"></div>
+        <!-- Chips row -->
+        <div class="fn-chips-row" id="fnChipsRow"></div>
+        <!-- Context row (optional) -->
+        <div class="fn-ctx-row" id="fnCtxRow" onclick="toggleFnCtx()">
+          <span class="fn-ctx-label">↓ Contexto del procedimiento (opcional)</span>
+          <span class="fn-ctx-arrow" id="fnCtxArrow">›</span>
+        </div>
+        <div class="fn-ctx-body" id="fnCtxBody">
+          <textarea id="fnCtxInput" rows="3" placeholder="Agrega contexto adicional del caso que quieras incluir en esta consulta…" style="width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 10px;border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:12px;outline:none;resize:vertical;"></textarea>
+        </div>
+        <!-- Input area -->
+        <div class="input-area" style="flex-shrink:0;">
           <div class="input-row">
-            <textarea class="input-box" id="inputBox" placeholder="Escribe tu consulta jurídica sobre este caso…" rows="1"
+            <button class="input-attach" title="Adjuntar (solo como referencia)" onclick="document.getElementById('fnDocInput').click()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            </button>
+            <input type="file" id="fnDocInput" accept=".pdf,.docx,.txt" style="display:none" onchange="handleFnDocUpload(this)" multiple/>
+            <textarea class="input-box" id="inputBox" placeholder="Solicitud concreta…" rows="1"
               onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
             <button class="send-btn" id="sendBtn" onclick="sendMessage()">
               <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
             </button>
           </div>
-          <div class="input-hint">
+          <div class="input-hint" id="inputHint">
             <span id="fnHint">F0 — Consulta General</span>
-            <span>Enter envía · Shift+Enter nueva línea</span>
+            <span class="input-attach-hint">Adjunte documentos solo si forman parte del expediente</span>
           </div>
         </div>
       </div>
@@ -1418,6 +1486,21 @@ async function moveCase(caseId,newCat){
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 async function openDashboard(){showView('viewDashboard');currentCase=null;renderCases(allCases);await loadDashboard();}
+
+// ── Function panel definitions ────────────────────────────────────────────────
+const FN_PANELS={
+  F0:{desc:'Utiliza esta opción para realizar preguntas conceptuales o procedimentales sobre el funcionamiento del sistema o sobre criterios jurídicos generales, sin requerir análisis de un caso específico.',fmt:'Ejemplo:\n"¿Cuál es el estándar probatorio aplicable en un sumario administrativo?"\n"¿En qué etapa procede evaluar la prescripción de los hechos?"',note:'Esta función no analiza hechos ni revisa expedientes concretos.',chips:['Estándar probatorio','Plazos legales','Principios procedimentales','Causales sobreseimiento','Sanciones Ley 18.834'],noteIcon:'ℹ'},
+  F2:{desc:'Pega aquí el texto de una declaración, resolución o acta. Fiscalito lo reescribirá con gramática correcta, sintaxis clara y lenguaje administrativo preciso, sin alterar el contenido.',fmt:'Ejemplo:\n"Mejorar la redacción de esta declaración: [pega el texto]"\n"Reescribir esta resolución manteniendo su sentido pero con lenguaje formal."',note:'Pega directamente el texto que deseas mejorar. Fiscalito corregirá sin preámbulos.',chips:['Mejorar declaración','Reescribir resolución','Corregir acta','Lenguaje neutro de género','Eliminar redundancias'],noteIcon:'✏'},
+  F3:{desc:'Genera un cuestionario estructurado en 5 bloques para la declaración del/la investigado/a: inhabilidades, identificación, conocimiento de hechos, versión y descargo, y cierre.',fmt:'Ejemplo:\n"Genera cuestionario para el inculpado del caso"\n"El investigado es [nombre], funcionario/a de [unidad], los hechos se refieren a [materia]."',note:'Si hay un caso vinculado, los datos del/la inculpado/a se incluyen automáticamente en el contexto.',chips:['Generar cuestionario','Agregar inhabilidades','Profundizar versión de hechos','Preguntas sobre prueba documental','Bloque de cierre'],noteIcon:'👤'},
+  F4:{desc:'Genera un cuestionario estructurado en 4 bloques para testigos o denunciante: inhabilidades, identificación, conocimiento directo de los hechos, y cierre.',fmt:'Ejemplo:\n"Genera cuestionario para testigo que presenció [hecho]"\n"Cuestionario para la denunciante con énfasis en contexto laboral."',note:'Especifica si el/la compareciente es testigo neutral, denunciante o testigo de parte para adaptar las preguntas.',chips:['Cuestionario testigo','Cuestionario denunciante','Énfasis en prueba indirecta','Preguntas de contexto laboral','Bloque de cierre'],noteIcon:'👥'},
+  F5:{desc:'Elabora un dictamen jurídico completo con el método IRAC: Cuestión Jurídica, Hechos Acreditados, Marco Normativo/CGR, Subsunción con elementos de cargo y descargo, Conclusión y Recomendación a la autoridad.',fmt:'Ejemplo:\n"Realiza análisis IRAC del caso considerando los hechos acreditados"\n"Analiza si procede formulación de cargos o sobreseimiento según el expediente."',note:'El análisis se basa exclusivamente en los hechos acreditados del expediente. Si falta información, indica [NO CONSTA].',chips:['Análisis IRAC completo','Solo Issue y Rule','Ponderación atenuantes','Riesgo de invalidación judicial','Recomendación de sanción'],noteIcon:'⚖'},
+  F6:{desc:'Redacta el oficio de formulación de cargos con las conductas reprochadas, normativa infringida, circunstancias modificatorias (atenuantes y agravantes) y sanción estimada.',fmt:'Ejemplo:\n"Formula cargos por los hechos acreditados en el expediente"\n"Redactar cargos considerando la ambigüedad normativa como atenuante."',note:'Los cargos son una imputación formal, no una condena. Usa lenguaje preciso y evita expresiones concluyentes.',chips:['Formular cargos','Agregar atenuantes','Incluir agravantes','Normativa infringida','Sanción estimada'],noteIcon:'📋'},
+  F7:{desc:'Elabora el informe final o vista fiscal: antecedentes del procedimiento, diligencias practicadas, hechos acreditados, análisis jurídico, propuesta de resolución y estrategias preventivas.',fmt:'Ejemplo:\n"Redacta la vista fiscal del expediente"\n"Genera informe final con propuesta de sobreseimiento fundado en [razón]."',note:'Integra todos los antecedentes disponibles. Si hay caso vinculado, los datos del expediente se incluyen automáticamente.',chips:['Vista fiscal completa','Solo hechos acreditados','Propuesta de sobreseimiento','Propuesta de sanción','Estrategias preventivas'],noteIcon:'📄'},
+  F8:{desc:'Produce un informe en derecho de nivel académico-profesional: marco normativo, análisis dogmático con doctrina CGR, jurisprudencia judicial y conclusiones fundadas.',fmt:'Ejemplo:\n"Redacta informe en derecho sobre [materia específica]"\n"Analiza la procedencia de [medida] conforme a la doctrina CGR."',note:'Este informe tiene nivel técnico elevado. Cita dictámenes CGR con número y año, y jurisprudencia con rol de causa.',chips:['Informe en derecho','Doctrina CGR','Jurisprudencia judicial','Análisis normativo','Texto refundido'],noteIcon:'📑'},
+  F9:{desc:'Genera plantillas de actuaciones procesales adaptadas al expediente: resoluciones, actas, oficios, citaciones y otros documentos del procedimiento disciplinario.',fmt:'Ejemplo:\n"Genera plantilla de resolución de formulación de cargos"\n"Crea acta de declaración en calidad de inculpado/a."',note:'Si no hay caso vinculado, Fiscalito preguntará el tipo de procedimiento (IS/SA/PD) y la fase antes de generar la plantilla.',chips:['Resolución de inicio','Acta de declaración','Formulación de cargos','Resolución sobreseimiento','Acta de notificación'],noteIcon:'📝'},
+  F10:{desc:'Busca y analiza dictámenes de la Contraloría General de la República, jurisprudencia judicial y doctrina administrativa aplicable a la materia del expediente.',fmt:'Ejemplo:\n"¿Qué dice la CGR sobre el uso de licencias médicas en sumarios?"\n"Busca jurisprudencia sobre proporcionalidad de sanciones administrativas."',note:'Indica el número de dictamen si lo conoces para un análisis más preciso. También puedes buscar por materia o tema.',chips:['Dictámenes CGR sobre probidad','Jurisprudencia sobre licencias','Criterios de proporcionalidad','Prescripción disciplinaria','Tesis CGR sobre atenuantes'],noteIcon:'🏛'},
+  F11:{desc:'Analiza el caso desde la perspectiva de género: asimetrías de poder, estereotipos, Ley 21.369 (acoso sexual en IES) y Ley Karin (21.643). Identifica medidas de resguardo y protección.',fmt:'Ejemplo:\n"Analiza si el caso presenta indicadores de violencia de género"\n"¿Qué medidas de resguardo proceden según la Ley 21.369?"',note:'Este análisis aplica enfoque de no revictimización. No adelanta conclusiones sobre responsabilidad.',chips:['Análisis perspectiva género','Indicadores de acoso','Medidas de resguardo','Ley Karin (21.643)','Ley 21.369 IES'],noteIcon:'⚡'},
+};
 
 // ── Working days calculator ────────────────────────────────────────────────────
 function getUnivRecessWeeks(year){
@@ -2297,7 +2380,18 @@ function exportChat(format){
   const blob=new Blob([format==='md'?`# ${caseName} — ${fn?.name}\n*${date}*\n\n`+mdContent:content],{type:'text/plain;charset=utf-8'});
   const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`fiscalito_${caseName.replace(/[^a-z0-9]/gi,'_').toLowerCase()}_${activeFn}.${ext}`;a.click();URL.revokeObjectURL(url);showToast(`✓ Descargado como .${ext}`);
 }
-function clearChatView(){if(chatHistory.length&&!confirm('¿Limpiar el chat? Se perderán los mensajes.'))return;chatHistory=[];document.getElementById('msgs').innerHTML='';document.getElementById('chatMsgCount').textContent='0 mensajes';initChat();}
+function clearChatView(){
+  if(chatHistory.length&&!confirm('¿Limpiar el chat? Se perderán los mensajes.'))return;
+  chatHistory=[];
+  const msgs=document.getElementById('msgs');
+  if(msgs)msgs.innerHTML='';
+  document.getElementById('chatMsgCount').textContent='0 mensajes';
+  // Reset context input
+  const ctxInput=document.getElementById('fnCtxInput');if(ctxInput)ctxInput.value='';
+  const ctxBody=document.getElementById('fnCtxBody');if(ctxBody)ctxBody.classList.remove('show');
+  const ctxArrow=document.getElementById('fnCtxArrow');if(ctxArrow)ctxArrow.classList.remove('open');
+  initChat();
+}
 // ── Mini Modal helpers ────────────────────────────────────────────────────────
 function openMiniModal(){document.getElementById('miniModal').style.display='flex';setTimeout(()=>document.querySelector('#miniModal input,#miniModal textarea,#miniModal select')?.focus(),50);}
 function closeMiniModal(){document.getElementById('miniModal').style.display='none';window._miniModalSave=null;}
@@ -2307,9 +2401,132 @@ function showToast(msg){const t=document.createElement('div');t.style.cssText='p
 
 // ── Chat ──────────────────────────────────────────────────────────────────────
 function initChat(){
-  const m=document.getElementById('msgs');
-  if(!m.children.length)appendMsg('assistant',`📂 **Expediente cargado:** ${currentCase.name}${currentCase.rol?' · '+currentCase.rol:''}\n\nContexto del caso disponible. ¿Con qué función quieres comenzar?`);
   buildFnQuickBtns();
+  showFnPanel(activeFn);
+}
+
+function showFnPanel(code){
+  const panel=document.getElementById('fnPanel');
+  const msgs=document.getElementById('msgs');
+  const ragBar=document.getElementById('ragBar');
+  const exportBar=document.getElementById('exportBar');
+  if(!panel)return;
+  const hasMsgs=msgs&&msgs.children.length>0;
+  if(hasMsgs){
+    panel.style.display='none';msgs.style.display='flex';
+    if(ragBar)ragBar.style.display='flex';
+    if(exportBar)exportBar.style.display='flex';
+    return;
+  }
+  // Show panel
+  if(ragBar)ragBar.style.display='none';
+  if(exportBar)exportBar.style.display='none';
+  msgs.style.display='none';
+  panel.style.display='flex';
+  const fn=FNS.find(f=>f.code===code)||FNS[0];
+  const pd=FN_PANELS[code]||{desc:'',fmt:'',note:'',chips:[],noteIcon:'ℹ'};
+  const caseLink=currentCase
+    ? `<span class="fn-panel-link-case">↗ ${esc(currentCase.name)}${currentCase.rol?' · '+currentCase.rol:''}</span>`
+    : `<span style="font-size:11px;color:var(--text-muted)">Sin caso vinculado — selecciona uno en el panel izquierdo</span>`;
+  panel.innerHTML=`
+    <div class="fn-panel-docs">
+      <div class="fn-panel-docs-header" onclick="togglePanelDocs()">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h5l3 3v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><polyline points="9,3 9,6 12,6"/></svg>
+        <span class="fn-panel-docs-title">Documentos de la Función</span>
+        <svg id="panelDocsChev" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,4 10,8 6,12"/></svg>
+      </div>
+      <div class="fn-panel-docs-body" id="panelDocsBody" style="display:none;">
+        <button class="fn-panel-upload-btn" onclick="document.getElementById('fnDocInput').click()">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 3v8M5 6l3-3 3 3"/><path d="M2 12h12"/></svg>
+          Subir documentos
+        </button>
+        <div class="fn-uploaded-files" id="fnUploadedList"></div>
+        <div class="fn-panel-upload-empty" id="fnUploadedEmpty">Sin documentos cargados para esta función</div>
+      </div>
+    </div>
+    <div class="fn-panel-link">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 3H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V8"/><path d="M13 3H9m0 0v4m0-4 4 4"/></svg>
+      <span class="fn-panel-link-text">Vincular con un Caso</span>
+      ${caseLink}
+    </div>
+    <div class="fn-panel-card">
+      <div class="fn-panel-card-header">
+        <div class="fn-panel-card-badge">${fn.code}</div>
+        <div class="fn-panel-card-title">Función ${fn.code} — ${fn.name}</div>
+      </div>
+      <div class="fn-panel-card-desc">${pd.desc}</div>
+    </div>
+    <div class="fn-panel-fmt">
+      <div class="fn-panel-fmt-label">Formato sugerido</div>
+      <div class="fn-panel-fmt-example">${pd.fmt.replace(/\n/g,'<br>')}</div>
+    </div>
+    <div class="fn-panel-note">
+      <span class="fn-panel-note-icon">${pd.noteIcon||'ℹ'}</span>
+      <span class="fn-panel-note-text">${pd.note}</span>
+    </div>`;
+  // Render chips
+  buildFnChips(code);
+  renderFnUploadedFiles();
+}
+
+function buildFnChips(code){
+  const row=document.getElementById('fnChipsRow');if(!row)return;
+  const pd=FN_PANELS[code];
+  if(!pd||!pd.chips||!pd.chips.length){row.style.display='none';return;}
+  row.style.display='flex';
+  row.innerHTML=pd.chips.map(chip=>`<button class="fn-chip" onclick="chipQuery('${esc(chip)}')">${esc(chip)}</button>`).join('');
+}
+
+function chipQuery(text){
+  document.getElementById('inputBox').value=text;
+  document.getElementById('inputBox').focus();
+}
+
+function togglePanelDocs(){
+  const body=document.getElementById('panelDocsBody');
+  const chev=document.getElementById('panelDocsChev');
+  if(!body)return;
+  const open=body.style.display==='none';
+  body.style.display=open?'block':'none';
+  if(chev)chev.style.transform=open?'rotate(90deg)':'';
+}
+
+function toggleFnCtx(){
+  const body=document.getElementById('fnCtxBody');
+  const arrow=document.getElementById('fnCtxArrow');
+  if(!body)return;
+  const open=body.classList.toggle('show');
+  if(arrow)arrow.classList.toggle('open',open);
+}
+
+// fn document upload (stored in memory as base64 for context)
+let _fnDocs=[];
+function handleFnDocUpload(input){
+  Array.from(input.files).forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      _fnDocs.push({name:file.name,size:file.size,data:e.target.result,fn:activeFn});
+      renderFnUploadedFiles();
+      showToast(`✓ ${file.name} adjuntado`);
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value='';
+}
+
+function renderFnUploadedFiles(){
+  const list=document.getElementById('fnUploadedList');
+  const empty=document.getElementById('fnUploadedEmpty');
+  if(!list)return;
+  const fnDocs=_fnDocs.filter(d=>d.fn===activeFn);
+  if(!fnDocs.length){if(empty)empty.style.display='block';list.innerHTML='';return;}
+  if(empty)empty.style.display='none';
+  list.innerHTML=fnDocs.map((d,i)=>`<div class="fn-uploaded-file"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 3h5l3 3v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/></svg>${esc(d.name)}<button class="fn-uploaded-file-del" onclick="removeFnDoc(${i})" title="Eliminar">×</button></div>`).join('');
+}
+
+function removeFnDoc(idx){
+  _fnDocs=_fnDocs.filter((d,i)=>!(d.fn===activeFn&&_fnDocs.filter(x=>x.fn===activeFn).indexOf(d)===idx));
+  renderFnUploadedFiles();
 }
 function buildFnQuickBtns(){
   const el=document.getElementById('fnQuickBtns');
@@ -2326,6 +2543,9 @@ function pickFn(code){
   document.getElementById('chatFnTitle').textContent=fn.name;
   document.getElementById('fnHint').textContent=`${fn.code} — ${fn.name}`;
   buildFnList();buildFnQuickBtns();
+  // Show function panel (resets if no messages, or stays in chat if messages exist)
+  showFnPanel(code);
+  buildFnChips(code);
 }
 function buildContext(){
   const fn=FNS.find(f=>f.code===activeFn);let ctx=`[FUNCIÓN: ${activeFn} — ${fn.name}]\n`;
@@ -2367,8 +2587,27 @@ function buildContext(){
   return ctx;
 }
 async function sendMessage(text){
-  const input=document.getElementById('inputBox');const msg=text||input.value.trim();if(!msg||isLoading)return;
+  const input=document.getElementById('inputBox');
+  // Append optional context if provided
+  const ctxInput=document.getElementById('fnCtxInput');
+  const ctxVal=ctxInput?.value.trim();
+  let msg=text||input.value.trim();
+  if(!msg&&ctxVal)msg=ctxVal;
+  if(!msg||isLoading)return;
+  if(ctxVal&&!text){msg=msg+(ctxVal&&ctxVal!==msg?'
+
+Contexto adicional:
+'+ctxVal:'');}
   input.value='';input.style.height='auto';if(activeTab!=='tabChat')showTab('tabChat');
+  // Switch from panel to chat view
+  const panel=document.getElementById('fnPanel');
+  const msgs2=document.getElementById('msgs');
+  const ragBar=document.getElementById('ragBar');
+  const exportBar=document.getElementById('exportBar');
+  if(panel)panel.style.display='none';
+  if(msgs2)msgs2.style.display='flex';
+  if(ragBar)ragBar.style.display='flex';
+  if(exportBar)exportBar.style.display='flex';
   appendMsg('user',msg);chatHistory.push({role:'user',content:msg});
   const tid=showTyping();setLoading(true);
   const ragFolder=document.getElementById('ragFolder')?.value,ragStatus=document.getElementById('ragStatus');
