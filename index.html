@@ -2623,10 +2623,7 @@ async function sendMessage(text){
   let msg=text||input.value.trim();
   if(!msg&&ctxVal)msg=ctxVal;
   if(!msg||isLoading)return;
-  if(ctxVal&&!text){msg=msg+(ctxVal&&ctxVal!==msg?'
-
-Contexto adicional:
-'+ctxVal:'');}
+  if(ctxVal&&!text){msg=msg+(ctxVal&&ctxVal!==msg?'\n\nContexto adicional:\n'+ctxVal:'');}
   input.value='';input.style.height='auto';if(activeTab!=='tabChat')showTab('tabChat');
   // Switch from panel to chat view
   const panel=document.getElementById('fnPanel');
