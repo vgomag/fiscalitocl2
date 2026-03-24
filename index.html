@@ -1424,8 +1424,8 @@ async function confirmDeleteCase(){
 // ── Navegación ────────────────────────────────────────────────────────────────
 function pickFnAndChat(code){
   pickFn(code);
-  if(currentCase)showTab('tabChat');
-  else showView('viewWelcome');
+  showView('viewCase');
+  showTab('tabChat');
   document.querySelectorAll('.sidebar-nav-item').forEach(el=>el.classList.remove('active'));
 }
 function openPendientes(){
@@ -2101,6 +2101,7 @@ function showTab(tabId){
   loadTabData(tabId);
 }
 async function loadTabData(tabId){
+  if(tabId==='tabChat'){initChat();return;}
   if(!currentCase)return;
   if(tabId==='tabParticipantes')await loadParticipantes();
   else if(tabId==='tabEtapas')await loadEtapas();
