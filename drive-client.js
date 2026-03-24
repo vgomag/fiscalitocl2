@@ -1,6 +1,23 @@
-/* Fiscalito — Drive Client v3 */
+/* Fiscalito — Drive Client v4 + Tab Auto-Loader */
 (function() {
+
+  // Mapa de pestañas → función de carga
+  const TAB_LOADERS = {
+    tabDiligencias:   'loadDiligencias',
+    tabCronologia:    'loadCronologia',
+    tabEtapas:        'loadEtapas',
+    tabAcciones:      'loadAcciones',
+    tabResoluciones:  'loadResoluciones',
+    tabChecklist:     'loadChecklist',
+    tabParticipantes: 'loadParticipantes',
+    tabNotas:         'loadNotas',
+    tabModelos:       'loadModelos',
+    tabDrive:         'loadDriveTab'
+  };
+
   function installPatches() {
+
+    // ── Patch pickCaseById: asignar _currentDriveCase ──
     if (typeof pickCaseById === 'function') {
       var _orig = pickCaseById;
       window.pickCaseById = async function(id) {
@@ -10,20 +27,36 @@
         return _orig.apply(this, arguments);
       };
     }
+
+    // ── Patch showTab: disparar carga automática ──
     if (typeof showTab === 'function') {
       var _origShow = showTab;
       window.showTab = function(tab) {
         _origShow.apply(this, arguments);
-        if (tab === 'tabDrive') setTimeout(loadDriveTab, 50);
+        // Llamar la función de carga correspondiente
+        var loaderName = TAB_LOADERS[tab];
+        if (loaderName && typeof window[loaderName] === 'function') {
+          setTimeout(function() {
+            window[loaderName]().catch(function(e) {
+              console.warn('Error cargando ' + tab + ':', e.message);
+            });
+          }, 50);
+        }
       };
     }
+
+    console.log('[Fiscalito] Drive client + tab loaders instalados.');
   }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() { setTimeout(installPatches, 200); });
   } else {
     setTimeout(installPatches, 200);
   }
+
 })();
+
+/* ── Drive API helpers ── */
 
 async function callDrive(body) {
   var res = await fetch('/.netlify/functions/drive', {
@@ -74,11 +107,25 @@ async function driveRefreshFiles() {
   el.innerHTML = '<div class="drive-empty">Cargando archivos...</div>';
   try {
     var r = await callDrive({ action: 'files', folderId: caso.drive_folder_id });
-    if (!r.files || !r.files.length) { el.innerHTML = '<div class="drive-empty">La carpeta est\u00e1 vac\u00eda.</div>'; return; }
+    if (!r.files || !r.files.length) {
+      el.innerHTML = '<div class="drive-empty">La carpeta est\u00e1 vac\u00eda.</div>';
+      return;
+    }
     el.innerHTML = r.files.map(function(f) {
-      return '<div class="drive-file-item"><a href="' + f.webViewLink + '" target="_blank">' + f.name + '</a><span class="drive-file-size">' + fmtSize(f.size) + '</span></div>';
+      var icon = '&#128196;';
+      if (f.mimeType && f.mimeType.includes('pdf')) icon = '&#128213;';
+      else if (f.mimeType && f.mimeType.includes('document')) icon = '&#128196;';
+      else if (f.mimeType && f.mimeType.includes('sheet')) icon = '&#128202;';
+      else if (f.mimeType && f.mimeType.includes('image')) icon = '&#128247;';
+      return '<div class="drive-file-item">' +
+        '<span style="font-size:14px">' + icon + '</span>' +
+        '<a href="' + f.webViewLink + '" target="_blank">' + f.name + '</a>' +
+        '<span class="drive-file-size">' + fmtSize(f.size) + '</span>' +
+        '</div>';
     }).join('');
-  } catch(e) { el.innerHTML = '<div class="drive-empty" style="color:#c00">' + e.message + '</div>'; }
+  } catch(e) {
+    el.innerHTML = '<div class="drive-empty" style="color:#c00">' + e.message + '</div>';
+  }
 }
 
 async function driveCreateFolder() {
@@ -99,18 +146,26 @@ async function driveCreateFolder() {
 }
 
 async function driveShowPicker() {
-  var pic = document.getElementById('drivePicker');
+  var pic  = document.getElementById('drivePicker');
   var list = document.getElementById('drivePickerList');
   if (!pic || !list) return;
   pic.style.display = 'block';
   list.innerHTML = '<div class="drive-empty">Cargando carpetas...</div>';
   try {
     var r = await callDrive({ action: 'list' });
-    if (!r.folders || !r.folders.length) { list.innerHTML = '<div class="drive-empty">No hay carpetas.</div>'; return; }
+    if (!r.folders || !r.folders.length) {
+      list.innerHTML = '<div class="drive-empty">No hay carpetas.</div>';
+      return;
+    }
     list.innerHTML = r.folders.map(function(f) {
-      return '<div class="drive-folder-option"><span>\ud83d\udcc1 ' + f.name + '</span><button onclick="driveLinkFolder(\'' + f.id + '\',\'' + f.name.replace(/'/g, "\\'") + '\')">Vincular</button></div>';
+      return '<div class="drive-folder-option">' +
+        '<span>&#128193; ' + f.name + '</span>' +
+        '<button onclick="driveLinkFolder(\'' + f.id + '\',\'' + f.name.replace(/'/g, "\\'") + '\')">Vincular</button>' +
+        '</div>';
     }).join('');
-  } catch(e) { list.innerHTML = '<div class="drive-empty" style="color:#c00">' + e.message + '</div>'; }
+  } catch(e) {
+    list.innerHTML = '<div class="drive-empty" style="color:#c00">' + e.message + '</div>';
+  }
 }
 
 async function driveLinkFolder(folderId, folderName) {
@@ -135,7 +190,10 @@ async function driveUnlink() {
   try {
     await fetch(window.SB_URL + '/rest/v1/cases?id=eq.' + caso.id, {
       method: 'PATCH',
-      headers: { apikey: window.SB_KEY, Authorization: 'Bearer ' + window.SB_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      headers: {
+        apikey: window.SB_KEY, Authorization: 'Bearer ' + window.SB_KEY,
+        'Content-Type': 'application/json', Prefer: 'return=minimal'
+      },
       body: JSON.stringify({ drive_folder_id: null, drive_folder_url: null })
     });
     window._currentDriveCase.drive_folder_id = null;
