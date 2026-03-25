@@ -132,7 +132,7 @@ function buildParrafosPanel(caseContext) {
            const p = PARRAFOS_DB.find(x => x.id === id);
            return p ? `<div class="parr-sel-item">
              <div class="parr-sel-num">${idx + 1}</div>
-             <div class="parr-sel-label">${escHtml(p.label)}</div>
+             <div class="parr-sel-label">${esc(p.label)}</div>
              <div style="display:flex;gap:4px">
                <button class="btn-sm" onclick="parrafosUseInChat('${id}')">→ Chat</button>
                <button class="btn-del" onclick="parrafosRemove('${idx}')">✕</button>
@@ -166,13 +166,13 @@ function buildParrafosPanel(caseContext) {
         ${catParrs.map(p => `
           <div class="parr-item ${parrafos.selected.includes(p.id) ? 'selected' : ''}" onclick="toggleParrafo('${p.id}')">
             <div class="parr-item-header">
-              <span class="parr-item-label">${escHtml(p.label)}</span>
+              <span class="parr-item-label">${esc(p.label)}</span>
               <div style="display:flex;gap:5px">
                 <button class="btn-sm" onclick="event.stopPropagation();parrafosUseInChat('${p.id}')" title="Insertar en chat">→ Chat</button>
                 <button class="btn-sm" onclick="event.stopPropagation();copyParrafo('${p.id}')" title="Copiar">📋</button>
               </div>
             </div>
-            <div class="parr-item-preview">${escHtml(p.text.substring(0, 180))}…</div>
+            <div class="parr-item-preview">${esc(p.text.substring(0, 180))}…</div>
           </div>`).join('')}
       </div>`;
     }).join('')}

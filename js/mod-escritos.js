@@ -43,7 +43,7 @@ function renderEscritosView() {
           return `<div class="esc-draft-item ${escritos.activeDraftId === d.id ? 'active' : ''}" onclick="selectEscritoDraft('${d.id}')">
             <span class="esc-draft-icon">${tpl.icon}</span>
             <div class="esc-draft-info">
-              <div class="esc-draft-title">${escHtml(d.title)}</div>
+              <div class="esc-draft-title">${esc(d.title)}</div>
               <div class="esc-draft-date">${new Date(d.createdAt).toLocaleString('es-CL')}</div>
             </div>
             <button class="btn-del" onclick="event.stopPropagation();deleteEscritoDraft('${d.id}')" title="Eliminar">✕</button>
@@ -66,7 +66,7 @@ function renderEscritosView() {
     const tpl = ESCRITOS_TEMPLATES.find(t => t.id === activeDraft.template) || { icon: '📝', label: activeDraft.template };
     previewHtml = `<div class="esc-preview-wrap">
       <div class="esc-preview-header">
-        <span style="font-size:13px;font-weight:600">${tpl.icon} ${escHtml(activeDraft.title)}</span>
+        <span style="font-size:13px;font-weight:600">${tpl.icon} ${esc(activeDraft.title)}</span>
         <span class="esc-tpl-badge">${tpl.label}</span>
         <div class="esc-preview-actions">
           <button class="btn-export" onclick="copyEscritos('${activeDraft.id}')">📋 Copiar</button>
@@ -92,7 +92,7 @@ function renderEscritosView() {
         <div class="esc-templates-grid">
           ${ESCRITOS_TEMPLATES.map(tpl => `
             <button class="esc-tpl-btn ${escritos.selectedTemplate === tpl.id ? 'active' : ''}"
-              onclick="selectEscritosTemplate('${tpl.id}')" title="${escHtml(tpl.desc)}">
+              onclick="selectEscritosTemplate('${tpl.id}')" title="${esc(tpl.desc)}">
               <span class="esc-tpl-icon">${tpl.icon}</span>
               <span class="esc-tpl-label">${tpl.label}</span>
             </button>`).join('')}

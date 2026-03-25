@@ -136,8 +136,8 @@ function renderBibDocumentos() {
               <div class="bib-book-item">
                 <div class="bib-book-icon">${b.file_type?.includes('pdf')?'📕':b.file_type?.includes('word')||b.file_type?.includes('doc')?'📘':'📄'}</div>
                 <div class="bib-book-info">
-                  <div class="bib-book-name">${escHtml(b.name)}</div>
-                  ${b.description?`<div class="bib-book-desc">${escHtml(b.description)}</div>`:''}
+                  <div class="bib-book-name">${esc(b.name)}</div>
+                  ${b.description?`<div class="bib-book-desc">${esc(b.description)}</div>`:''}
                   <div class="bib-book-meta">${b.file_size?(b.file_size/1024).toFixed(0)+' KB · ':''} ${new Date(b.created_at).toLocaleDateString('es-CL')}</div>
                 </div>
                 <div class="bib-book-actions">
@@ -150,7 +150,7 @@ function renderBibDocumentos() {
 
   return `
     <div class="bib-toolbar">
-      <input class="search-box" style="flex:1;max-width:280px" placeholder="Buscar documento…" oninput="filterBibBooks(this.value)" value="${escHtml(biblioteca.searchQuery)}"/>
+      <input class="search-box" style="flex:1;max-width:280px" placeholder="Buscar documento…" oninput="filterBibBooks(this.value)" value="${esc(biblioteca.searchQuery)}"/>
       <button class="btn-save" style="padding:6px 14px" onclick="showBibAddModal()">+ Agregar</button>
     </div>
     ${booksHtml}
@@ -277,7 +277,7 @@ function bibPreviewBook(id) {
   const book = biblioteca.books.find(b => b.id === id);
   if (!book?.content_text) return;
   document.getElementById('miniModalTitle').textContent = book.name;
-  document.getElementById('miniModalBody').innerHTML = `<div style="font-size:12px;line-height:1.7;max-height:400px;overflow-y:auto;white-space:pre-wrap;background:var(--surface2);padding:10px;border-radius:var(--radius);border:1px solid var(--border)">${escHtml(book.content_text.substring(0, 5000))}${book.content_text.length > 5000 ? '\n\n[...truncado]' : ''}</div>`;
+  document.getElementById('miniModalBody').innerHTML = `<div style="font-size:12px;line-height:1.7;max-height:400px;overflow-y:auto;white-space:pre-wrap;background:var(--surface2);padding:10px;border-radius:var(--radius);border:1px solid var(--border)">${esc(book.content_text.substring(0, 5000))}${book.content_text.length > 5000 ? '\n\n[...truncado]' : ''}</div>`;
   window._miniModalSave = null;
   openMiniModal();
 }
@@ -302,10 +302,10 @@ function renderBibNormas() {
   return `<div class="bib-normas-list">
     ${LEY_NORMAS.map(n => `
       <div class="bib-norma-card">
-        <div class="bib-norma-title">⚖️ ${escHtml(n.label)}</div>
-        <div class="bib-norma-desc">${escHtml(n.desc)}</div>
+        <div class="bib-norma-title">⚖️ ${esc(n.label)}</div>
+        <div class="bib-norma-desc">${esc(n.desc)}</div>
         <div class="bib-norma-arts">
-          ${n.arts.map(a => `<span class="bib-norma-art">📌 ${escHtml(a)}</span>`).join('')}
+          ${n.arts.map(a => `<span class="bib-norma-art">📌 ${esc(a)}</span>`).join('')}
         </div>
         <div style="display:flex;gap:6px;margin-top:8px">
           <button class="btn-sm" onclick="bibConsultarNorma('${n.id}')">💬 Consultar con IA</button>
@@ -345,8 +345,8 @@ function renderBibParrafos() {
         <div style="font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dim);font-family:'DM Mono',monospace;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border)">${cat}</div>
         ${PARRAFOS_SISTEMA.filter(p => p.cat === cat).map(p => `
           <div class="bib-parr-item" onclick="usarParrafoEnChat('${p.id}')">
-            <div class="bib-parr-label">📝 ${escHtml(p.label)}</div>
-            <div class="bib-parr-preview">${escHtml(p.preview)}</div>
+            <div class="bib-parr-label">📝 ${esc(p.label)}</div>
+            <div class="bib-parr-preview">${esc(p.preview)}</div>
           </div>`).join('')}
       </div>`).join('')}`;
 }
@@ -365,7 +365,7 @@ function usarParrafoEnChat(id) {
 function renderBibChat() {
   const msgs = biblioteca.chatMessages;
   const msgsHtml = msgs.length
-    ? msgs.map(m => `<div class="ley-chat-msg ${m.role}"><div class="ley-chat-msg-body"><div class="ley-chat-msg-bub">${m.role==='user'?escHtml(m.content):md(m.content)}</div></div></div>`).join('')
+    ? msgs.map(m => `<div class="ley-chat-msg ${m.role}"><div class="ley-chat-msg-body"><div class="ley-chat-msg-bub">${m.role==='user'?esc(m.content):md(m.content)}</div></div></div>`).join('')
     : `<div class="ley-chat-msg assistant"><div class="ley-chat-msg-body"><div class="ley-chat-msg-bub"><strong>Asistente Biblioteca</strong><br>Hola 👋 Soy tu asistente de la Biblioteca de Referencia. Puedo buscar en tus documentos, explicar normas, adaptar párrafos modelo y ayudarte con consultas jurídicas. ¿En qué te puedo ayudar?</div></div></div>`;
 
   return `<div class="bib-chat-wrap">
@@ -407,7 +407,7 @@ async function sendBibChat() {
   // Re-render to show user msg + typing
   const msgs = document.getElementById('bibChatMsgs');
   if (msgs) {
-    msgs.innerHTML += `<div class="ley-chat-msg user"><div class="ley-chat-msg-body"><div class="ley-chat-msg-bub">${escHtml(text)}</div></div></div>`;
+    msgs.innerHTML += `<div class="ley-chat-msg user"><div class="ley-chat-msg-body"><div class="ley-chat-msg-bub">${esc(text)}</div></div></div>`;
     const typingDiv = document.createElement('div');
     typingDiv.className = 'ley-chat-msg assistant';
     typingDiv.id = 'bibChatTyping';

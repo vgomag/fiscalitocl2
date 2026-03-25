@@ -42,7 +42,7 @@ function showF11TranscripcionPanel() {
 
 function buildTranscripcionHTML() {
   const caseInfo = currentCase
-    ? `<div style="font-size:11px;color:var(--gold);margin-top:4px">📂 ${escHtml(currentCase.name)}${currentCase.rol ? ' · ' + currentCase.rol : ''}</div>`
+    ? `<div style="font-size:11px;color:var(--gold);margin-top:4px">📂 ${esc(currentCase.name)}${currentCase.rol ? ' · ' + currentCase.rol : ''}</div>`
     : '';
 
   // Step indicator
@@ -73,7 +73,7 @@ function buildTranscripcionHTML() {
         </div>
         ${transcripcion.audioFile ? `
           <div class="trans-file-info">
-            🔊 ${escHtml(transcripcion.audioFile.name)} · ${(transcripcion.audioFile.size/1024/1024).toFixed(1)} MB
+            🔊 ${esc(transcripcion.audioFile.name)} · ${(transcripcion.audioFile.size/1024/1024).toFixed(1)} MB
             ${transcripcion.audioUrl ? `<audio controls src="${transcripcion.audioUrl}" style="width:100%;margin-top:8px;height:32px"></audio>` : ''}
           </div>` : ''}
       </div>
@@ -101,7 +101,7 @@ function buildTranscripcionHTML() {
     bodyHtml = `
       <div class="trans-section">
         <div class="trans-label">Transcripción obtenida</div>
-        <div class="trans-raw-box">${escHtml(transcripcion.rawText.substring(0, 500))}${transcripcion.rawText.length > 500 ? '…' : ''}</div>
+        <div class="trans-raw-box">${esc(transcripcion.rawText.substring(0, 500))}${transcripcion.rawText.length > 500 ? '…' : ''}</div>
         ${transcripcion.segments.length > 1 ? `<div style="font-size:10px;color:var(--green);margin-top:5px">👥 ${new Set(transcripcion.segments.map(s=>s.speaker)).size} hablantes detectados</div>` : ''}
       </div>
       <div class="trans-actions-row">
