@@ -212,10 +212,16 @@ async function handleBibFileSelect(input) {
     let text = '';
     if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
       text = await file.text();
+    } else if (file.name.endsWith('.pdf') || file.name.endsWith('.docx') || file.name.endsWith('.doc')) {
+      // PDFs y DOCX como binario generan null bytes — mostrar advertencia
+      showToast('ℹ Para PDF/DOCX: copia y pega el texto directamente en el campo de contenido');
+      text = '';
     } else {
-      // Basic: read as text — for real PDF/DOCX extraction a library is needed
-      text = await file.text().catch(() => `[Archivo: ${file.name}]`);
+      text = await file.text().catch(() => '');
     }
+    // Limpiar null bytes y caracteres de control que PostgreSQL rechaza
+    const cleanText = (t) => t.replace(/\u0000/g, '').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+    text = cleanText(text);
     const contentTA = document.getElementById('bibAddContent');
     if (contentTA && text) contentTA.value = text.substring(0, 50000);
     showToast(`✓ Archivo listo: ${file.name}`);
@@ -248,10 +254,13 @@ async function saveBibBook() {
       if (!upErr) { filePath = path; fileType = file.type; fileSize = file.size; }
     }
 
+    // Sanitizar contenido: eliminar null bytes y caracteres inválidos que PostgreSQL rechaza
+    const sanitizeText = (t) => t ? t.replace(/\u0000/g, '').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '').substring(0, 900000) : '';
+    
     const { error } = await supabaseClient.from('reference_books').insert({
       user_id: user.id, name, description: desc || null,
       file_path: filePath, file_type: fileType, file_size: fileSize,
-      content_text: (content || '').substring(0, 900000),
+      content_text: sanitizeText(content),
       category, is_active: true
     });
 
