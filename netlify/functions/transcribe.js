@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    TRANSCRIBE.JS — Netlify Function v2
-   Endpoint dedicado de transcripción de audio/video
-   Soporta: OpenAI Whisper · ElevenLabs Scribe · Claude fallback
+   Endpoint dedicado de transcripción · Node.js compatible
+   Whisper → ElevenLabs → Claude (fallback chain)
    ═══════════════════════════════════════════════════════════ */
 
 export default async (req) => {
@@ -9,13 +9,12 @@ export default async (req) => {
     return new Response('Method Not Allowed', { status: 405 });
   }
 
-  /* ── Claves de API ── */
   const OPENAI_KEY     = Netlify.env.get('OPENAI_API_KEY');
   const ELEVENLABS_KEY = Netlify.env.get('ELEVENLABS_API_KEY');
   const ANTHROPIC_KEY  = Netlify.env.get('ANTHROPIC_API_KEY');
 
   if (!OPENAI_KEY && !ELEVENLABS_KEY && !ANTHROPIC_KEY) {
-    return jsonRes({ error: 'No hay API key de transcripción configurada (OPENAI_API_KEY, ELEVENLABS_API_KEY o ANTHROPIC_API_KEY)' }, 500);
+    return json({ error: 'No hay API key de transcripción configurada' }, 500);
   }
 
   try {
@@ -23,267 +22,232 @@ export default async (req) => {
     const { audioBase64, fileName, mimeType, instructions } = body;
 
     if (!audioBase64) {
-      return jsonRes({ error: 'No se recibió audio (audioBase64 requerido)' }, 400);
+      return json({ error: 'No se recibió audio' }, 400);
     }
 
-    /* ── Detectar/corregir MIME type ── */
-    const resolvedMime = resolveMimeType(fileName, mimeType);
-    const ext = getExtension(fileName);
-
-    /* ── Intentar transcripción en orden de prioridad ── */
+    const mime = fixMime(fileName, mimeType);
     let transcript = null;
-    let provider   = null;
-    let errors     = [];
+    let provider = null;
+    const errors = [];
 
-    // 1) OpenAI Whisper — mejor soporte de formatos
+    // 1) OpenAI Whisper
     if (OPENAI_KEY && !transcript) {
       try {
-        transcript = await transcribeWithWhisper(OPENAI_KEY, audioBase64, fileName, resolvedMime, ext, instructions);
+        transcript = await whisper(OPENAI_KEY, audioBase64, fileName, mime, instructions);
         provider = 'whisper';
-      } catch (e) {
-        errors.push(`Whisper: ${e.message}`);
-      }
+      } catch (e) { errors.push('Whisper: ' + e.message); }
     }
 
-    // 2) ElevenLabs Scribe v2
+    // 2) ElevenLabs Scribe
     if (ELEVENLABS_KEY && !transcript) {
       try {
-        transcript = await transcribeWithElevenLabs(ELEVENLABS_KEY, audioBase64, fileName, resolvedMime);
+        transcript = await elevenlabs(ELEVENLABS_KEY, audioBase64, fileName, mime);
         provider = 'elevenlabs';
-      } catch (e) {
-        errors.push(`ElevenLabs: ${e.message}`);
-      }
+      } catch (e) { errors.push('ElevenLabs: ' + e.message); }
     }
 
-    // 3) Claude fallback — envía audio como documento
+    // 3) Claude fallback
     if (ANTHROPIC_KEY && !transcript) {
       try {
-        transcript = await transcribeWithClaude(ANTHROPIC_KEY, audioBase64, resolvedMime, instructions);
+        transcript = await claude(ANTHROPIC_KEY, audioBase64, mime, instructions);
         provider = 'claude';
-      } catch (e) {
-        errors.push(`Claude: ${e.message}`);
-      }
+      } catch (e) { errors.push('Claude: ' + e.message); }
     }
 
     if (!transcript) {
-      return jsonRes({
-        error: 'No se pudo transcribir el audio con ningún servicio disponible',
-        details: errors
-      }, 500);
+      return json({ error: 'No se pudo transcribir', details: errors }, 500);
     }
 
-    return jsonRes({ transcript, provider, fileName });
+    return json({ transcript, provider, fileName });
 
   } catch (e) {
-    return jsonRes({ error: e.message }, 500);
+    return json({ error: e.message }, 500);
   }
 };
 
-/* ═══════════════════════════════════════════════════════════
-   PROVEEDORES DE TRANSCRIPCIÓN
-   ═══════════════════════════════════════════════════════════ */
+/* ── OpenAI Whisper ── */
+async function whisper(key, b64, fileName, mime, instructions) {
+  // Build multipart/form-data manually (no FormData dependency)
+  const boundary = '----Boundary' + Date.now();
+  const bin = b64ToBuffer(b64);
 
-/* ── OpenAI Whisper ──────────────────────────────────────── */
-async function transcribeWithWhisper(apiKey, b64, fileName, mime, ext, instructions) {
-  // Whisper soporta: mp3, mp4, mpeg, mpga, m4a, wav, webm, ogg, flac
-  const WHISPER_FORMATS = ['mp3','mp4','mpeg','mpga','m4a','wav','webm','ogg','flac','oga','opus'];
-  const usableExt = WHISPER_FORMATS.includes(ext) ? ext : 'mp3';
-  const usableName = WHISPER_FORMATS.includes(ext) ? fileName : fileName.replace(/\.[^.]+$/, '.mp3');
+  const parts = [];
+  parts.push(field(boundary, 'model', 'whisper-1'));
+  parts.push(field(boundary, 'language', 'es'));
+  parts.push(field(boundary, 'response_format', 'verbose_json'));
+  if (instructions) parts.push(field(boundary, 'prompt', instructions));
+  parts.push(fileField(boundary, 'file', fileName || 'audio.wav', mime, bin));
+  parts.push(new Uint8Array(new TextEncoder().encode('--' + boundary + '--\r\n')));
 
-  const binaryData = base64ToUint8Array(b64);
-  const blob = new Blob([binaryData], { type: mime });
-
-  const form = new FormData();
-  form.append('file', blob, usableName);
-  form.append('model', 'whisper-1');
-  form.append('language', 'es');
-  form.append('response_format', 'verbose_json');
-  if (instructions) {
-    form.append('prompt', instructions);
-  }
+  const bodyBuf = concat(parts);
 
   const resp = await fetch('https://api.openai.com/v1/audio/transcriptions', {
     method: 'POST',
-    headers: { 'Authorization': `Bearer ${apiKey}` },
-    body: form,
+    headers: {
+      'Authorization': 'Bearer ' + key,
+      'Content-Type': 'multipart/form-data; boundary=' + boundary,
+    },
+    body: bodyBuf,
   });
 
   if (!resp.ok) {
-    const errBody = await resp.text();
-    throw new Error(`HTTP ${resp.status}: ${errBody}`);
+    const t = await resp.text();
+    throw new Error('HTTP ' + resp.status + ': ' + t.substring(0, 200));
   }
 
   const data = await resp.json();
   return data.text || '';
 }
 
-/* ── ElevenLabs Scribe v2 ────────────────────────────────── */
-async function transcribeWithElevenLabs(apiKey, b64, fileName, mime) {
-  const binaryData = base64ToUint8Array(b64);
-  const blob = new Blob([binaryData], { type: mime });
+/* ── ElevenLabs Scribe ── */
+async function elevenlabs(key, b64, fileName, mime) {
+  const boundary = '----Boundary' + Date.now();
+  const bin = b64ToBuffer(b64);
 
-  const form = new FormData();
-  form.append('file', blob, fileName);
-  form.append('model_id', 'scribe_v1');
-  form.append('language_code', 'spa');
-  form.append('diarize', 'true');
+  const parts = [];
+  parts.push(field(boundary, 'model_id', 'scribe_v1'));
+  parts.push(field(boundary, 'language_code', 'spa'));
+  parts.push(field(boundary, 'diarize', 'true'));
+  parts.push(fileField(boundary, 'file', fileName || 'audio.wav', mime, bin));
+  parts.push(new Uint8Array(new TextEncoder().encode('--' + boundary + '--\r\n')));
+
+  const bodyBuf = concat(parts);
 
   const resp = await fetch('https://api.elevenlabs.io/v1/speech-to-text', {
     method: 'POST',
-    headers: { 'xi-api-key': apiKey },
-    body: form,
+    headers: {
+      'xi-api-key': key,
+      'Content-Type': 'multipart/form-data; boundary=' + boundary,
+    },
+    body: bodyBuf,
   });
 
   if (!resp.ok) {
-    const errBody = await resp.text();
-    throw new Error(`HTTP ${resp.status}: ${errBody}`);
+    const t = await resp.text();
+    throw new Error('HTTP ' + resp.status + ': ' + t.substring(0, 200));
   }
 
   const data = await resp.json();
 
-  // ElevenLabs devuelve segmentos con speakers
+  // Agrupar por speaker si hay diarización
   if (data.words && Array.isArray(data.words)) {
-    // Agrupar por speaker
-    let result = '';
-    let currentSpeaker = null;
-    let currentText = '';
+    let result = '', curSp = null, curTxt = '';
     for (const w of data.words) {
-      if (w.speaker_id !== currentSpeaker) {
-        if (currentText) result += `[${currentSpeaker || 'HABLANTE'}]: ${currentText.trim()}\n\n`;
-        currentSpeaker = w.speaker_id;
-        currentText = '';
+      if (w.speaker_id !== curSp) {
+        if (curTxt) result += '[' + (curSp || 'HABLANTE') + ']: ' + curTxt.trim() + '\n\n';
+        curSp = w.speaker_id; curTxt = '';
       }
-      currentText += w.text + ' ';
+      curTxt += w.text + ' ';
     }
-    if (currentText) result += `[${currentSpeaker || 'HABLANTE'}]: ${currentText.trim()}\n`;
+    if (curTxt) result += '[' + (curSp || 'HABLANTE') + ']: ' + curTxt.trim() + '\n';
     return result || data.text || '';
   }
 
   return data.text || '';
 }
 
-/* ── Claude fallback ─────────────────────────────────────── */
-async function transcribeWithClaude(apiKey, b64, mime, instructions) {
-  // Claude soporta audio via content blocks
-  const systemPrompt = `Eres un transcriptor profesional. Transcribe el audio fielmente al español. 
-Identifica diferentes hablantes si los hay, usando etiquetas como [HABLANTE 1], [HABLANTE 2], etc.
-Marca partes inaudibles como [INAUDIBLE]. No omitas nada.
-${instructions ? 'Instrucción adicional: ' + instructions : ''}`;
-
+/* ── Claude fallback ── */
+async function claude(key, b64, mime, instructions) {
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': apiKey,
+      'x-api-key': key,
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 4000,
-      system: systemPrompt,
+      system: 'Eres un transcriptor profesional. Transcribe el audio fielmente al español. Identifica hablantes como [HABLANTE 1], [HABLANTE 2]. Partes inaudibles: [INAUDIBLE]. ' + (instructions || ''),
       messages: [{
         role: 'user',
         content: [
           { type: 'text', text: 'Transcribe este audio fielmente.' },
-          {
-            type: 'document',
-            source: { type: 'base64', media_type: mime, data: b64 }
-          }
+          { type: 'document', source: { type: 'base64', media_type: mime, data: b64 } }
         ]
       }]
     }),
   });
 
   if (!resp.ok) {
-    const errBody = await resp.text();
-    throw new Error(`HTTP ${resp.status}: ${errBody}`);
+    const t = await resp.text();
+    throw new Error('HTTP ' + resp.status + ': ' + t.substring(0, 200));
   }
 
   const data = await resp.json();
-  const text = (data.content || [])
-    .filter(b => b.type === 'text')
-    .map(b => b.text)
-    .join('');
-
-  if (!text.trim()) throw new Error('Claude no devolvió transcripción');
+  const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+  if (!text.trim()) throw new Error('Sin transcripción');
   return text;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   UTILIDADES
-   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   Utilidades — sin dependencia de Web APIs
+   ═══════════════════════════════════════════════════ */
 
-/** Mapa exhaustivo extensión → MIME type */
-const MIME_MAP = {
-  // Audio
-  'mp3':  'audio/mpeg',
-  'wav':  'audio/wav',
-  'wave': 'audio/wav',
-  'm4a':  'audio/mp4',
-  'aac':  'audio/aac',
-  'ogg':  'audio/ogg',
-  'oga':  'audio/ogg',
-  'opus': 'audio/opus',
-  'flac': 'audio/flac',
-  'wma':  'audio/x-ms-wma',
-  'amr':  'audio/amr',
-  'aiff': 'audio/aiff',
-  'aif':  'audio/aiff',
-  'caf':  'audio/x-caf',
-  'webm': 'audio/webm',
-  'weba': 'audio/webm',
-  '3gp':  'audio/3gpp',
-  '3gpp': 'audio/3gpp',
-  'spx':  'audio/ogg',
-  'ac3':  'audio/ac3',
-  'mka':  'audio/x-matroska',
-  // Video (también se pueden transcribir)
-  'mp4':  'video/mp4',
-  'm4v':  'video/mp4',
-  'mov':  'video/quicktime',
-  'avi':  'video/x-msvideo',
-  'mkv':  'video/x-matroska',
-  'wmv':  'video/x-ms-wmv',
-  'flv':  'video/x-flv',
-  'ts':   'video/mp2t',
-  'mts':  'video/mp2t',
+const MIMES = {
+  mp3:'audio/mpeg',wav:'audio/wav',m4a:'audio/mp4',aac:'audio/aac',
+  ogg:'audio/ogg',oga:'audio/ogg',opus:'audio/opus',flac:'audio/flac',
+  wma:'audio/x-ms-wma',amr:'audio/amr',aiff:'audio/aiff',aif:'audio/aiff',
+  caf:'audio/x-caf',webm:'audio/webm',weba:'audio/webm',
+  '3gp':'audio/3gpp',spx:'audio/ogg',mka:'audio/x-matroska',
+  mp4:'video/mp4',m4v:'video/mp4',mov:'video/quicktime',
+  avi:'video/x-msvideo',mkv:'video/x-matroska',wmv:'video/x-ms-wmv',
 };
 
-function getExtension(fileName) {
-  if (!fileName) return '';
-  const parts = fileName.toLowerCase().split('.');
-  return parts.length > 1 ? parts.pop() : '';
+function getExt(name) {
+  if (!name) return '';
+  const p = name.toLowerCase().split('.');
+  return p.length > 1 ? p.pop() : '';
 }
 
-function resolveMimeType(fileName, providedMime) {
-  const ext = getExtension(fileName);
-  // Si el MIME proporcionado es genérico o vacío, usar nuestro mapa
-  if (!providedMime || providedMime === 'application/octet-stream' || providedMime === '') {
-    return MIME_MAP[ext] || 'audio/mpeg';
+function fixMime(name, given) {
+  const e = getExt(name);
+  if (!given || given === 'application/octet-stream' || given === '') {
+    return MIMES[e] || 'audio/mpeg';
   }
-  // Si tenemos un mapeo más específico para la extensión, preferirlo
-  if (MIME_MAP[ext] && providedMime !== MIME_MAP[ext]) {
-    // Pero solo si el MIME proporcionado parece genérico
-    if (providedMime.includes('octet-stream') || providedMime === 'audio/webm') {
-      return MIME_MAP[ext];
-    }
-  }
-  return providedMime;
+  return given;
 }
 
-function base64ToUint8Array(b64) {
-  const binaryString = atob(b64);
-  const len = binaryString.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
-  }
-  return bytes;
+/** Base64 string → Uint8Array (Node.js compatible) */
+function b64ToBuffer(b64) {
+  const buf = Buffer.from(b64, 'base64');
+  return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
 }
 
-function jsonRes(data, status = 200) {
+/** Build a multipart text field */
+function field(boundary, name, value) {
+  const str = '--' + boundary + '\r\n'
+    + 'Content-Disposition: form-data; name="' + name + '"\r\n\r\n'
+    + value + '\r\n';
+  return new Uint8Array(new TextEncoder().encode(str));
+}
+
+/** Build a multipart file field */
+function fileField(boundary, name, filename, mime, data) {
+  const header = '--' + boundary + '\r\n'
+    + 'Content-Disposition: form-data; name="' + name + '"; filename="' + filename + '"\r\n'
+    + 'Content-Type: ' + mime + '\r\n\r\n';
+  const headerBytes = new Uint8Array(new TextEncoder().encode(header));
+  const footer = new Uint8Array(new TextEncoder().encode('\r\n'));
+  return concat([headerBytes, data, footer]);
+}
+
+/** Concatenate Uint8Arrays */
+function concat(arrays) {
+  let total = 0;
+  for (const a of arrays) total += a.byteLength;
+  const result = new Uint8Array(total);
+  let offset = 0;
+  for (const a of arrays) {
+    result.set(a instanceof Uint8Array ? a : new Uint8Array(a), offset);
+    offset += a.byteLength;
+  }
+  return result;
+}
+
+function json(data, status) {
   return new Response(JSON.stringify(data), {
-    status,
+    status: status || 200,
     headers: { 'Content-Type': 'application/json' },
   });
 }
