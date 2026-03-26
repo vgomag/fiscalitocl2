@@ -52,10 +52,12 @@ export default async (req) => {
             transcript = await resp.text();
             provider = 'whisper';
           } else {
-            const err = await resp.text();
-            console.log('Whisper error:', resp.status, err.substring(0, 200));
+            const errText = await resp.text();
+            return json({ error: 'Whisper HTTP ' + resp.status + ': ' + errText.substring(0, 300) }, 200);
           }
-        } catch (e) { console.log('Whisper failed:', e.message); }
+        } catch (e) {
+          return json({ error: 'Whisper exception: ' + e.message }, 200);
+        }
       }
 
       // 2) ElevenLabs
@@ -82,8 +84,13 @@ export default async (req) => {
             const data = await resp.json();
             transcript = data.text || '';
             provider = 'elevenlabs';
+          } else {
+            const errText = await resp.text();
+            if (!transcript) return json({ error: 'ElevenLabs HTTP ' + resp.status + ': ' + errText.substring(0, 300) }, 200);
           }
-        } catch (e) { console.log('ElevenLabs failed:', e.message); }
+        } catch (e) {
+          if (!transcript) return json({ error: 'ElevenLabs exception: ' + e.message }, 200);
+        }
       }
 
       if (!transcript) return json({ error: 'No se pudo transcribir el audio' }, 500);
