@@ -2168,7 +2168,7 @@ async function loadNotas(){
 /* ── Drive Panel ── */
 async function loadDrivePanel(){
   if(!currentCase)return;
-  const{data}=await sb.from('case_metadata').select('key,value').eq('case_id',currentCase.id).eq('key','drive_folder_id').maybeSingle();
+  const (data)=await sb.from('cases').select('*').eq('id',currentCase.id).limit(1).eq('key','drive_folder_id').maybeSingle();
   if(data?.value){
     document.getElementById('driveNoFolder').style.display='none';
     document.getElementById('driveHasFolder').style.display='block';
@@ -2182,7 +2182,7 @@ async function loadDrivePanel(){
 }
 async function driveRefreshFiles(folderId){
   const el=document.getElementById('driveFilesList');if(!el)return;
-  if(!folderId){const{data}=await sb.from('case_metadata').select('value').eq('case_id',currentCase?.id).eq('key','drive_folder_id').maybeSingle();folderId=data?.value;}
+  if(!folderId)[const{data}]=await sb.from('cases').select('drive_folder_url').eq('id',currentCase.id).eq('key','drive_folder_id').maybeSingle();folderId=data?.value;}
   if(!folderId){el.innerHTML='<div class="drive-empty">Sin carpeta vinculada.</div>';return;}
   el.innerHTML='<div class="loading">Cargando archivos…</div>';
   try{
@@ -2202,8 +2202,8 @@ async function driveCreateFolder(){showToast('ℹ Esta función requiere el serv
 async function driveShowPicker(){showToast('ℹ Esta función requiere el servicio Google Drive configurado.');}
 async function driveUnlink(){
   if(!currentCase||!confirm('¿Desvincular la carpeta Drive?'))return;
-  await sb.from('case_metadata').delete().eq('case_id',currentCase.id).eq('key','drive_folder_id');
-  await loadDrivePanel();showToast('✓ Carpeta desvinculada');
+await sb.from('cases').update({drive_folder_url:null}).eq('id',currentCase.id);
+await loadDrivePanel();showToast('✓ Carpeta desvinculada');
 }
 
 /* ── Análisis Jurisprudencial ── */
