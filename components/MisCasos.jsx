@@ -1,4 +1,97 @@
-import React, { useEffect, useState } from 'react';
+</td>
+                    <td className="px-4 py-3 text-center">
+                                      <button
+                                                              onClick={() => abrirDetalles(caseData)}
+                                                              className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 font-semibold"
+                                                            >
+                                                          Editar
+                                      </button>button>
+                    </td>td>
+</>tr>
+                ))}
+    </tbody>
+    </>table>
+    </div>
+    
+        {/* MODAL DE EDICIÓN */}
+        {selectedCase && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                          <div className="bg-white rounded-lg shadow-lg max-w-2xl w-full">
+                                      <div className="bg-gray-100 px-6 py-4 border-b flex justify-between items-center">
+                                                    <h2 className="text-xl font-bold">Editar Caso: {selectedCase.name}</h2>h2>
+                                                    <button 
+                                                                        onClick={() => setSelectedCase(null)}
+                                                                        className="text-2xl text-gray-500 hover:text-gray-800"
+                                                                      >
+                                                                    ✕
+                                                    </button>button>
+                                      </div>div>
+                          
+                                      <div className="p-6 space-y-4 max-h-96 overflow-y-auto">
+                                          {/* Información del caso */}
+                                                    <div className="grid grid-cols-2 gap-4">
+                                                                    <div>
+                                                                                      <label className="block text-sm font-semibold text-gray-700 mb-1">Expediente</label>label>
+                                                                                      <p className="text-gray-900">{selectedCase.name || '-'}</p>p>
+                                                                    </div>div>
+                                                                    <div>
+                                                                                      <label className="block text-sm font-semibold text-gray-700 mb-1">ROL</label>label>
+                                                                                      <p className="text-gray-900">{selectedCase.rol || '-'}</p>p>
+                                                                    </div>div>
+                                                                    <div className="col-span-2">
+                                                                                      <label className="block text-sm font-semibold text-gray-700 mb-1">Caratula</label>label>
+                                                                                      <p className="text-gray-900">{selectedCase.caratula || '-'}</p>p>
+                                                                    </div>div>
+                                                                    <div className="col-span-2">
+                                                                                      <label className="block text-sm font-semibold text-gray-700 mb-1">Descripción</label>label>
+                                                                                      <p className="text-gray-900 text-sm">{selectedCase.description || '-'}</p>p>
+                                                                    </div>div>
+                                                                    <div>
+                                                                                      <label className="block text-sm font-semibold text-gray-700 mb-1">Estado</label>label>
+                                                                                      <p className="text-gray-900">{selectedCase.status === 'active' ? 'Activo' : 'Terminado'}</p>p>
+                                                                    </div>div>
+                                                    </div>div>
+                                      
+                                          {/* Campo de Google Drive */}
+                                                    <div className="border-t pt-4">
+                                                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                                                                      📁 Enlace de Google Drive
+                                                                    </label>label>
+                                                                    <textarea
+                                                                                          value={driveUrl}
+                                                                                          onChange={(e) => setDriveUrl(e.target.value)}
+                                                                                          placeholder="Pega aquí la URL completa de la carpeta de Drive (ej: https://drive.google.com/drive/folders/...)"
+                                                                                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                                                                          rows="3"
+                                                                                        />
+                                                                    <p className="text-xs text-gray-500 mt-2">
+                                                                                      💡 Copia la URL completa desde Google Drive compartiendo la carpeta
+                                                                    </p>p>
+                                                    </div>div>
+                                      
+                                          {/* Botones de acción */}
+                                                    <div className="flex gap-2 justify-end border-t pt-4">
+                                                                    <button
+                                                                                          onClick={() => setSelectedCase(null)}
+                                                                                          className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 font-semibold"
+                                                                                        >
+                                                                                      Cancelar
+                                                                    </button>button>
+                                                                    <button
+                                                                                          onClick={guardarDrive}
+                                                                                          disabled={savingDrive}
+                                                                                          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-semibold disabled:opacity-50"
+                                                                                        >
+                                                                        {savingDrive ? '⏳ Guardando...' : '✅ Guardar Drive'}
+                                                                    </button>button>
+                                                    </div>div>
+                                      </div>div>
+                          </div>div>
+                </div>div>
+          )}
+    </>div>
+      );
+}</td>import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
 export default function MisCasos() {
