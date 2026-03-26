@@ -47,7 +47,7 @@ export default function MisCasos() {
 
           // Cargar casos activos
           const { data: activos } = await supabase
-                  .from('casos')
+                  .from('cases')
                   .select(`
                             id,
                                       numero_expediente,
