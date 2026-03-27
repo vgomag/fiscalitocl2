@@ -500,7 +500,7 @@ async function autoFillFromCase(caseObj){
 // 3. UI — WIZARD GUIADO POR BLOQUES
 // ═══════════════════════════════════════════════════════════════════════════
 
-let _wizState={tplCode:null,step:0,vals:{},modalidad:"presencial"};
+let _wizState={tplCode:null,step:0,vals:{},modalidad:"presencial",linkedCase:null};
 
 function openCuestionarios(){
   // Create view if needed
@@ -512,7 +512,7 @@ function openCuestionarios(){
     else document.querySelector("main")?.appendChild(v);
   }
   if(typeof showView==="function")showView("viewCuestionarios");
-  _wizState={tplCode:null,step:0,vals:{},modalidad:"presencial"};
+  _wizState={tplCode:null,step:0,vals:{},modalidad:"presencial",linkedCase:_wizState.linkedCase||null};
   renderCuestionariosView();
 }
 
@@ -521,13 +521,30 @@ function renderCuestionariosView(){
   if(!_wizState.tplCode){
     // Template selection
     const tplList=Object.values(TEMPLATES);
+    const caseActive=typeof currentCase!=="undefined"&&currentCase;
+    const cases=typeof allCases!=="undefined"?allCases:[];
+    const linkedCase=_wizState.linkedCase||(caseActive?currentCase:null);
+
     el.innerHTML=`
       <div style="padding:14px 20px 8px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0">
         <div style="font-family:var(--font-serif);font-size:22px;font-weight:400">📋 Cuestionarios y Actas</div>
         <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Plantillas institucionales para procedimientos disciplinarios · Actas · Resoluciones · Consentimientos</div>
       </div>
       <div style="flex:1;overflow-y:auto;padding:16px 20px;max-width:900px;margin:0 auto;width:100%">
-        ${typeof currentCase!=="undefined"&&currentCase?`<div style="background:var(--gold-glow);border:1px solid rgba(79,70,229,.15);border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;font-size:12px">📋 Expediente activo: <strong>${h(currentCase.name)}</strong>${currentCase.rol?" · "+h(currentCase.rol):""} — Los datos se llenarán automáticamente</div>`:"<div style='background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;font-size:12px'>⚠ Sin expediente activo. Selecciona un caso para auto-llenar los datos.</div>"}
+        <div style="background:${linkedCase?'var(--gold-glow)':'rgba(245,158,11,.06)'};border:1px solid ${linkedCase?'rgba(79,70,229,.15)':'rgba(245,158,11,.2)'};border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;font-size:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          ${linkedCase
+            ?`<span>📋 Expediente vinculado: <strong>${h(linkedCase.name)}</strong>${linkedCase.rol?" · "+h(linkedCase.rol):""}</span>
+              <span style="font-size:10px;color:var(--green)">✓ Los datos se auto-rellenarán</span>
+              <button class="btn-sm" style="margin-left:auto;font-size:10px;padding:2px 8px" onclick="cuestUnlinkCase()">Cambiar</button>`
+            :`<span>⚠ Sin expediente vinculado.</span>
+              ${cases.length>0
+                ?`<select id="cuestCaseSelect" style="font-size:11px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);background:var(--surface);max-width:300px">
+                    <option value="">— Seleccionar expediente —</option>
+                    ${cases.slice(0,30).map(c=>`<option value="${c.id}">${h(c.name)}${c.rol?" · "+h(c.rol):""}</option>`).join("")}
+                  </select>
+                  <button class="btn-sm" style="font-size:10px;padding:3px 8px" onclick="cuestLinkCase()">Vincular</button>`
+                :'<span style="font-size:10px;color:var(--text-muted)">Abre un caso primero desde la lista de expedientes.</span>'}`}
+        </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">
           ${tplList.map(t=>`
             <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .12s" onmouseover="this.style.borderColor='var(--gold-dim)';this.style.boxShadow='var(--shadow-sm)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'" onclick="selectTemplate('${t.code}')">
@@ -547,10 +564,22 @@ function renderCuestionariosView(){
 
 async function selectTemplate(code){
   _wizState.tplCode=code;_wizState.step=0;_wizState.modalidad="presencial";
-  const caseObj=typeof currentCase!=="undefined"?currentCase:null;
+  const caseObj=_wizState.linkedCase||(typeof currentCase!=="undefined"?currentCase:null);
   _wizState.vals=await autoFillFromCase(caseObj);
+  // Show auto-fill count
+  const filled=Object.keys(_wizState.vals).filter(k=>_wizState.vals[k]&&_wizState.vals[k].trim()).length;
+  if(filled>0)showToast("✓ "+filled+" campos auto-rellenados desde el expediente");
   renderCuestionariosView();
 }
+
+function cuestLinkCase(){
+  const sel=document.getElementById("cuestCaseSelect");
+  if(!sel||!sel.value){showToast("Selecciona un expediente");return;}
+  const cases=typeof allCases!=="undefined"?allCases:[];
+  const c=cases.find(x=>x.id===sel.value);
+  if(c){_wizState.linkedCase=c;showToast("✓ Vinculado: "+c.name);renderCuestionariosView();}
+}
+function cuestUnlinkCase(){_wizState.linkedCase=null;renderCuestionariosView();}
 
 function renderWizard(){
   const el=document.getElementById("viewCuestionarios");if(!el)return;
@@ -583,18 +612,20 @@ function renderWizard(){
 function renderBlock(tpl,step){
   const block=tpl.blocks[step];if(!block)return"";
   const vars=block.vars;
+  const autoFilledCount=vars.filter(v=>_wizState.vals[v.key]&&_wizState.vals[v.key].trim()).length;
   return`
     <div style="margin-bottom:12px">
       <div style="font-size:16px;font-weight:600;margin-bottom:2px">${h(block.title)}</div>
-      <div style="font-size:11px;color:var(--text-muted)">${h(block.desc)}</div>
+      <div style="font-size:11px;color:var(--text-muted)">${h(block.desc)}${autoFilledCount>0?` · <span style="color:var(--green)">${autoFilledCount} campo(s) auto-rellenados</span>`:''}</div>
     </div>
     ${vars.map(v=>{
       const val=_wizState.vals[v.key]||v.def||"";
       const isReq=v.req;
-      const filled=val&&val.trim();
-      if(v.type==="textarea")return`<div class="form-field"><label>${h(v.label)}${isReq?" *":""}</label><textarea id="wiz_${v.key}" rows="4" placeholder="${h(v.ph||"")}" style="width:100%;min-height:80px">${h(val)}</textarea></div>`;
-      if(v.type==="select")return`<div class="form-field"><label>${h(v.label)}${isReq?" *":""}</label><select id="wiz_${v.key}">${(v.opts||[]).map(o=>`<option value="${h(o)}"${val===o?" selected":""}>${h(o)}</option>`).join("")}</select></div>`;
-      return`<div class="form-field"><label>${h(v.label)}${isReq?" *":""}</label><input id="wiz_${v.key}" type="${v.type==="date"?"date":v.type==="time"?"time":"text"}" value="${h(val)}" placeholder="${h(v.ph||"")}"/></div>`;
+      const isAutoFilled=!!_wizState.vals[v.key]&&_wizState.vals[v.key].trim();
+      const borderStyle=isAutoFilled?'border-left:3px solid var(--green);padding-left:8px':'';
+      if(v.type==="textarea")return`<div class="form-field" style="${borderStyle}"><label>${h(v.label)}${isReq?" *":""}${isAutoFilled?' <span style="font-size:9px;color:var(--green)">● auto</span>':''}</label><textarea id="wiz_${v.key}" rows="4" placeholder="${h(v.ph||"")}" style="width:100%;min-height:80px">${h(val)}</textarea></div>`;
+      if(v.type==="select")return`<div class="form-field" style="${borderStyle}"><label>${h(v.label)}${isReq?" *":""}${isAutoFilled?' <span style="font-size:9px;color:var(--green)">● auto</span>':''}</label><select id="wiz_${v.key}">${(v.opts||[]).map(o=>`<option value="${h(o)}"${val===o?" selected":""}>${h(o)}</option>`).join("")}</select></div>`;
+      return`<div class="form-field" style="${borderStyle}"><label>${h(v.label)}${isReq?" *":""}${isAutoFilled?' <span style="font-size:9px;color:var(--green)">● auto</span>':''}</label><input id="wiz_${v.key}" type="${v.type==="date"?"date":v.type==="time"?"time":"text"}" value="${h(val)}" placeholder="${h(v.ph||"")}"/></div>`;
     }).join("")}
     <div style="display:flex;gap:8px;margin-top:14px;justify-content:space-between">
       <button class="btn-cancel" onclick="wizPrev()" ${step===0?"disabled":""}>← Anterior</button>
@@ -671,6 +702,8 @@ function sendActaToChat(){
 
 window.openCuestionarios=openCuestionarios;
 window.selectTemplate=selectTemplate;
+window.cuestLinkCase=cuestLinkCase;
+window.cuestUnlinkCase=cuestUnlinkCase;
 window.wizNext=wizNext;
 window.wizPrev=wizPrev;
 window.downloadActa=downloadActa;
