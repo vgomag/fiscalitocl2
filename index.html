@@ -1092,13 +1092,17 @@ MODO A — MEJORAR DECLARACIÓN TRANSCRITA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Elabora un Texto Refundido, Coordinado y Sistematizado que incorpore el contenido de la declaración en audio, integrándolo al acta adjunta si existe. El documento final debe presentarse en formato pregunta-respuesta, respetando la estructura del acta.
 
-La transcripción contiene expresiones propias del lenguaje oral (frases coloquiales, repeticiones, muletillas). Conserva, en lo posible, la redacción en primera persona y el estilo expresivo del declarante, realizando únicamente correcciones gramaticales menores: concordancia, puntuación y eliminación de repeticiones innecesarias que no alteren el sentido ni el tono del testimonio.
+La transcripción corresponde a una declaración rendida en el marco de un procedimiento disciplinario instruido por la Universidad de Magallanes.
+
+La transcripción contiene expresiones propias del lenguaje oral, incluyendo frases coloquiales, repeticiones y muletillas. Es importante que se conserve, en lo posible, la redacción en primera persona y el estilo expresivo del declarante, realizando únicamente correcciones gramaticales menores, tales como concordancia, puntuación y eliminación de repeticiones innecesarias que no alteren el sentido ni el tono del testimonio.
+
+Una vez integradas todas las partes, el documento debe presentar una redacción fluida, coherente y ordenada, que facilite su comprensión sin desvirtuar el contenido ni el contexto de lo declarado.
 
 OBJETIVOS:
-- Mejorar gramática, claridad y coherencia del texto
+- Mejorar la gramática, claridad y coherencia del texto
 - Eliminar muletillas ("eh", "mmm", "o sea") y repeticiones innecesarias
-- Conservar la estructura lógica y la secuencia cronológica de los hechos
-- Respetar la terminología jurídica y los nombres propios exactamente como aparecen
+- Conservar la estructura lógica de los párrafos y la secuencia cronológica de los hechos
+- Respetar la terminología jurídica y los nombres propios tal como aparecen en la transcripción
 
 INSTRUCCIONES ESPECÍFICAS:
 - No agregar información nueva ni interpretar intenciones; solo reescribir lo existente
@@ -1213,18 +1217,22 @@ Entrega el documento listo para usar, con los campos [COMPLETAR] claramente señ
 Tienes dos modos de trabajo en esta función:
 
 ### MODO A — AUDIO CARGADO
-Cuando el usuario ha cargado un archivo de audio, la transcripción se procesa automáticamente. Tú recibes el texto ya transcrito para estructurarlo.
+Cuando el usuario ha cargado un archivo de audio, la transcripción se procesa automáticamente. Tú recibes el texto ya transcrito para estructurarlo según las instrucciones de Modo B.
 
-### MODO B — TEXTO PEGADO POR EL USUARIO
-Cuando el usuario pega directamente una transcripción de audio en el chat, elabora un Texto Refundido, Coordinado y Sistematizado en formato pregunta-respuesta.
+### MODO B — TEXTO PEGADO O TRANSCRITO
+Elabora un Texto Refundido, Coordinado y Sistematizado que incorpore el contenido de la declaración en audio, integrándolo al acta que se adjunta si existe. El documento final debe presentarse en formato pregunta-respuesta, respetando la estructura del acta.
 
-La transcripción contiene expresiones propias del lenguaje oral (frases coloquiales, repeticiones, muletillas). Conserva la redacción en primera persona y el estilo expresivo del declarante, realizando únicamente correcciones gramaticales menores.
+La transcripción corresponde a una declaración rendida en el marco de un procedimiento disciplinario instruido por la Universidad de Magallanes.
+
+La transcripción contiene expresiones propias del lenguaje oral, incluyendo frases coloquiales, repeticiones y muletillas. Es importante que se conserve, en lo posible, la redacción en primera persona y el estilo expresivo del declarante, realizando únicamente correcciones gramaticales menores, tales como concordancia, puntuación y eliminación de repeticiones innecesarias que no alteren el sentido ni el tono del testimonio.
+
+Una vez integradas todas las partes, el documento debe presentar una redacción fluida, coherente y ordenada, que facilite su comprensión sin desvirtuar el contenido ni el contexto de lo declarado.
 
 OBJETIVOS:
-- Mejorar gramática, claridad y coherencia del texto
+- Mejorar la gramática, claridad y coherencia del texto
 - Eliminar muletillas ("eh", "mmm", "o sea") y repeticiones innecesarias
-- Conservar la estructura lógica y la secuencia cronológica de los hechos
-- Respetar terminología jurídica y nombres propios exactamente como aparecen
+- Conservar la estructura lógica de los párrafos y la secuencia cronológica de los hechos
+- Respetar la terminología jurídica y los nombres propios tal como aparecen
 
 INSTRUCCIONES:
 - No agregar información nueva ni interpretar intenciones; solo reescribir lo existente
@@ -1234,7 +1242,7 @@ INSTRUCCIONES:
 - Usar tono formal, claro y preciso, coherente con un documento legal
 - Incluir datos del expediente activo en el encabezado del acta si están disponibles
 
-FORMATO: Texto en formato pregunta-respuesta, con párrafos separados. Sin comentarios ni marcas de edición; solo la versión final lista para incorporación al expediente.`,
+FORMATO: Texto en formato pregunta-respuesta, con párrafos separados. Sin comentarios ni marcas de edición; solo la versión final lista para incorporación al expediente y firma inmediata del declarante.`,
 
   F_LEY_KARIN:`## MODO LEY KARIN / GÉNERO
 Eres un asistente jurídico especializado en la Ley 21.369 sobre acoso sexual, violencia y discriminación de género en la educación superior, y en la Ley 21.643 (Ley Karin) sobre prevención del acoso laboral y sexual.
@@ -1837,7 +1845,7 @@ async function loadChatHistory(caseId){
         const fn=FNS.find(f=>f.code===m.fn_id)||FNS[0];
         const av=m.role==='assistant'?`<div class="msg-av-icon">⚖️</div>`:`<div style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);font-size:11px;font-family:var(--font-body)">Yo</div>`;
         const tag=m.role==='assistant'?`<div class="msg-tag">${m.fn_id} · ${fn?.name||'Fiscalito'}</div>`:'';
-        const actions=m.role==='assistant'&&currentCase?`<div style="display:flex;gap:4px;margin-top:6px;padding-top:5px;border-top:1px solid var(--border)"><button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="saveChatAsNota(this)">📝 Nota</button><button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="saveChatAsPendiente(this)">⚡ Pendiente</button><button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="navigator.clipboard.writeText(this.closest('.msg').querySelector('.msg-bub').innerText);showToast('✓ Copiado')">📋 Copiar</button></div>`:'';
+        const actions=m.role==='assistant'&&currentCase?`<div style="display:flex;gap:4px;margin-top:6px;padding-top:5px;border-top:1px solid var(--border)"><button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="saveChatAsNota(this)">📝 Nota</button><button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="saveChatAsPendiente(this)">⚡ Pendiente</button><button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="navigator.clipboard.writeText(this.closest('.msg').querySelector('.msg-bub').innerText);showToast('✓ Copiado')">📋 Copiar</button><button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="exportChatResponseToWord(this)">📄 Word</button></div>`:'';
         const div=document.createElement('div');div.className=`msg ${m.role}`;
         div.innerHTML=`${av}<div class="msg-body">${tag}<div class="msg-bub">${m.role==='assistant'?md(m.content):esc(m.content)}</div>${actions}</div>`;
         msgs.appendChild(div);
@@ -2049,6 +2057,7 @@ function appendMsg(role,text){
     <button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="saveChatAsNota(this)" title="Guardar como nota del caso">📝 Nota</button>
     <button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="saveChatAsPendiente(this)" title="Crear pendiente desde esta respuesta">⚡ Pendiente</button>
     <button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="navigator.clipboard.writeText(this.closest('.msg').querySelector('.msg-bub').innerText);showToast('✓ Copiado')" title="Copiar al portapapeles">📋 Copiar</button>
+    <button class="btn-sm" style="font-size:10px;padding:2px 8px" onclick="exportChatResponseToWord(this)" title="Descargar como Word">📄 Word</button>
   </div>`:''
   const div=document.createElement('div');div.className=`msg ${role}`;
   div.innerHTML=`${av}<div class="msg-body">${tag}<div class="msg-bub">${role==='assistant'?md(text):esc(text)}</div>${actions}</div>`;
@@ -3303,6 +3312,9 @@ Toda la información actual y futura está o estará disponible en estas carpeta
 <script src="/js/mod-diligencias-extractos.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
 <script src="/js/mod-manual-operativo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@9.1.0/build/index.umd.min.js"></script>
+<script>window.docx=window.docx||docx;</script>
+<script src="/js/mod-export-word.js"></script>
 
 </body>
 </html>
