@@ -926,21 +926,48 @@ ${referenceStyle}
 
 GENERA UN PÁRRAFO FORMAL POR CADA DILIGENCIA, numerados. Respeta el NIVEL DE DETALLE indicado para cada una. Solo texto plano, sin markdown.`;
 
-    /* 6. Llamar a Claude */
-    const r=await authFetch(CHAT_ENDPOINT,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:8000,
-        system:systemPrompt,
-        messages:[{role:'user',content:userPrompt}]
-      })
-    });
-    if(!r.ok)throw new Error('Error HTTP '+r.status);
-    const data=await r.json();
-    const paragraphs=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('')||'';
-    if(!paragraphs)throw new Error('No se generaron párrafos');
+    /* 6. Llamar en LOTES para evitar timeout (max ~10 diligencias por lote) */
+    const DILS_PER_BATCH=10;
+    const batches=[];
+    const dilEntries=dilContext.split('### DILIGENCIA ').filter(s=>s.trim());
+    for(let i=0;i<dilEntries.length;i+=DILS_PER_BATCH){
+      batches.push(dilEntries.slice(i,i+DILS_PER_BATCH).map(e=>'### DILIGENCIA '+e).join('\n\n'));
+    }
+
+    let paragraphs='';
+    for(let b=0;b<batches.length;b++){
+      if(batches.length>1)showToast(`⏳ Generando lote ${b+1}/${batches.length}…`);
+
+      const batchPrompt=`Genera párrafos modelo para la Vista Fiscal:
+- Expediente: ${currentCase.name} — ROL: ${currentCase.rol||'—'} — ${currentCase.tipo_procedimiento||''}
+
+## DILIGENCIAS (lote ${b+1}/${batches.length})
+
+${batches[b].substring(0,6000)}
+
+GENERA UN PÁRRAFO POR CADA DILIGENCIA. Respeta el NIVEL indicado. Texto plano sin markdown.`;
+
+      try{
+        const r=await authFetch(CHAT_ENDPOINT,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            model:'claude-sonnet-4-20250514',
+            max_tokens:2500,
+            system:systemPrompt.substring(0,1500),
+            messages:[{role:'user',content:batchPrompt}]
+          })
+        });
+        const ct=r.headers.get('content-type')||'';
+        if(!ct.includes('json')){console.warn('Lote '+(b+1)+' timeout');continue;}
+        const data=await r.json();
+        if(data.error){console.warn('Lote '+(b+1)+':',data.error);continue;}
+        const txt=(data.content||[]).filter(x=>x.type==='text').map(x=>x.text).join('')||'';
+        if(txt)paragraphs+=(paragraphs?'\n\n':'')+txt;
+      }catch(e){console.warn('Lote '+(b+1)+' error:',e.message);}
+    }
+
+    if(!paragraphs)throw new Error('No se generaron párrafos (todos los lotes fallaron)');
 
     /* 7. Persistir en case_metadata (upsert) */
     const{data:existing}=await sb.from('case_metadata')
