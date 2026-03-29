@@ -227,10 +227,10 @@ function renderSesDirectivas(){
           <input type="text" id="sesUploadDesc" placeholder="Ej: Circular sobre plazos…" style="width:100%;padding:4px 8px;border:1px solid var(--border);border-radius:var(--radius);font-size:11px;background:var(--surface);color:var(--text);box-sizing:border-box">
         </div>
       </div>
-      <label style="cursor:pointer">
-        <button class="btn-sm" style="background:var(--gold);color:#fff;pointer-events:none">📤 Seleccionar y subir archivo</button>
-        <input type="file" id="sesFileInput" accept=".pdf,.docx,.doc,.txt,.xlsx,.xls" style="display:none" onchange="if(this.files[0]){const f=this.files[0];uploadSesDoc(f,document.getElementById('sesUploadCat').value,document.getElementById('sesUploadDesc').value,document.getElementById('sesUploadDate').value);this.value='';}">
-      </label>
+     <button class="btn-sm" style="background:var(--gold);color:#fff" 
+  onclick="document.getElementById('sesFileInput').click()">📤 Seleccionar y subir</button>
+<input type="file" id="sesFileInput" style="display:none" accept=".pdf,.docx,.doc,.txt,.xlsx,.xls" 
+  onchange="if(this.files[0]){uploadSesDoc(this.files[0],...);this.value='';}"
       <span style="font-size:10px;color:var(--text-muted);margin-left:8px">PDF, Word, Excel o TXT — se extraerá el texto automáticamente</span>
     </div>
 
